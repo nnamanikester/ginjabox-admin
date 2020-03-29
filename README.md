@@ -8,16 +8,16 @@ Ginjabox Admin dashboard should be a simple analytical dashboard for monitoring 
 
 ### 1 Dashboard
 
-_[X] Statistics
-_[X] Total Sign Ups. (Daily, Weekly, Monthly)
-_[X] Transaction (Daily, Weekly, Monthly)
-_[X] Commission (Daily, Weekly, Monthly)
-_[X] Available Warehouse Space (Daily, Weekly, Monthly)
-_[] Active User Graph (Showing active & inactive users on a Daily, Weekly, Monthly basis)
-_[X] User by OS type pie (Android & iOS)
-_[] Transaction graph (Daily, Weekly, Monthly)
-_[] Available Warehouse Space graph (Daily, Weekly, Monthly)
-_[] Chat with Online and Offline users
+[X] Statistics
+[X] Total Sign Ups. (Daily, Weekly, Monthly)
+[X] Transaction (Daily, Weekly, Monthly)
+[X] Commission (Daily, Weekly, Monthly)
+[X] Available Warehouse Space (Daily, Weekly, Monthly)
+[] Active User Graph (Showing active & inactive users on a Daily, Weekly, Monthly basis)
+[X] User by OS type pie (Android & iOS)
+[] Transaction graph (Daily, Weekly, Monthly)
+[] Available Warehouse Space graph (Daily, Weekly, Monthly)
+[] Chat with Online and Offline users
 
 ### 2 User management
 
