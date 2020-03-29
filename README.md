@@ -13,50 +13,50 @@ Ginjabox Admin dashboard should be a simple analytical dashboard for monitoring 
   - [x] Transaction (Daily, Weekly, Monthly)
   - [x] Commission (Daily, Weekly, Monthly)
   - [x] Available Warehouse Space (Daily, Weekly, Monthly)
-  - [] Active User Graph (Showing active & inactive users on a Daily, Weekly, Monthly basis)
+  - [ ] Active User Graph (Showing active & inactive users on a Daily, Weekly, Monthly basis)
   - [x] User by OS type pie (Android & iOS)
-  - [] Transaction graph (Daily, Weekly, Monthly)
-  - [] Available Warehouse Space graph (Daily, Weekly, Monthly)
-  - [] Chat with Online and Offline users
+  - [ ] Transaction graph (Daily, Weekly, Monthly)
+  - [ ] Available Warehouse Space graph (Daily, Weekly, Monthly)
+  - [ ] Chat with Online and Offline users
 
 ### 2 User management
 
-[ ] All Users (Search all users by Phone No, Email and Referral ID) (The list should have Account Verification Indicator and Online/Offline Indicator)
-[ ] All Merchants (See transaction history of each merchant)
-[ ] All Warehouser (See listing log of all warehousers with dynamic Available Space Figure)
-[ ] Banned Users (Be able to deactivate a user)
-[ ] Filter Users (By LGA, State & Sex)
-[ ] User rating history
+- [ ] All Users (Search all users by Phone No, Email and Referral ID) (The list should have Account Verification Indicator and Online/Offline Indicator)
+- [ ] All Merchants (See transaction history of each merchant)
+- [ ] All Warehouser (See listing log of all warehousers with dynamic Available Space Figure)
+- [ ] Banned Users (Be able to deactivate a user)
+- [ ] Filter Users (By LGA, State & Sex)
+- [ ] User rating history
 
 ### 3 Transaction Log
 
-[ ] Merchant Payout Log
-[ ] Warehousers Payment Log
-[ ] Expired Rent Log
-[ ] Withdrawal Log
-[ ] Referral Target/Earnings Log
+- [ ] Merchant Payout Log
+- [ ] Warehousers Payment Log
+- [ ] Expired Rent Log
+- [ ] Withdrawal Log
+- [ ] Referral Target/Earnings Log
 
 ### 4 Inventory Log
 
-[ ] Dispatch Order Log (Out)
-[ ] Stock Receipt Log (In)
-[ ] Rejected Stock Log (with Boost notification)
+- [ ] Dispatch Order Log (Out)
+- [ ] Stock Receipt Log (In)
+- [ ] Rejected Stock Log (with Boost notification)
 
 ### 5 Staff Management
 
-[ ] Add New Staff/Assign Role
-[ ] All Staff
-[ ] Super Admin
-[ ] Management
-[ ] Team Lead
-[ ] Support
+- [ ] Add New Staff/Assign Role
+- [ ] All Staff
+- [ ] Super Admin
+- [ ] Management
+- [ ] Team Lead
+- [ ] Support
 
 ### 6 E-mail & Notifications
 
-[ ] Send e-mail/notifications to all users, a particular user or a group of users)
+- [ ] Send e-mail/notifications to all users, a particular user or a group of users)
 
 ### 7 Settings
 
-[ ] E-mail Settings
-[ ] Edit Password
-[ ] SMS Settings
+- [ ] E-mail Settings
+- [ ] Edit Password
+- [ ] SMS Settings
