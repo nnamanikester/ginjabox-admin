@@ -44,7 +44,7 @@ const data = {
     {
       sn: "1",
       name: "Gloria Little",
-      trasnactions: "7",
+      transactions: "7",
       phone: "+234984077364",
       email: "email@gmial.com",
       action: <MDBLink to="/user/username">View trasnactions</MDBLink>
@@ -52,7 +52,7 @@ const data = {
     {
       sn: "2",
       name: "Eze Nwafor",
-      trasnactions: "13",
+      transactions: "13",
       phone: "+234818483344",
       email: "email@gmial.com",
       action: <MDBLink to="/user/username">View trasnactions</MDBLink>
@@ -70,7 +70,7 @@ const AllWarehouser = () => {
             className="gradient-card-header blue-gradient narrower py-2 my-3 d-flex justify-content-between align-items-center"
           >
             <div className="text-left"></div>
-            <span className="white-text text-bold mx-3">All Warehousers</span>
+            <span className="white-text text-bold mx-3">All Merchants</span>
             <div className="text-right"></div>
           </MDBView>
         </MDBCard>

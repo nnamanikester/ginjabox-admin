@@ -151,8 +151,8 @@ const listings = {
       field: "rating",
     },
     {
-      label: "Status",
-      field: "status",
+      label: "Available Spaces",
+      field: "availability",
     },
     {
       label: "Date",
@@ -167,7 +167,7 @@ const listings = {
       price: "200, 000",
       discount: "20",
       rating: "6",
-      status: "sold",
+      availability: "23",
       date: "2020/03/25"
     },
     {
@@ -177,7 +177,48 @@ const listings = {
       price: "150, 000",
       discount: "5",
       rating: "5",
-      status: "For Sale",
+      availability: "12",
+      date: "2020/03/25"
+    },
+  ]
+};
+
+const ratingHistory = {
+  columns: [
+    {
+      label: "S/N",
+      field: "sn",
+    },
+    {
+      label: "Rate (6/6)",
+      field: "rate",
+    },
+    {
+      label: "User",
+      field: "user",
+    },
+    {
+      label: "Listing",
+      field: "listing",
+    },
+    {
+      label: "Date",
+      field: "date",
+    }
+  ],
+  rows: [
+    {
+      sn: "1",
+      rate: "6",
+      user: "John Kester",
+      listing: "Bed Partium",
+      date: "2020/03/25"
+    },
+    {
+      sn: "2",
+      rate: "5",
+      user: "Jefferson Jack",
+      listing: "Parrot Space",
       date: "2020/03/25"
     },
   ]
@@ -346,6 +387,15 @@ class SingleUser extends React.Component {
                 </MDBCardHeader>
                 <MDBCardBody>
                   <MDBDataTable striped responsive bordered small hover data={referrals} />
+                </MDBCardBody>
+              </MDBCard>
+
+              <MDBCard className="mb-4">
+                <MDBCardHeader className="primary-color text-white">
+                  John's Rating History
+                </MDBCardHeader>
+                <MDBCardBody>
+                  <MDBDataTable striped responsive bordered small hover data={ratingHistory} />
                 </MDBCardBody>
               </MDBCard>
 
