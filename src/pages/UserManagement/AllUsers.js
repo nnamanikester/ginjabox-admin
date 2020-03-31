@@ -75,6 +75,15 @@ const AllUsers = () => {
                 </MDBSelectOptions>
               </MDBSelect>
             </MDBCol>
+            <MDBCol lg="4">
+              <MDBSelect>
+                <MDBSelectInput selected='Filter By Sex' />
+                <MDBSelectOptions>
+                  <MDBSelectOption value='1'>Male</MDBSelectOption>
+                  <MDBSelectOption value='2'>Female</MDBSelectOption>
+                </MDBSelectOptions>
+              </MDBSelect>
+            </MDBCol>
           </MDBRow>
         </MDBCardBody>
       </MDBCard>

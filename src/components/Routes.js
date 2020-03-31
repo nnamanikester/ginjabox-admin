@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import E404 from "../pages/E404";
 import Dashboard from "../pages/Dashboard";
 import EmailNotifications from "../pages/EmailNotifications";
+import SingleUser from "../pages/SingleUser";
 
 // INVENTORY LOG
 import DispatchOrderLog from "../pages/InventoryLog/DispatchOrderLog";
@@ -111,6 +112,11 @@ class Routes extends React.Component {
           path="/email-notifications"
           exact
           component={EmailNotifications}
+        />
+        <Route
+          path="/user/:username"
+          exact
+          component={SingleUser}
         />
 
         {/* INVENTORY LOG */}

@@ -1,6 +1,6 @@
 /* 
 * List of all users that are also warehousers are diplayed here
-* When you click to view the warehouse listings. It brings up a
+* When you click to view the warehouse listings. It brings up a list
 * having the listings by that particular user.
 */
 import React from "react";
@@ -9,7 +9,8 @@ import {
   MDBCardBody,
   MDBContainer,
   MDBDataTable,
-  MDBView
+  MDBView,
+  MDBLink
 } from "mdbreact";
 
 const data = {
@@ -23,8 +24,8 @@ const data = {
       field: "name",
     },
     {
-      label: "No of Warehouse",
-      field: "warehouse",
+      label: "Listings",
+      field: "listings",
     },
     {
       label: "Phone",
@@ -43,18 +44,18 @@ const data = {
     {
       sn: "1",
       name: "Gloria Little",
-      warehouse: "7",
-      phone: "+234984073944",
+      listings: "7",
+      phone: "+234984077364",
       email: "email@gmial.com",
-      action: <div><a href="#!">View Listings</a></div>
+      action: <MDBLink to="/user/username">View Listings</MDBLink>
     },
     {
       sn: "2",
-      name: "Godfrey Nwafor",
-      warehouse: "13",
+      name: "Eze Nwafor",
+      listings: "13",
       phone: "+234818483344",
       email: "email@gmial.com",
-      action: <div><a href="#!">View Listings</a></div>
+      action: <MDBLink to="/user/username">View Listings</MDBLink>
     }
   ]
 };
