@@ -51,11 +51,6 @@ class SideNavigation extends React.Component {
               {this.rSNL("/users/merchants", "All Merchants", "users")}
               {this.rSNL("/users/warehousers", "All Warehousers", "users")}
               {this.rSNL("/users/banned-users", "Banned Users", "ban")}
-              {this.rSNL(
-                "/users/user-rating-history",
-                "User Rating Histoy",
-                "history"
-              )}
             </MDBSideNavCat>
 
             <MDBSideNavCat

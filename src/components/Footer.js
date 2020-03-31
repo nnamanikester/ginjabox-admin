@@ -10,7 +10,7 @@ const Copyrights = props => {
     >
       <p className='footer-copyright mb-0 py-3 text-center'>
         &copy; {date} Copyright:{' '}
-        <a href='https://www.MDBootstrap.com'> MDBootstrap.com </a>
+        <a href='/'> GinjaBox.com </a>
       </p>
     </MDBFooter>
   );

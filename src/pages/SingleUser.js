@@ -281,14 +281,70 @@ class SingleUser extends React.Component {
                 />
                 <MDBCardBody>
                   <MDBCardTitle>
-                    <strong>John Doe</strong>
+                    <strong>firstName lastName</strong>
                   </MDBCardTitle>
-                  <h5>
-                    Web designer at{' '}
-                    <a href='https://mdbootstrap.com/docs/react'>MDBootstrap</a>
-                  </h5>
-                  <p className='dark-grey-text'>Warsaw, Poland</p>
-
+                  <span>
+                    <span className="blue-text">email@email.com</span>
+                    {' | '}
+                    <span className="blue-text">+234801987438</span>
+                  </span>
+                  <p className='dark-grey-text'>123 Agbani Road, Enugu, Nigeria.</p>
+                  <ul className='list-unstyled pt-4 text-left'>
+                    <li>
+                      <p>
+                        LGA{' '}
+                        <MDBBadge color='primary' className='float-right'>
+                          Enugu South
+                        </MDBBadge>
+                      </p>
+                    </li>
+                    <hr />
+                    <li>
+                      <p>
+                        Date of Birth{' '}
+                        <MDBBadge color='primary' className='float-right'>
+                          1999-22-11
+                        </MDBBadge>
+                      </p>
+                    </li>
+                    <hr />
+                    <li>
+                      <p>
+                        Available Balance (&#8358;){' '}
+                        <span color='primary' className='float-right'>
+                          20,000
+                        </span>
+                      </p>
+                    </li>
+                    <hr />
+                    <li>
+                      <p>
+                        Ledger Balance (&#8358;){' '}
+                        <span color='primary' className='float-right'>
+                          120,000
+                        </span>
+                      </p>
+                    </li>
+                    <hr />
+                    <li>
+                      <p>
+                        Referral ID{' '}
+                        <span color='primary' className='float-right'>
+                          17hf64HF4
+                        </span>
+                      </p>
+                    </li>
+                    <hr />
+                    <li>
+                      <p>
+                        Date Joined{' '}
+                        <span color='primary' className='float-right'>
+                          2020-02-29
+                        </span>
+                      </p>
+                    </li>
+                    <hr />
+                  </ul>
                   <p className='card-text mt-3'>
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
@@ -335,9 +391,9 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Transactions Earnings (&#8358;){' '}
-                        <MDBBadge color='primary' className='float-right'>
-                          17
-                        </MDBBadge>
+                        <span color='primary' className='float-right'>
+                          120,000
+                        </span>
                       </p>
                     </li>
                     <hr />
@@ -353,9 +409,9 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Referral Earnings (&#8358;){' '}
-                        <MDBBadge color='primary' className='float-right'>
-                          3
-                        </MDBBadge>
+                        <span color='primary' className='float-right'>
+                          30, 000
+                        </span>
                       </p>
                     </li>
                   </ul>

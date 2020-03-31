@@ -37,7 +37,6 @@ import AllMerchants from "../pages/UserManagement/AllMerchants";
 import AllUsers from "../pages/UserManagement/AllUsers";
 import AllWarehouser from "../pages/UserManagement/AllWarehouser";
 import BannedUsers from "../pages/UserManagement/BannedUsers";
-import UserRatingHistory from "../pages/UserManagement/UserRatingHistory";
 
 import DV1 from "./dashboard/v1";
 import DV2 from "./dashboard/v2";
@@ -173,11 +172,8 @@ class Routes extends React.Component {
         <Route path="/users/all-users" exact component={AllUsers} />
         <Route path="/users/warehousers" exact component={AllWarehouser} />
         <Route path="/users/banned-users" exact component={BannedUsers} />
-        <Route
-          path="/users/user-rating-history"
-          exact
-          component={UserRatingHistory}
-        />
+
+        {/* The theme's route starts here */}
 
         <Route path="/dashboards/v1" component={DV1} />
         <Route path="/dashboards/v2" component={DV2} />

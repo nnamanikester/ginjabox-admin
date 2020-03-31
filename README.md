@@ -23,9 +23,9 @@ Ginjabox Admin dashboard should be a simple analytical dashboard for monitoring 
 - [x] All Users (Search all users by Phone No, Email and Referral ID) (The list should have Account Verification Indicator and Online/Offline Indicator)
 - [x] All Merchants (See transaction history of each merchant)
 - [x] All Warehouser (See listing log of all warehousers with dynamic Available Space Figure)
-- [ ] Banned Users (Be able to deactivate a user)
-- [ ] Filter Users (By LGA, State & Sex)
-- [ ] User rating history
+- [x] Banned Users (Be able to deactivate a user)
+- [x] Filter Users (By LGA, State & Sex)
+- [x] User rating history
 
 ### 3 Transaction Log
 
