@@ -50,7 +50,7 @@ class SideNavigation extends React.Component {
               {this.rSNL("/users/all-users", "All Users", "users")}
               {this.rSNL("/users/merchants", "All Merchants", "users")}
               {this.rSNL("/users/warehousers", "All Warehousers", "users")}
-              {this.rSNL("/users/banned-users", "Banned Users", "usersz")}
+              {this.rSNL("/users/banned-users", "Banned Users", "ban")}
               {this.rSNL(
                 "/users/user-rating-history",
                 "User Rating Histoy",
