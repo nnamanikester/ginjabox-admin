@@ -270,14 +270,14 @@ class Modals extends React.Component {
     return (
       <MDBModal
         isOpen={number === false ? true : this.state['modal' + number]}
-        toggle={number === false ? () => {} : () => this.toggle(number)}
+        toggle={number === false ? () => { } : () => this.toggle(number)}
         inline={number === false}
         backdrop={number === false ? false : true}
         cascading
         disableFocusTrap={number === false ? true : false}
       >
         <MDBModalHeader
-          toggle={number === false ? () => {} : () => this.toggle(number)}
+          toggle={number === false ? () => { } : () => this.toggle(number)}
           className='light-blue darken-3 white-text'
         >
           <MDBIcon icon={icon} className='mr-2' />{' '}
@@ -300,7 +300,7 @@ class Modals extends React.Component {
             <MDBBtn
               color='info'
               className='mb-2'
-              onClick={number === false ? () => {} : () => this.toggle(number)}
+              onClick={number === false ? () => { } : () => this.toggle(number)}
             >
               {btnString}
               <MDBIcon icon={btnIcon} className='ml-1' />
@@ -316,7 +316,7 @@ class Modals extends React.Component {
       <MDBModal
         className='cascading-modal'
         isOpen={number === false ? true : this.state['modal' + number]}
-        toggle={number === false ? () => {} : () => this.toggle(number)}
+        toggle={number === false ? () => { } : () => this.toggle(number)}
         backdrop={number === false ? false : true}
         inline={number === false}
         disableFocusTrap={number === false ? true : false}
@@ -471,7 +471,7 @@ class Modals extends React.Component {
         cascading
         className='modal-avatar'
         isOpen={number === false ? true : this.state['modal' + number]}
-        toggle={number === false ? () => {} : () => this.toggle(number)}
+        toggle={number === false ? () => { } : () => this.toggle(number)}
         inline={number === false}
         backdrop={number === false ? false : true}
         disableFocusTrap={number === false ? true : false}
