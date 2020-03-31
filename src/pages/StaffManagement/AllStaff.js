@@ -10,122 +10,97 @@ import {
 const data = {
   columns: [
     {
+      label: "S/N",
+      field: "sn"
+    },
+    {
       label: "Name",
-      field: "name",
-      sort: "asc",
-      width: 150
+      field: "name"
     },
     {
-      label: "Position",
-      field: "position",
-      sort: "asc",
-      width: 270
+      label: "Email",
+      field: "email"
     },
     {
-      label: "Office",
-      field: "office",
-      sort: "asc",
-      width: 200
+      label: "Phone",
+      field: "phone"
     },
     {
-      label: "Age",
-      field: "age",
-      sort: "asc",
-      width: 100
+      label: "Role",
+      field: "role"
     },
     {
-      label: "Start date",
-      field: "date",
-      sort: "asc",
-      width: 150
+      label: "Created At",
+      field: "createdAt"
     },
     {
-      label: "Salary",
-      field: "salary",
-      sort: "asc",
-      width: 100
+      label: "Action",
+      field: "action"
     }
   ],
   rows: [
     {
-      name: "Gloria Little",
-      position: "Systems Administrator",
-      office: "New York",
-      age: "59",
-      date: "2009/04/10",
-      salary: "$237"
+      sn: 1,
+      name: "John Kester",
+      email: "email@email.com",
+      phone: "+234908348293",
+      role: "Super Admin",
+      createdAt: "2020/04/10",
+      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
     },
     {
-      name: "Bradley Greer",
-      position: "Software Engineer",
-      office: "London",
-      age: "41",
-      date: "2012/10/13",
-      salary: "$132"
+      sn: 2,
+      name: "Kingsley Whitegod",
+      email: "email@email.com",
+      phone: "+234908348293",
+      role: "Management",
+      createdAt: "2020/04/10",
+      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
     },
     {
-      name: "Dai Rios",
-      position: "Personnel Lead",
-      office: "Edinburgh",
-      age: "35",
-      date: "2012/09/26",
-      salary: "$217"
+      sn: 3,
+      name: "Ezeh Chisom",
+      email: "email@email.com",
+      phone: "+234908348293",
+      role: "Support",
+      createdAt: "2020/04/10",
+      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
     },
     {
-      name: "Suki Burks",
-      position: "Developer",
-      office: "London",
-      age: "53",
-      date: "2009/10/22",
-      salary: "$114"
+      sn: 4,
+      name: "Kingsley Whitegod",
+      email: "email@email.com",
+      phone: "+234908348293",
+      role: "Management",
+      createdAt: "2020/04/10",
+      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
     },
     {
-      name: "Prescott Bartlett",
-      position: "Technical Author",
-      office: "London",
-      age: "27",
-      date: "2011/05/07",
-      salary: "$145"
+      sn: 5,
+      name: "Nwagu Victor",
+      email: "email@email.com",
+      phone: "+234908348293",
+      role: "Team Lead",
+      createdAt: "2020/04/10",
+      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
     },
     {
-      name: "Gavin Cortez",
-      position: "Team Leader",
-      office: "San Francisco",
-      age: "22",
-      date: "2008/10/26",
-      salary: "$235"
+      sn: 6,
+      name: "Ezeh Chisom",
+      email: "email@email.com",
+      phone: "+234908348293",
+      role: "Support",
+      createdAt: "2020/04/10",
+      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
     },
     {
-      name: "Martena Mccray",
-      position: "Post-Sales support",
-      office: "Edinburgh",
-      age: "46",
-      date: "2011/03/09",
-      salary: "$324"
-    },
-    {
-      name: "Unity Butler",
-      position: "Marketing Designer",
-      office: "San Francisco",
-      age: "47",
-      date: "2009/12/09",
-      salary: "$85"
-    },
-    {
-      name: "Howard Hatfield",
-      position: "Office Manager",
-      office: "San Francisco",
-      age: "51",
-      date: "2008/12/16",
-      salary: "$164"
-    },
-    {
-      name: "Hope Fuentes",
-      position: "Secretary",
-      office: "San Francisco",
-      age: "41",
-      date: "2010/02/12",
-      salary: "$109"
+      sn: 7,
+      name: "Nwagu Victor",
+      email: "email@email.com",
+      phone: "+234908348293",
+      role: "Team Lead",
+      createdAt: "2020/04/10",
+      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
     }
   ]
 };

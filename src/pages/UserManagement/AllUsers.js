@@ -10,7 +10,8 @@ import {
   MDBSelectOptions,
   MDBSelectOption,
   MDBCol,
-  MDBRow
+  MDBRow,
+  MDBBadge
 } from "mdbreact";
 
 
@@ -37,6 +38,14 @@ const data = {
       field: "referral",
     },
     {
+      label: "Presence Status",
+      field: "presenceStatus",
+    },
+    {
+      label: "Account Status",
+      field: "accountStatus",
+    },
+    {
       label: "Join Date",
       field: "joinDate",
     },
@@ -52,7 +61,20 @@ const data = {
       email: "email@gmail.com",
       phone: "+234808593493",
       referral: "3453fHk8A",
-      joinDate: "2009/04/10",
+      accountStatus: 'Verified',
+      presenceStatus: <MDBBadge color='success'>Online</MDBBadge>,
+      joinDate: "2020/03/10",
+      action: (<div><a href="">View</a><a href="">Edit</a><a href="">Delete</a></div>)
+    },
+    {
+      sn: "1",
+      name: "Benard Christain",
+      email: "email@gmail.com",
+      phone: "+234908894854",
+      referral: "34hUF04d",
+      accountStatus: 'Unverified',
+      presenceStatus: <MDBBadge color='grey'>Offline</MDBBadge>,
+      joinDate: "2020/02/14",
       action: (<div><a href="">View</a><a href="">Edit</a><a href="">Delete</a></div>)
     },
   ]

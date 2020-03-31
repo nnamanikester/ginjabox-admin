@@ -20,10 +20,7 @@ import SmsSettings from "../pages/Settings/SmsSettings";
 // STAFF MANAGEMENT
 import AddNewStaff from "../pages/StaffManagement/AddNewStaff";
 import AllStaff from "../pages/StaffManagement/AllStaff";
-import Management from "../pages/StaffManagement/Management";
-import SuperAdmin from "../pages/StaffManagement/SuperAdmin";
-import Support from "../pages/StaffManagement/Support";
-import TeamLead from "../pages/StaffManagement/TeamLead";
+import RoleManagement from "../pages/StaffManagement/RoleManagement";
 
 // TRANSACTION LOG
 import ExpiredRentLog from "../pages/TransactionLog/ExpiredRentLog";
@@ -147,10 +144,7 @@ class Routes extends React.Component {
         {/* STAFF MANAGEMENT */}
         <Route path="/staff/add-staff" exact component={AddNewStaff} />
         <Route path="/staff/all-staff" exact component={AllStaff} />
-        <Route path="/staff/management" exact component={Management} />
-        <Route path="/staff/super-admin" exact component={SuperAdmin} />
-        <Route path="/staff/support" exact component={Support} />
-        <Route path="/staff/team-lead" exact component={TeamLead} />
+        <Route path="/staff/role-management" exact component={RoleManagement} />
 
         {/* TRANSACTION LOG */}
         <Route path="/logs/expired-rent-log" exact component={ExpiredRentLog} />

@@ -98,10 +98,7 @@ class SideNavigation extends React.Component {
             <MDBSideNavCat name="Staff Management" id="staff-cat" icon="staff">
               {this.rSNL("/staff/add-staff", "Add Staff")}
               {this.rSNL("/staff/all-staff", "All Staff")}
-              {this.rSNL("/staff/management", "Management")}
-              {this.rSNL("/staff/super-admin", "Super Admin")}
-              {this.rSNL("/staff/support", "Support")}
-              {this.rSNL("/staff/team-lead", "Team Lead")}
+              {this.rSNL("/staff/role-management", "Role Management")}
             </MDBSideNavCat>
 
             <MDBSideNavCat name="Settings" id="settings-cat" icon="cog">
