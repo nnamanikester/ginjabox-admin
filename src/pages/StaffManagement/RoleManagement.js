@@ -70,43 +70,6 @@ const RoleManagement = () => {
 
   return (
     <MDBContainer>
-      <MDBModal
-        isOpen={openModal}
-        toggle={() => this.toggleModal()}
-        inline={openModal === false}
-        backdrop={openModal === false ? false : true}
-        cascading
-        disableFocusTrap={openModal === false ? true : false}
-      >
-        <MDBModalHeader
-          toggle={openModal === false ? () => { } : () => toggleModal()}
-          className='light-blue darken-3 white-text'
-        >
-          <MDBIcon icon="add" className='mr-2' />{' '}
-          Create A New Role
-        </MDBModalHeader>
-        <MDBModalBody className='mb-0'>
-          <MDBInput label='Your name' />
-          <MDBInput label='Your email' />
-          <MDBInput icon='tag' label='subject' />
-          <MDBInput
-            type='textarea'
-            icon='pencil-alt'
-            label='Your message'
-          />
-          <div className='text-center mb-1-half'>
-            <MDBBtn
-              color='info'
-              className='mb-2'
-              onClick={openModal === false ? () => { } : () => toggleModal()}
-            >
-              Create
-              <MDBIcon icon="plus" className='ml-1' />
-            </MDBBtn>
-          </div>
-        </MDBModalBody>
-      </MDBModal>
-
       <MDBBtn color="primary" onClick={() => {
         toggleModal();
       }
@@ -126,6 +89,37 @@ const RoleManagement = () => {
           <MDBDataTable striped responsive bordered small hover data={data} />
         </MDBCardBody>
       </MDBCard>
+
+
+      <MDBModal
+        isOpen={openModal}
+        toggle={() => this.toggleModal()}
+        inline={openModal === false}
+        backdrop={openModal === false ? false : true}
+        cascading
+        disableFocusTrap={openModal === false ? true : false}>
+        <MDBModalHeader
+          toggle={openModal === false ? () => { } : () => toggleModal()}
+          className='light-blue darken-3 white-text'
+        >
+          <MDBIcon icon="add" className='mr-2' />{' '}
+          Create A New Role
+        </MDBModalHeader>
+        <MDBModalBody className='mb-0'>
+          <MDBInput label='Role  Name' />
+          <div className='text-center mb-1-half'>
+            <MDBBtn
+              color='info'
+              className='mb-2'
+              onClick={openModal === false ? () => { } : () => toggleModal()}
+            >
+              Create
+              <MDBIcon icon="plus" className='ml-1' />
+            </MDBBtn>
+          </div>
+        </MDBModalBody>
+      </MDBModal>
+
     </MDBContainer>
   );
 };
