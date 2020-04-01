@@ -31,7 +31,7 @@ Ginjabox Admin dashboard should be a simple analytical dashboard for monitoring 
 
 - [x] Merchant Payout Log
 - [ ] Warehousers Payment Log
-- [ ] Expired Rent Log
+- [x] Expired Rent Log
 - [x] Withdrawal Log
 - [ ] Referral Target/Earnings Log
 
