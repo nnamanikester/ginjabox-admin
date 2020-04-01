@@ -43,13 +43,13 @@ Ginjabox Admin dashboard should be a simple analytical dashboard for monitoring 
 
 ### 5 Staff Management
 
-- [ ] Add New Staff/Assign Role
+- [x] Add New Staff/Assign Role
 - [x] All Staff
 - [x] Super Admin
 - [x] Management
 - [x] Team Lead
 - [x] Support
-- [ ] Add Role
+- [x] Add Role
 
 ### 6 E-mail & Notifications
 
