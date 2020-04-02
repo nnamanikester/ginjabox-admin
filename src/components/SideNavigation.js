@@ -101,6 +101,11 @@ class SideNavigation extends React.Component {
               {this.rSNL("/staff/role-management", "Role Management")}
             </MDBSideNavCat>
 
+            <MDBSideNavLink exact topLevel to="/email-notification">
+              <MDBIcon icon="envelope mr-2" />
+              Email Notification
+            </MDBSideNavLink>
+
             <MDBSideNavCat name="Settings" id="settings-cat" icon="cog">
               {this.rSNL(
                 "/settings/email-settings",

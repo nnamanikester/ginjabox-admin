@@ -105,7 +105,7 @@ class Routes extends React.Component {
       <Switch>
         <Route path="/" exact component={Dashboard} />
         <Route
-          path="/email-notifications"
+          path="/email-notification"
           exact
           component={EmailNotifications}
         />

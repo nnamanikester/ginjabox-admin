@@ -37,9 +37,9 @@ Ginjabox Admin dashboard should be a simple analytical dashboard for monitoring 
 
 ### 4 Inventory Log
 
-- [ ] Dispatch Order Log (Out)
-- [ ] Stock Receipt Log (In)
-- [ ] Rejected Stock Log (with Boost notification)
+- [x] Dispatch Order Log (Out)
+- [x] Stock Receipt Log (In)
+- [x] Rejected Stock Log (with Boost notification)
 
 ### 5 Staff Management
 
