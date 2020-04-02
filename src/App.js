@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 
 import RoutesWithNavigation from './components/RoutesWithNavigation';
+import AuthRoutes from "./components/AuthRoutes";
 
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
@@ -13,7 +14,10 @@ import SinglePost from './components/pages/SinglePost';
 import PostListing from './components/pages/PostListing';
 import Landing from './components/pages/Landing';
 
+
 const App = () => {
+  const [isLogged, setIsLogged] = useState(false);
+
   return (
     <Switch>
       <Route path='/pages/login' exact component={Login} />
@@ -24,7 +28,8 @@ const App = () => {
       <Route path='/pages/post' exact component={SinglePost} />
       <Route path='/pages/posts' exact component={PostListing} />
       <Route path='/pages/landing' exact component={Landing} />
-      <RoutesWithNavigation />
+      {isLogged && <RoutesWithNavigation />}
+      {!isLogged && <AuthRoutes login={() => setIsLogged(true)} />}
     </Switch>
   );
 };

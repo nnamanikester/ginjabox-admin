@@ -53,7 +53,7 @@ Ginjabox Admin dashboard should be a simple analytical dashboard for monitoring 
 
 ### 6 E-mail & Notifications
 
-- [ ] Send e-mail/notifications to all users, a particular user or a group of users)
+- [x] Send e-mail/notifications to all users, a particular user or a group of users)
 
 ### 7 Settings
 
