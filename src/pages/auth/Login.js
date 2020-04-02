@@ -9,8 +9,8 @@ import {
   MDBLink
 } from 'mdbreact';
 
-const Login = props => {
-  console.log(props);
+const Login = ({ login }) => {
+
   return (
     <MDBContainer className="d-flex mt-5 justify-content-center">
       <MDBCol md='12' lg='5' className='mt-5'>
@@ -29,7 +29,7 @@ const Login = props => {
               label='Your password'
             />
             <div className='text-center'>
-              <MDBBtn>Login</MDBBtn>
+              <MDBBtn onClick={() => login()}>Login</MDBBtn>
               <MDBLink to="/password-reset">Forgot Password?</MDBLink>
             </div>
           </MDBCardBody>

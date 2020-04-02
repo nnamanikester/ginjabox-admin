@@ -16,7 +16,6 @@ import Landing from './components/pages/Landing';
 
 
 const App = () => {
-  const [isLogged, setIsLogged] = useState(false);
 
   return (
     <Switch>
@@ -28,8 +27,7 @@ const App = () => {
       <Route path='/pages/post' exact component={SinglePost} />
       <Route path='/pages/posts' exact component={PostListing} />
       <Route path='/pages/landing' exact component={Landing} />
-      {isLogged && <RoutesWithNavigation />}
-      {!isLogged && <AuthRoutes login={() => setIsLogged(true)} />}
+      <RoutesWithNavigation />
     </Switch>
   );
 };

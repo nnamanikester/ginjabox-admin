@@ -134,7 +134,8 @@ const LineOptions = {
   }
 };
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+  console.log(props.properties);
   return (
     <MDBContainer fluid className="mb-5">
       <section>

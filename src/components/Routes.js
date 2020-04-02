@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 // PAGES
 import E404 from "../pages/E404";
@@ -34,6 +34,10 @@ import AllMerchants from "../pages/UserManagement/AllMerchants";
 import AllUsers from "../pages/UserManagement/AllUsers";
 import AllWarehouser from "../pages/UserManagement/AllWarehouser";
 import BannedUsers from "../pages/UserManagement/BannedUsers";
+
+// AUTHENTICATION 
+import Login from '../pages/auth/Login';
+import PasswordReset from "../pages/auth/PasswordReset";
 
 import DV1 from "./dashboard/v1";
 import DV2 from "./dashboard/v2";
@@ -100,72 +104,107 @@ import Calendar from "./others/calendar";
 const fourtOFour = () => <h1 className="text-center">404</h1>;
 
 class Routes extends React.Component {
+  state = {
+    isLogged: false
+  };
+
+  login = () => {
+    this.setState({ isLogged: true })
+  }
+
+  requiresAuth = (Comp, redirect) => {
+    if (this.state.isLogged) {
+      return <Comp />;
+    } else {
+      return <Redirect to={redirect} />
+    }
+  }
+
+  loggedIn = (Comp) => {
+    if (this.state.isLogged) {
+      return <Redirect to="/" />
+    } else {
+      return <Comp login={this.login} />
+    }
+  }
+
+  login = () => {
+    this.setState({ isLogged: true });
+  }
+
   render() {
     return (
       <Switch>
-        <Route path="/" exact component={Dashboard} />
+        <Route path="/" exact render={() => this.requiresAuth(Dashboard, '/login')} />
         <Route
           path="/email-notification"
           exact
-          component={EmailNotifications}
+          render={() => this.requiresAuth(EmailNotifications, '/login')}
         />
         <Route
           path="/user/:username"
           exact
-          component={SingleUser}
+          render={() => this.requiresAuth(SingleUser, '/login')}
         />
 
         {/* INVENTORY LOG */}
         <Route
           path="/logs/dispatch-order-log"
           exact
-          component={DispatchOrderLog}
+          render={() => this.requiresAuth(DispatchOrderLog, '/login')}
         />
         <Route
           path="/logs/rejected-stock-log"
           exact
-          component={RejectedStockLog}
+          render={() => this.requiresAuth(RejectedStockLog, '/login')}
         />
         <Route
           path="/logs/stock-receipt-log"
           exact
-          component={StockReceiptLog}
+          render={() => this.requiresAuth(StockReceiptLog, '/login')}
         />
 
         {/* SETTINGS */}
-        <Route path="/settings/edit-password" exact component={EditPassword} />
+        <Route path="/settings/edit-password" exact render={() => this.requiresAuth(EditPassword, '/login')} />
         <Route
           path="/settings/email-settings"
           exact
-          component={EmailSettings}
+          render={() => this.requiresAuth(EmailSettings, '/login')}
         />
-        <Route path="/settings/sms-settings" exact component={SmsSettings} />
+        <Route path="/settings/sms-settings" exact render={() => this.requiresAuth(SmsSettings, '/login')} />
 
         {/* STAFF MANAGEMENT */}
-        <Route path="/staff/add-staff" exact component={AddNewStaff} />
-        <Route path="/staff/all-staff" exact component={AllStaff} />
-        <Route path="/staff/role-management" exact component={RoleManagement} />
+        <Route path="/staff/add-staff" exact render={() => this.requiresAuth(AddNewStaff, '/login')} />
+        <Route path="/staff/all-staff" exact render={() => this.requiresAuth(AllStaff, '/login')} />
+        <Route path="/staff/role-management" exact render={() => this.requiresAuth(RoleManagement, '/login')} />
 
         {/* TRANSACTION LOG */}
-        <Route path="/logs/expired-rent-log" exact component={ExpiredRentLog} />
+        <Route path="/logs/expired-rent-log" exact render={() => this.requiresAuth(ExpiredRentLog, '/login')} />
         <Route
           path="/logs/merchant-payout-log"
           exact
-          component={MerchantPayoutLog}
+          render={() => this.requiresAuth(MerchantPayoutLog, '/login')}
         />
-        <Route path="/logs/referral-log" exact component={ReferralLog} />
+        <Route path="/logs/referral-log" exact render={() => this.requiresAuth(ReferralLog, '/login')} />
         <Route
           path="/logs/warehousers-payment-log"
           exact
-          component={WareHousersPaymentLog}
+          render={() => this.requiresAuth(WareHousersPaymentLog, '/login')}
         />
-        <Route path="/logs/withdrawal-log" exact component={WithdrawalLog} />
+        <Route path="/logs/withdrawal-log" exact render={() => this.requiresAuth(WithdrawalLog, '/login')} />
 
         {/* USER MANAGEMENT */}
-        <Route path="/users/merchants" exact component={AllMerchants} />
-        <Route path="/users/all-users" exact component={AllUsers} />
-        <Route path="/users/warehousers" exact component={AllWarehouser} />
-        <Route path="/users/banned-users" exact component={BannedUsers} />
+        <Route path="/users/merchants" exact render={() => this.requiresAuth(AllMerchants, '/login')} />
+        <Route path="/users/all-users" exact render={() => this.requiresAuth(AllUsers, '/login')} />
+        <Route path="/users/warehousers" exact render={() => this.requiresAuth(AllWarehouser, '/login')} />
+        <Route path="/users/banned-users" exact render={() => this.requiresAuth(BannedUsers, '/login')} />
+
+        {/* AUTHENTICATION FREE */}
+        <Route path="/password-reset" exact component={PasswordReset} />
+        {/* <Route path="/login" exact render={() => <Login properties={() => this.properties} />} /> */}
+        <Route path="/login" exact render={() => this.loggedIn(Login)} />
+
+
 
         {/* The theme's route starts here */}
 
