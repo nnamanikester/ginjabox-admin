@@ -39,12 +39,6 @@ import BannedUsers from "../pages/UserManagement/BannedUsers";
 import Login from '../pages/auth/Login';
 import PasswordReset from "../pages/auth/PasswordReset";
 
-import DV1 from "./dashboard/v1";
-import DV2 from "./dashboard/v2";
-import DV3 from "./dashboard/v3";
-import DV4 from "./dashboard/v4";
-import DV5 from "./dashboard/v5";
-import DV6 from "./dashboard/v6";
 
 import Customers from "./pages/Customers";
 import Invoice from "./pages/Invoice";
@@ -112,11 +106,11 @@ class Routes extends React.Component {
     this.setState({ isLogged: true })
   }
 
-  requiresAuth = (Comp, redirect) => {
+  requiresAuth = (Comp) => {
     if (this.state.isLogged) {
       return <Comp />;
     } else {
-      return <Redirect to={redirect} />
+      return <Redirect to="/login" />
     }
   }
 
@@ -135,85 +129,77 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path="/" exact render={() => this.requiresAuth(Dashboard, '/login')} />
+        <Route path="/" exact render={() => this.requiresAuth(Dashboard)} />
         <Route
           path="/email-notification"
           exact
-          render={() => this.requiresAuth(EmailNotifications, '/login')}
+          render={() => this.requiresAuth(EmailNotifications)}
         />
         <Route
           path="/user/:username"
           exact
-          render={() => this.requiresAuth(SingleUser, '/login')}
+          render={() => this.requiresAuth(SingleUser)}
         />
 
         {/* INVENTORY LOG */}
         <Route
           path="/logs/dispatch-order-log"
           exact
-          render={() => this.requiresAuth(DispatchOrderLog, '/login')}
+          render={() => this.requiresAuth(DispatchOrderLog)}
         />
         <Route
           path="/logs/rejected-stock-log"
           exact
-          render={() => this.requiresAuth(RejectedStockLog, '/login')}
+          render={() => this.requiresAuth(RejectedStockLog)}
         />
         <Route
           path="/logs/stock-receipt-log"
           exact
-          render={() => this.requiresAuth(StockReceiptLog, '/login')}
+          render={() => this.requiresAuth(StockReceiptLog)}
         />
 
         {/* SETTINGS */}
-        <Route path="/settings/edit-password" exact render={() => this.requiresAuth(EditPassword, '/login')} />
+        <Route path="/settings/edit-password" exact render={() => this.requiresAuth(EditPassword)} />
         <Route
           path="/settings/email-settings"
           exact
-          render={() => this.requiresAuth(EmailSettings, '/login')}
+          render={() => this.requiresAuth(EmailSettings)}
         />
-        <Route path="/settings/sms-settings" exact render={() => this.requiresAuth(SmsSettings, '/login')} />
+        <Route path="/settings/sms-settings" exact render={() => this.requiresAuth(SmsSettings)} />
 
         {/* STAFF MANAGEMENT */}
-        <Route path="/staff/add-staff" exact render={() => this.requiresAuth(AddNewStaff, '/login')} />
-        <Route path="/staff/all-staff" exact render={() => this.requiresAuth(AllStaff, '/login')} />
-        <Route path="/staff/role-management" exact render={() => this.requiresAuth(RoleManagement, '/login')} />
+        <Route path="/staff/add-staff" exact render={() => this.requiresAuth(AddNewStaff)} />
+        <Route path="/staff/all-staff" exact render={() => this.requiresAuth(AllStaff)} />
+        <Route path="/staff/role-management" exact render={() => this.requiresAuth(RoleManagement)} />
 
         {/* TRANSACTION LOG */}
-        <Route path="/logs/expired-rent-log" exact render={() => this.requiresAuth(ExpiredRentLog, '/login')} />
+        <Route path="/logs/expired-rent-log" exact render={() => this.requiresAuth(ExpiredRentLog)} />
         <Route
           path="/logs/merchant-payout-log"
           exact
-          render={() => this.requiresAuth(MerchantPayoutLog, '/login')}
+          render={() => this.requiresAuth(MerchantPayoutLog)}
         />
-        <Route path="/logs/referral-log" exact render={() => this.requiresAuth(ReferralLog, '/login')} />
+        <Route path="/logs/referral-log" exact render={() => this.requiresAuth(ReferralLog)} />
         <Route
           path="/logs/warehousers-payment-log"
           exact
-          render={() => this.requiresAuth(WareHousersPaymentLog, '/login')}
+          render={() => this.requiresAuth(WareHousersPaymentLog)}
         />
-        <Route path="/logs/withdrawal-log" exact render={() => this.requiresAuth(WithdrawalLog, '/login')} />
+        <Route path="/logs/withdrawal-log" exact render={() => this.requiresAuth(WithdrawalLog)} />
 
         {/* USER MANAGEMENT */}
-        <Route path="/users/merchants" exact render={() => this.requiresAuth(AllMerchants, '/login')} />
-        <Route path="/users/all-users" exact render={() => this.requiresAuth(AllUsers, '/login')} />
-        <Route path="/users/warehousers" exact render={() => this.requiresAuth(AllWarehouser, '/login')} />
-        <Route path="/users/banned-users" exact render={() => this.requiresAuth(BannedUsers, '/login')} />
+        <Route path="/users/merchants" exact render={() => this.requiresAuth(AllMerchants)} />
+        <Route path="/users/all-users" exact render={() => this.requiresAuth(AllUsers)} />
+        <Route path="/users/warehousers" exact render={() => this.requiresAuth(AllWarehouser)} />
+        <Route path="/users/banned-users" exact render={() => this.requiresAuth(BannedUsers)} />
 
         {/* AUTHENTICATION FREE */}
-        <Route path="/password-reset" exact component={PasswordReset} />
-        {/* <Route path="/login" exact render={() => <Login properties={() => this.properties} />} /> */}
+        <Route path="/password-reset" exact render={() => this.loggedIn(PasswordReset)} />
         <Route path="/login" exact render={() => this.loggedIn(Login)} />
 
 
 
         {/* The theme's route starts here */}
-
-        <Route path="/dashboards/v1" component={DV1} />
-        <Route path="/dashboards/v2" component={DV2} />
-        <Route path="/dashboards/v3" exact component={DV3} />
-        <Route path="/dashboards/v4" exact component={DV4} />
-        <Route path="/dashboards/v5" exact component={DV5} />
-        <Route path="/dashboards/v6" exact component={DV6} />
 
         <Route path="/pages/invoice" exact component={Invoice} />
         <Route path="/pages/customers" exact component={Customers} />
@@ -270,7 +256,9 @@ class Routes extends React.Component {
         <Route path="/sections" exact component={Sections} />
         <Route path="/calendar" exact component={Calendar} />
 
-        <Route component={fourtOFour} />
+        <Route render={() => {
+          return <Redirect to="/login" />;
+        }} />
       </Switch>
     );
   }
