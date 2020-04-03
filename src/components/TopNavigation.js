@@ -106,18 +106,6 @@ class TopNavigation extends Component {
                 </MDBDropdownItem>
               </MDBDropdownMenu>
             </MDBDropdown>
-            <MDBNavItem>
-              <MDBNavLink to="#">
-                <MDBIcon icon="envelope" />
-                <span className="d-none d-md-inline ml-1">Contact</span>
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="#">
-                <MDBIcon icon="comments" />
-                <span className="d-none d-md-inline ml-1">Support</span>
-              </MDBNavLink>
-            </MDBNavItem>
             <MDBDropdown>
               <MDBDropdownToggle nav caret>
                 <MDBIcon icon="user" />{" "}

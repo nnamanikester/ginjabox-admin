@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 // PAGES
 import Login from "../pages/auth/Login";
@@ -12,9 +12,13 @@ class AuthRoutes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path="/" exact component={Login} />
-        <Route path="/password-reset" exact component={PasswordReset} />
-        <Route component={fourtOFour} />
+        <main style={{ margin: "8rem 6% 6rem" }}>
+          <Route path="/login" exact component={Login} />
+          <Route path="/password-reset" exact component={PasswordReset} />
+          <Route render={() => {
+            return <Redirect to="/login" />
+          }} />
+        </main>
       </Switch>
     );
   }

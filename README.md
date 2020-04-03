@@ -16,7 +16,6 @@ Ginjabox Admin dashboard should be a simple analytical dashboard for monitoring 
   - [x] User by OS type pie (Android & iOS)
   - [x] Transaction graph (Daily, Weekly, Monthly)
   - [x] Available Warehouse Space graph (Daily, Weekly, Monthly)
-  - [ ] Chat with Online and Offline users
 
 ### 2 User management
 

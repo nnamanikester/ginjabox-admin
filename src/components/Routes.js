@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // PAGES
 import E404 from "../pages/E404";
@@ -35,9 +36,6 @@ import AllUsers from "../pages/UserManagement/AllUsers";
 import AllWarehouser from "../pages/UserManagement/AllWarehouser";
 import BannedUsers from "../pages/UserManagement/BannedUsers";
 
-// AUTHENTICATION 
-import Login from '../pages/auth/Login';
-import PasswordReset from "../pages/auth/PasswordReset";
 
 
 import Customers from "./pages/Customers";
@@ -98,27 +96,14 @@ import Calendar from "./others/calendar";
 const fourtOFour = () => <h1 className="text-center">404</h1>;
 
 class Routes extends React.Component {
-  state = {
-    isLogged: false
-  };
 
-  login = () => {
-    this.setState({ isLogged: true })
-  }
+  isLogged = useSelector(state => state.isLogged);
 
   requiresAuth = (Comp) => {
-    if (this.state.isLogged) {
+    if (this.isLogged) {
       return <Comp />;
     } else {
       return <Redirect to="/login" />
-    }
-  }
-
-  loggedIn = (Comp) => {
-    if (this.state.isLogged) {
-      return <Redirect to="/" />
-    } else {
-      return <Comp login={this.login} />
     }
   }
 
@@ -193,10 +178,6 @@ class Routes extends React.Component {
         <Route path="/users/warehousers" exact render={() => this.requiresAuth(AllWarehouser)} />
         <Route path="/users/banned-users" exact render={() => this.requiresAuth(BannedUsers)} />
 
-        {/* AUTHENTICATION FREE */}
-        <Route path="/password-reset" exact render={() => this.loggedIn(PasswordReset)} />
-        <Route path="/login" exact render={() => this.loggedIn(Login)} />
-
 
 
         {/* The theme's route starts here */}
@@ -256,9 +237,7 @@ class Routes extends React.Component {
         <Route path="/sections" exact component={Sections} />
         <Route path="/calendar" exact component={Calendar} />
 
-        <Route render={() => {
-          return <Redirect to="/login" />;
-        }} />
+        <Route component={fourtOFour} />
       </Switch>
     );
   }

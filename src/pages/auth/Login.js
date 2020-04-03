@@ -9,10 +9,15 @@ import {
   MDBLink
 } from 'mdbreact';
 import { useDispatch } from "react-redux";
-import { LogIn } from "../../Redux/actions/login";
+import { LogIn } from "../../Redux/actions/authentication";
+import { Redirect } from "react-router";
 
 const Login = ({ login }) => {
   const dispatch = useDispatch();
+
+  const goToDashboard = () => {
+    dispatch(LogIn());
+  }
 
   return (
     <MDBContainer className="d-flex mt-5 justify-content-center">
@@ -32,10 +37,7 @@ const Login = ({ login }) => {
               label='Your password'
             />
             <div className='text-center'>
-              <MDBBtn className="teal accent-4" onClick={() => {
-                login();
-                dispatch(LogIn());
-              }}>Login</MDBBtn>
+              <MDBBtn className="teal accent-4" onClick={() => goToDashboard()}>Login</MDBBtn>
               <MDBLink className="teal-text" to="/password-reset">Forgot Password?</MDBLink>
             </div>
           </MDBCardBody>
