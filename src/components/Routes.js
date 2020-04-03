@@ -3,7 +3,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // PAGES
-import E404 from "../pages/E404";
 import Dashboard from "../pages/Dashboard";
 import EmailNotifications from "../pages/EmailNotifications";
 import SingleUser from "../pages/SingleUser";
@@ -93,11 +92,11 @@ import Modals from "./others/modals";
 import Sections from "./others/sections";
 import Calendar from "./others/calendar";
 
-const fourtOFour = () => <h1 className="text-center">404</h1>;
+const FourToFour = () => <h1 className="text-center">404</h1>;
 
 class Routes extends React.Component {
 
-  isLogged = useSelector(state => state.isLogged);
+  isLogged = () => useSelector(state => state.isLogged);
 
   requiresAuth = (Comp) => {
     if (this.isLogged) {
@@ -237,7 +236,10 @@ class Routes extends React.Component {
         <Route path="/sections" exact component={Sections} />
         <Route path="/calendar" exact component={Calendar} />
 
-        <Route component={fourtOFour} />
+        <Route render={({ location }) => {
+          if (location.pathname == "/login") return <Redirect to="/" />;
+          return <FourToFour />
+        }} />
       </Switch>
     );
   }

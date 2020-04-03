@@ -6,9 +6,9 @@ import {
   MDBSideNav,
   MDBIcon
 } from "mdbreact";
+import Logo from "../assets/ginjabox.png";
 
 class SideNavigation extends React.Component {
-  // render MDBSideNav Link
   rSNL(to, text, icon) {
     return (
       <MDBSideNavLink to={to} onClick={this.props.onLinkClick}>
@@ -23,7 +23,7 @@ class SideNavigation extends React.Component {
     return (
       <div className="white-skin">
         <MDBSideNav
-          logo="https://mdbootstrap.com/img/Marketing/general/logo/medium/mdb-react.png"
+          logo={Logo}
           bg="https://mdbootstrap.com/img/Photos/Others/sidenav4.jpg"
           mask="strong"
           fixed
@@ -31,15 +31,6 @@ class SideNavigation extends React.Component {
           triggerOpening={this.props.triggerOpening}
           style={{ transition: "padding-left .3s" }}
         >
-          <form role="search" className="search-form">
-            <div className="form-group md-form mt-0 pt-1 ripple-parent">
-              <input
-                type="text"
-                placeholder="Search"
-                className="form-control"
-              />
-            </div>
-          </form>
           <MDBSideNavNav>
             <MDBSideNavLink exact topLevel to="/" onClick={onLinkClick}>
               <MDBIcon icon="tachometer-alt mr-2" />
@@ -95,10 +86,10 @@ class SideNavigation extends React.Component {
               )}
             </MDBSideNavCat>
 
-            <MDBSideNavCat name="Staff Management" id="staff-cat" icon="staff">
-              {this.rSNL("/staff/add-staff", "Add Staff")}
-              {this.rSNL("/staff/all-staff", "All Staff")}
-              {this.rSNL("/staff/role-management", "Role Management")}
+            <MDBSideNavCat name="Staff Management" id="staff-cat" icon="tasks">
+              {this.rSNL("/staff/add-staff", "Add Staff", "plus")}
+              {this.rSNL("/staff/all-staff", "All Staff", "users")}
+              {this.rSNL("/staff/role-management", "Role Management", "tasks")}
             </MDBSideNavCat>
 
             <MDBSideNavLink exact topLevel to="/email-notification">
@@ -117,7 +108,7 @@ class SideNavigation extends React.Component {
             </MDBSideNavCat>
 
             {/* THEME EXAMPLES */}
-            <MDBSideNavCat
+            {/* <MDBSideNavCat
               name="Dashboards"
               id="dashboard-cat"
               icon="tachometer-alt"
@@ -225,7 +216,7 @@ class SideNavigation extends React.Component {
             <MDBSideNavLink topLevel to="/sections" onClick={onLinkClick}>
               <MDBIcon icon="th-large mr-2" />
               Sections
-            </MDBSideNavLink>
+            </MDBSideNavLink> */}
           </MDBSideNavNav>
         </MDBSideNav>
       </div>

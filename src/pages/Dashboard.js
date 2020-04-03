@@ -151,7 +151,7 @@ const Dashboard = (props) => {
               <MDBCardBody cascade>
                 <MDBProgress
                   value={25}
-                  barClassName="red accent-2"
+                  barClassName="teal accent-3"
                   height="6px"
                   wrapperStyle={{ opacity: ".7" }}
                   className="mb-3"
@@ -174,7 +174,7 @@ const Dashboard = (props) => {
               <MDBCardBody cascade>
                 <MDBProgress
                   value={25}
-                  barClassName="red accent-2"
+                  barClassName="teal accent-3"
                   height="6px"
                   wrapperStyle={{ opacity: ".7" }}
                   className="mb-3"
@@ -198,7 +198,7 @@ const Dashboard = (props) => {
               <MDBCardBody cascade>
                 <MDBProgress
                   value={75}
-                  barClassName="red accent-2"
+                  barClassName="teal accent-3"
                   height="6px"
                   wrapperStyle={{ opacity: ".7" }}
                   className="mb-3"
@@ -220,7 +220,7 @@ const Dashboard = (props) => {
               <MDBCardBody cascade>
                 <MDBProgress
                   value={25}
-                  barClassName="bg-primary"
+                  barClassName="teal accent-3"
                   height="6px"
                   wrapperStyle={{ opacity: ".7" }}
                   className="mb-3"

@@ -11,6 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { LogIn } from "../../Redux/actions/authentication";
 import { Redirect } from "react-router";
+import Logo from "../../assets/ginjabox.png";
 
 const Login = ({ login }) => {
   const dispatch = useDispatch();
@@ -20,9 +21,12 @@ const Login = ({ login }) => {
   }
 
   return (
-    <MDBContainer className="d-flex mt-5 justify-content-center">
-      <MDBCol md='12' lg='5' className='mt-5'>
-        <MDBCard>
+    <MDBContainer className="d-flex justify-content-center">
+      <MDBCol md='12' lg='5'>
+        <div className="teal px-5 py-3">
+          <img src={Logo} style={{ width: "100%" }} alt="logo" />
+        </div>
+        <MDBCard className="mt-2">
           <MDBCardBody>
             <p className='h5 text-center mb-4'>Sign in</p>
             <MDBInput
