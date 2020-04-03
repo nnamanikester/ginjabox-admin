@@ -246,7 +246,7 @@ class SingleUser extends React.Component {
       >
         <MDBModalHeader
           toggle={() => this.toggleSendMail()}
-          className='light-blue darken-3 white-text'
+          className='teal accent-4 white-text'
         >
           <MDBIcon icon="envelope" className='mr-2' /> New Message
         </MDBModalHeader>
@@ -284,34 +284,34 @@ class SingleUser extends React.Component {
                     <strong>firstName lastName</strong>
                   </MDBCardTitle>
                   <span>
-                    <span className="blue-text">email@email.com</span>
+                    <span className="teal-text">email@email.com</span>
                     {' | '}
-                    <span className="blue-text">+234801987438</span>
+                    <span className="teal-text">+234801987438</span>
                   </span>
                   <p className='dark-grey-text'>123 Agbani Road, Enugu, Nigeria.</p>
                   <ul className='list-unstyled pt-4 text-left'>
                     <li>
                       <p>
                         LGA{' '}
-                        <MDBBadge color='primary' className='float-right'>
+                        <span className='float-right'>
                           Enugu South
-                        </MDBBadge>
+                        </span>
                       </p>
                     </li>
                     <hr />
                     <li>
                       <p>
                         Date of Birth{' '}
-                        <MDBBadge color='primary' className='float-right'>
+                        <span className='float-right'>
                           1999-22-11
-                        </MDBBadge>
+                        </span>
                       </p>
                     </li>
                     <hr />
                     <li>
                       <p>
                         Available Balance (&#8358;){' '}
-                        <span color='primary' className='float-right'>
+                        <span className='float-right'>
                           20,000
                         </span>
                       </p>
@@ -320,7 +320,7 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Ledger Balance (&#8358;){' '}
-                        <span color='primary' className='float-right'>
+                        <span className='float-right'>
                           120,000
                         </span>
                       </p>
@@ -329,7 +329,7 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Referral ID{' '}
-                        <span color='primary' className='float-right'>
+                        <span className='float-right'>
                           17hf64HF4
                         </span>
                       </p>
@@ -338,7 +338,7 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Date Joined{' '}
-                        <span color='primary' className='float-right'>
+                        <span className='float-right'>
                           2020-02-29
                         </span>
                       </p>
@@ -350,7 +350,7 @@ class SingleUser extends React.Component {
                     up the bulk of the card's content.
                   </p>
                   <MDBBtn
-                    color='info'
+                    className="teal accent-4"
                     size='sm'
                     rounded
                     onClick={() => {
@@ -373,7 +373,7 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Total Listings{' '}
-                        <MDBBadge color='primary' className='float-right'>
+                        <MDBBadge className='teal accent-4 float-right'>
                           34
                         </MDBBadge>
                       </p>
@@ -382,7 +382,7 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Total Transactions{' '}
-                        <MDBBadge color='primary' className='float-right'>
+                        <MDBBadge className='teal accent-4 float-right'>
                           17
                         </MDBBadge>
                       </p>
@@ -391,7 +391,7 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Transactions Earnings (&#8358;){' '}
-                        <span color='primary' className='float-right'>
+                        <span className=' float-right'>
                           120,000
                         </span>
                       </p>
@@ -400,7 +400,7 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Total Referrals{' '}
-                        <MDBBadge color='primary' className='float-right'>
+                        <MDBBadge className='teal accent-4 float-right'>
                           12
                         </MDBBadge>
                       </p>
@@ -409,7 +409,7 @@ class SingleUser extends React.Component {
                     <li>
                       <p>
                         Referral Earnings (&#8358;){' '}
-                        <span color='primary' className='float-right'>
+                        <span className=' float-right'>
                           30, 000
                         </span>
                       </p>
@@ -420,7 +420,7 @@ class SingleUser extends React.Component {
             </MDBCol>
             <MDBCol lg='8' md='12' className='text-center'>
               <MDBCard className="mb-4">
-                <MDBCardHeader className="primary-color text-white">
+                <MDBCardHeader className="teal accent-4 text-white">
                   John's Transactions Log
                 </MDBCardHeader>
                 <MDBCardBody>
@@ -429,7 +429,7 @@ class SingleUser extends React.Component {
               </MDBCard>
 
               <MDBCard className="mb-4">
-                <MDBCardHeader className="primary-color text-white">
+                <MDBCardHeader className="teal accent-4 text-white">
                   John's Listings Log
                 </MDBCardHeader>
                 <MDBCardBody>
@@ -438,7 +438,7 @@ class SingleUser extends React.Component {
               </MDBCard>
 
               <MDBCard className="mb-4">
-                <MDBCardHeader className="primary-color text-white">
+                <MDBCardHeader className="teal accent-4 text-white">
                   John's Referrals Log
                 </MDBCardHeader>
                 <MDBCardBody>
@@ -447,7 +447,7 @@ class SingleUser extends React.Component {
               </MDBCard>
 
               <MDBCard className="mb-4">
-                <MDBCardHeader className="primary-color text-white">
+                <MDBCardHeader className="teal accent-4 text-white">
                   John's Rating History
                 </MDBCardHeader>
                 <MDBCardBody>

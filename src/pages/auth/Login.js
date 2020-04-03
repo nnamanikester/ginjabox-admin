@@ -32,11 +32,11 @@ const Login = ({ login }) => {
               label='Your password'
             />
             <div className='text-center'>
-              <MDBBtn onClick={() => {
+              <MDBBtn className="teal accent-4" onClick={() => {
                 login();
-                dispatch(LogIn);
+                dispatch(LogIn());
               }}>Login</MDBBtn>
-              <MDBLink to="/password-reset">Forgot Password?</MDBLink>
+              <MDBLink className="teal-text" to="/password-reset">Forgot Password?</MDBLink>
             </div>
           </MDBCardBody>
         </MDBCard>

@@ -18,7 +18,7 @@ const AddNewStaff = () => {
       <MDBCol lg='5' className='mb-4'>
         <MDBCard>
           <MDBCardBody>
-            <div className='form-header blue accent-1'>
+            <div className='form-header teal accent-4'>
               <h3> Add New Staff </h3>
             </div>
 
@@ -36,7 +36,7 @@ const AddNewStaff = () => {
               </MDBSelectOptions>
             </MDBSelect>
             <div className='text-center'>
-              <MDBBtn color='light-blue'>Create</MDBBtn>
+              <MDBBtn className='teal accent-4'>Create</MDBBtn>
             </div>
           </MDBCardBody>
         </MDBCard>

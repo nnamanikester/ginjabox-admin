@@ -70,7 +70,7 @@ const RoleManagement = () => {
 
   return (
     <MDBContainer>
-      <MDBBtn color="primary" onClick={() => {
+      <MDBBtn className="teal accent-4" onClick={() => {
         toggleModal();
       }
       }>Create New Role</MDBBtn>
@@ -78,7 +78,7 @@ const RoleManagement = () => {
         <MDBCard narrow className="z-depth-0">
           <MDBView
             cascade
-            className="gradient-card-header blue-gradient narrower py-2 my-3 d-flex justify-content-between align-items-center"
+            className="teal accent-4 narrower py-2 my-3 d-flex justify-content-between align-items-center"
           >
             <div className="text-left"></div>
             <span className="white-text text-bold mx-3">Role Management</span>
@@ -100,7 +100,7 @@ const RoleManagement = () => {
         disableFocusTrap={openModal === false ? true : false}>
         <MDBModalHeader
           toggle={openModal === false ? () => { } : () => toggleModal()}
-          className='light-blue darken-3 white-text'
+          className='teal accent-4 white-text'
         >
           <MDBIcon icon="add" className='mr-2' />{' '}
           Create A New Role
@@ -109,8 +109,7 @@ const RoleManagement = () => {
           <MDBInput label='Role  Name' />
           <div className='text-center mb-1-half'>
             <MDBBtn
-              color='info'
-              className='mb-2'
+              className='teal accent-4 mb-2'
               onClick={openModal === false ? () => { } : () => toggleModal()}
             >
               Create

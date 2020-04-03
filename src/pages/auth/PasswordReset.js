@@ -24,8 +24,8 @@ const Login = props => {
               label='Your email'
             />
             <div className='text-center'>
-              <MDBBtn>Reset</MDBBtn>
-              <MDBLink to="/">Back To Login</MDBLink>
+              <MDBBtn className="teal accent-4">Reset</MDBBtn>
+              <MDBLink className="teal-text" to="/">Back To Login</MDBLink>
             </div>
           </MDBCardBody>
         </MDBCard>

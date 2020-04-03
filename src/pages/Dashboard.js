@@ -135,7 +135,6 @@ const LineOptions = {
 };
 
 const Dashboard = (props) => {
-  console.log(props.properties);
   return (
     <MDBContainer fluid className="mb-5">
       <section>
@@ -143,7 +142,7 @@ const Dashboard = (props) => {
           <MDBCol xl="3" md="6" className="mb-4">
             <MDBCard cascade className="cascading-admin-card">
               <div className="admin-up">
-                <MDBIcon icon="users" className="primary-color" />
+                <MDBIcon icon="users" className="teal accent-4" />
                 <div className="data">
                   <p>Total Transactions</p>
                   <h5 className="font-weight-bold dark-grey-text">375</h5>
@@ -166,7 +165,7 @@ const Dashboard = (props) => {
           <MDBCol xl="3" md="6" className="mb-4">
             <MDBCard cascade className="cascading-admin-card">
               <div className="admin-up">
-                <MDBIcon icon="exchange-alt" className="success-color" />
+                <MDBIcon icon="exchange-alt" className="teal accent-4" />
                 <div className="data">
                   <p>Total Transactions</p>
                   <h5 className="font-weight-bold dark-grey-text">375</h5>
@@ -188,7 +187,7 @@ const Dashboard = (props) => {
           <MDBCol xl="3" md="6" className="mb-4">
             <MDBCard cascade className="cascading-admin-card">
               <div className="admin-up">
-                <MDBIcon icon="dollar-sign" className="success-color" />
+                <MDBIcon icon="dollar-sign" className="teal accent-4" />
                 <div className="data">
                   <p>Total Commissions</p>
                   <h5 className="font-weight-bold dark-grey-text">
@@ -212,7 +211,7 @@ const Dashboard = (props) => {
           <MDBCol xl="3" md="6" className="mb-4">
             <MDBCard cascade className="cascading-admin-card">
               <div className="admin-up">
-                <MDBIcon icon="home" className="primary-color" />
+                <MDBIcon icon="home" className="teal accent-4" />
                 <div className="data">
                   <p>Available Warehouse</p>
                   <h5 className="font-weight-bold dark-grey-text">67</h5>
@@ -237,7 +236,7 @@ const Dashboard = (props) => {
         <MDBRow>
           <MDBCol lg="6" md="12">
             <MDBCard className="mb-4">
-              <MDBCardHeader className="primary-color text-white">
+              <MDBCardHeader className="teal accent-4 text-white">
                 App Statistics
               </MDBCardHeader>
               <MDBCardBody>
@@ -326,7 +325,7 @@ const Dashboard = (props) => {
 
           <MDBCol lg="6" md="12">
             <MDBCard className="mb-4">
-              <MDBCardHeader className="primary-color text-white">
+              <MDBCardHeader className="teal accent-4 text-white">
                 Users By OS
               </MDBCardHeader>
               <MDBCardBody>
@@ -341,13 +340,13 @@ const Dashboard = (props) => {
 
           <MDBCol md='12' lg='6'>
             <MDBCard narrow className='mb-4'>
-              <MDBCardHeader className="primary-color text-white">
+              <MDBCardHeader className="teal accent-4 text-white">
                 Transactions Statistics
               </MDBCardHeader>
               <MDBCardBody>
                 <MDBCol md='12'>
                   <p className='lead'>
-                    <span className='badge info-color p-2'>Data range</span>
+                    <span className='badge teal accent-4 p-2'>Data range</span>
                   </p>
                   <MDBSelect>
                     <MDBSelectInput selected='Choose time period' />
@@ -360,7 +359,7 @@ const Dashboard = (props) => {
                     </MDBSelectOptions>
                   </MDBSelect>
                 </MDBCol>
-                <MDBView className='gradient-card-header blue px-3'>
+                <MDBView className='gradient-card-header teal accent-4 px-3'>
                   <Line
                     data={transactionStatistics}
                     options={LineOptions}
@@ -373,13 +372,13 @@ const Dashboard = (props) => {
 
           <MDBCol md='12' lg='6'>
             <MDBCard narrow className='mb-4'>
-              <MDBCardHeader className="primary-color text-white">
+              <MDBCardHeader className="teal accent-4 text-white">
                 Available Warehouse Statistics
               </MDBCardHeader>
               <MDBCardBody>
                 <MDBCol md='12'>
                   <p className='lead'>
-                    <span className='badge info-color p-2'>Data range</span>
+                    <span className='badge teal accent-4 p-2'>Data range</span>
                   </p>
                   <MDBSelect>
                     <MDBSelectInput selected='Choose time period' />
@@ -392,7 +391,7 @@ const Dashboard = (props) => {
                     </MDBSelectOptions>
                   </MDBSelect>
                 </MDBCol>
-                <MDBView className='gradient-card-header blue px-3'>
+                <MDBView className='gradient-card-header teal accent-4 px-3'>
                   <Line
                     data={availableWarehouseStatistics}
                     options={LineOptions}
@@ -405,7 +404,7 @@ const Dashboard = (props) => {
 
           <MDBCol lg='12' md="12">
             <MDBCard cascade narrow className="mb-4">
-              <MDBCardHeader className="primary-color text-white">
+              <MDBCardHeader className="teal accent-4 text-white">
                 Users Statistics
               </MDBCardHeader>
               <MDBRow>
@@ -414,7 +413,7 @@ const Dashboard = (props) => {
                     <MDBCardBody className='row pt-3'>
                       <MDBCol md='12'>
                         <p className='lead'>
-                          <span className='badge info-color p-2'>Data range</span>
+                          <span className='badge teal accent-4 p-2'>Data range</span>
                         </p>
                         <MDBSelect>
                           <MDBSelectInput selected='Choose time period' />
@@ -432,7 +431,7 @@ const Dashboard = (props) => {
                         <div style={{ marginBottom: '0.5rem' }}>
                           Today: <strong>14</strong>
                           <MDBTooltip>
-                            <MDBBtn color='info' className='btn-sm p-2 d-inline'>
+                            <MDBBtn className='teal accent-4 btn-sm p-2 d-inline'>
                               <MDBIcon icon='question' />
                             </MDBBtn>
                             <div>Registered users today</div>
@@ -443,7 +442,7 @@ const Dashboard = (props) => {
                         <div>
                           Daily Average: <strong>11</strong>
                           <MDBTooltip>
-                            <MDBBtn color='info' className='btn-sm p-2 d-inline'>
+                            <MDBBtn className='teal accent-4 btn-sm p-2 d-inline'>
                               <MDBIcon icon='question' />
                             </MDBBtn>
                             <div>Daily User Registeration Average</div>
@@ -456,7 +455,7 @@ const Dashboard = (props) => {
                 </MDBCol>
 
                 <MDBCol xl='7' lg='12' className='my-4 mr-4'>
-                  <MDBView className='gradient-card-header blue px-3'>
+                  <MDBView className='gradient-card-header teal accent-4 px-3'>
                     <Line
                       data={userStatistics}
                       options={LineOptions}

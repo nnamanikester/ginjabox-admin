@@ -58,7 +58,7 @@ const BannedUsers = () => {
       <MDBCard narror className="z-depth-0 mb-4">
         <MDBCardBody>
           <span className='lead'>
-            <span className='badge info-color p-2'>Filter Users</span>
+            <span className='badge teal accent-4 p-2'>Filter Users</span>
           </span>
           <MDBRow>
             <MDBCol lg="4">
@@ -85,7 +85,7 @@ const BannedUsers = () => {
         <MDBCard narrow className="z-depth-0">
           <MDBView
             cascade
-            className="gradient-card-header blue-gradient narrower py-2 my-3 d-flex justify-content-between align-items-center"
+            className="teal accent-4 narrower py-2 my-3 d-flex justify-content-between align-items-center"
           >
             <div className="text-left"></div>
             <span className="white-text text-bold mx-3">Banned Users</span>

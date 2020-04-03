@@ -112,7 +112,7 @@ const AllStaff = () => {
         <MDBCard narrow className="z-depth-0">
           <MDBView
             cascade
-            className="gradient-card-header blue-gradient narrower py-2 my-3 d-flex justify-content-between align-items-center"
+            className="teal accent-4 narrower py-2 my-3 d-flex justify-content-between align-items-center"
           >
             <div className="text-left"></div>
             <span className="white-text text-bold mx-3">All Staff</span>
