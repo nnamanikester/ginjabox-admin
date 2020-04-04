@@ -237,7 +237,7 @@ class Routes extends React.Component {
         <Route path="/calendar" exact component={Calendar} />
 
         <Route render={({ location }) => {
-          if (location.pathname == "/login") return <Redirect to="/" />;
+          if (location.pathname === "/login") return <Redirect to="/" />;
           return <FourToFour />
         }} />
       </Switch>
