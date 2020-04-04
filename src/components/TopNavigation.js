@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import {
   MDBNavbar,
@@ -24,22 +24,6 @@ const TopNavigation = (props) => {
     transition: "padding-left .3s"
   };
 
-  const [collapse, setCollapse] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    onClick();
-    toggle();
-  }, []);
-
-  const onClick = () => {
-    setCollapse(!collapse);
-  }
-
-  const toggle = () => {
-    setDropdownOpen(!dropdownOpen);
-  }
-
   const handleToggleClickA = () => {
     props.onSideNavToggleClick();
   }
@@ -49,6 +33,7 @@ const TopNavigation = (props) => {
     localStorage.clear();
     return <Redirect to="/login" />;
   }
+
   return (
     <Router>
       <MDBNavbar

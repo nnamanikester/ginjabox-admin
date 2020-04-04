@@ -47,7 +47,7 @@ const data = {
       email: "email@gmail.com",
       phone: "+234808593493",
       joinDate: "2009/04/10",
-      action: (<div><a href="">View</a><a href="">Unblock</a></div>)
+      action: (<div><a href="/profile/username">View</a><a href="#!">Unblock</a></div>)
     },
   ]
 };

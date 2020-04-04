@@ -9,8 +9,6 @@ import {
   MDBIcon,
   MDBProgress,
   MDBBtn,
-  MDBTable,
-  MDBDropdownItem,
   MDBSelect,
   MDBSelectInput,
   MDBSelectOption,
@@ -18,7 +16,7 @@ import {
   MDBTooltip,
   MDBView
 } from "mdbreact";
-import { Bar, Line, Doughnut } from "react-chartjs-2";
+import { Line, Doughnut } from "react-chartjs-2";
 
 const mobileChartData = {
   labels: ["Android", "IOS", "Others"],

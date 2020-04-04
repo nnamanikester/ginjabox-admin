@@ -64,7 +64,7 @@ const data = {
       accountStatus: 'Verified',
       presenceStatus: <MDBBadge color='success'>Online</MDBBadge>,
       joinDate: "2020/03/10",
-      action: (<div><a href="">View</a><a href="">Edit</a><a href="">Delete</a></div>)
+      action: (<div><a href="/profile/username">View</a><a href="#!">Edit</a><a href="#!">Delete</a></div>)
     },
     {
       sn: "1",
@@ -75,7 +75,7 @@ const data = {
       accountStatus: 'Unverified',
       presenceStatus: <MDBBadge color='grey'>Offline</MDBBadge>,
       joinDate: "2020/02/14",
-      action: (<div><a href="">View</a><a href="">Edit</a><a href="">Delete</a></div>)
+      action: (<div><a href="/profile/username">View</a><a href="#!">Edit</a><a href="#!">Delete</a></div>)
     },
   ]
 };
