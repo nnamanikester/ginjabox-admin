@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 import RoutesWithNavigation from './components/RoutesWithNavigation';
@@ -21,8 +21,8 @@ const App = () => {
 
   return (
     <Switch>
-      {!isLogged && <AuthRoutes />}
-      {isLogged && <RoutesWithNavigation />}
+      {(!localStorage.getItem('email')) && <AuthRoutes />}
+      {(isLogged || localStorage.getItem('email')) && <RoutesWithNavigation />}
     </Switch>
   );
 };

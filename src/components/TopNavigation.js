@@ -13,6 +13,7 @@ import {
 } from "mdbreact";
 import { useDispatch } from "react-redux";
 import { LogOut } from "../Redux/actions/authentication";
+import { Redirect } from "react-router"
 
 const TopNavigation = (props) => {
 
@@ -43,6 +44,11 @@ const TopNavigation = (props) => {
     props.onSideNavToggleClick();
   }
 
+  const logout = () => {
+    dispatch(LogOut());
+    localStorage.clear();
+    return <Redirect to="/login" />;
+  }
   return (
     <Router>
       <MDBNavbar
@@ -109,7 +115,7 @@ const TopNavigation = (props) => {
               <span className="d-none d-md-inline">Profile</span>
             </MDBDropdownToggle>
             <MDBDropdownMenu right style={{ minWidth: "200px" }}>
-              <MDBDropdownItem onClick={() => dispatch(LogOut())}>Log Out</MDBDropdownItem>
+              <MDBDropdownItem onClick={() => logout()}>Log Out</MDBDropdownItem>
               <MDBDropdownItem>My Account</MDBDropdownItem>
             </MDBDropdownMenu>
           </MDBDropdown>

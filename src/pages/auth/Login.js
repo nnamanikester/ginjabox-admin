@@ -47,9 +47,8 @@ const Login = () => {
     if (!isLogged) {
       setFeedback("Incorrect Username or Password!");
       return setLoader(false);
-    } else {
-      return setSuccess("Logged In Successfully!");
     }
+    return setSuccess("Logged In Successfully!");
   }
 
   return (

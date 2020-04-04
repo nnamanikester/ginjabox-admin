@@ -23,6 +23,9 @@ const authenticate = (email, password) => {
     if (st.email === email) {
       if (st.adminAuth.password === password) {
         bool = true;
+        localStorage.setItem("firstName", st.firstName);
+        localStorage.setItem("lastName", st.lastName);
+        localStorage.setItem("email", st.email);
       } else {
         bool = false;
       }

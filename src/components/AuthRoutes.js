@@ -5,8 +5,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Login from "../pages/auth/Login";
 import PasswordReset from "../pages/auth/PasswordReset";
 
-const fourtOFour = () => <h1 className="text-center">404</h1>;
-
 class AuthRoutes extends React.Component {
 
   render() {
