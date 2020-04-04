@@ -10,7 +10,6 @@ import {
 } from 'mdbreact';
 import { useDispatch } from "react-redux";
 import { LogIn } from "../../Redux/actions/authentication";
-import { Redirect } from "react-router";
 import Logo from "../../assets/ginjabox.png";
 
 const Login = ({ login }) => {

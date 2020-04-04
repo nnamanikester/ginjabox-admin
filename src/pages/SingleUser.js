@@ -254,10 +254,10 @@ class SingleUser extends React.Component {
           <MDBInput type='textarea' label='Your message' rows={4} />
         </MDBModalBody>
         <MDBModalFooter center>
-          <MDBBtn outline color='primary' onClick={() => this.toggleSendMail()}>
+          <MDBBtn outline color='teal' onClick={() => this.toggleSendMail()}>
             Cancel
           </MDBBtn>
-          <MDBBtn color='primary'>
+          <MDBBtn color='teal'>
             Send <MDBIcon icon="paper-plane" className='ml-1' />
           </MDBBtn>
         </MDBModalFooter>
