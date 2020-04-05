@@ -8,7 +8,7 @@ import {
   MDBCardBody,
   MDBLink,
 } from 'mdbreact';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { LogIn } from "../../Redux/actions/authentication";
 import Logo from "../../assets/ginjabox.png";
@@ -22,7 +22,6 @@ const validateEmail = (email) => {
 
 const Login = () => {
   const dispatch = useDispatch();
-  const isLogged = useSelector(state => state.isLogged);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
