@@ -9,13 +9,16 @@ import {
   MDBLink,
 } from 'mdbreact';
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import { LogIn } from "../../Redux/actions/authentication";
 import Logo from "../../assets/ginjabox.png";
+import { apiUrl } from "../../config";
 
 const validateEmail = (email) => {
   const exp = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
   return exp.test(String(email).toLowerCase());
 }
+
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -27,8 +30,36 @@ const Login = () => {
   const [success, setSuccess] = useState(null);
   const [loader, setLoader] = useState(false);
 
-  const goToDashboard = () => {
+  const authenticate = async (email, password) => {
+    email.toLowerCase();
     setLoader(true);
+    const data = { email, password }
+
+    await axios.post(`${apiUrl}/authenticate`, data)
+      .then(res => {
+        const { success, error, message, data } = res.data;
+
+        if (error) setFeedback(message);
+        if (success) {
+          const details = {
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName
+          }
+          setSuccess(message);
+          dispatch(LogIn(details));
+        }
+        setLoader(false);
+        return res.data;
+      })
+      .catch(err => {
+        setLoader(false);
+        console.log(err);
+      })
+
+  }
+
+  const goToDashboard = () => {
     setFeedback(null);
     if (!email) {
       setLoader(false);
@@ -42,13 +73,7 @@ const Login = () => {
       setLoader(false);
       return setFeedback("Password field cannot be empty!")
     }
-    const details = { email, password }
-    dispatch(LogIn(details));
-    if (!isLogged) {
-      setFeedback("Incorrect Username or Password!");
-      return setLoader(false);
-    }
-    return setSuccess("Logged In Successfully!");
+    authenticate(email, password);
   }
 
   return (

@@ -29,8 +29,8 @@ const TopNavigation = (props) => {
   }
 
   const logout = () => {
-    dispatch(LogOut());
     localStorage.clear();
+    dispatch(LogOut());
     return <Redirect to="/login" />;
   }
 
