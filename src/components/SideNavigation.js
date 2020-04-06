@@ -7,8 +7,14 @@ import {
   MDBIcon
 } from "mdbreact";
 import Logo from "../assets/ginjabox.png";
+// import { useSelector, useDispatch } from "react-redux";
+// import { getPermission } from "../Redux/actions/permission";
+
+// const permission = useSelector(state => state.permission);
+// const dispatch = useDispatch();
 
 class SideNavigation extends React.Component {
+
   rSNL(to, text, icon) {
     return (
       <MDBSideNavLink to={to} onClick={this.props.onLinkClick}>
@@ -86,11 +92,11 @@ class SideNavigation extends React.Component {
               )}
             </MDBSideNavCat>
 
-            <MDBSideNavCat name="Staff Management" id="staff-cat" icon="tasks">
+            {/* {(permission === 1) && (*/}<MDBSideNavCat name="Staff Management" id="staff-cat" icon="tasks">
               {this.rSNL("/staff/add-staff", "Add Staff", "plus")}
               {this.rSNL("/staff/all-staff", "All Staff", "users")}
               {this.rSNL("/staff/role-management", "Role Management", "tasks")}
-            </MDBSideNavCat>
+            </MDBSideNavCat>{/*})}*/}
 
             <MDBSideNavLink exact topLevel to="/email-notification">
               <MDBIcon icon="envelope mr-2" />

@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getPermission } from "../Redux/actions/permission";
 
 // PAGES
 import Dashboard from "../pages/Dashboard";
@@ -94,6 +95,9 @@ import Calendar from "./others/calendar";
 
 const FourToFour = () => <h1 className="text-center">404</h1>;
 
+// const permission = useSelector(state => state.permission);
+// const dispatch = useDispatch();
+
 class Routes extends React.Component {
 
   isLogged = () => useSelector(state => state.isLogged);
@@ -140,17 +144,21 @@ class Routes extends React.Component {
 
         {/* SETTINGS */}
         <Route path="/settings/edit-password" exact render={() => this.requiresAuth(EditPassword)} />
+        {/* {(permission === 1 || this.permission === 2) && (<> */}
         <Route
           path="/settings/email-settings"
           exact
           render={() => this.requiresAuth(EmailSettings)}
         />
         <Route path="/settings/sms-settings" exact render={() => this.requiresAuth(SmsSettings)} />
+        {/* </>)} */}
 
         {/* STAFF MANAGEMENT */}
+        {/* {(permission === 1) && (<> */}
         <Route path="/staff/add-staff" exact render={() => this.requiresAuth(AddNewStaff)} />
         <Route path="/staff/all-staff" exact render={() => this.requiresAuth(AllStaff)} />
         <Route path="/staff/role-management" exact render={() => this.requiresAuth(RoleManagement)} />
+        {/* </>)} */}
 
         {/* TRANSACTION LOG */}
         <Route path="/logs/expired-rent-log" exact render={() => this.requiresAuth(ExpiredRentLog)} />

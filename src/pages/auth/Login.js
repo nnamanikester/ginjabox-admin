@@ -19,7 +19,6 @@ const validateEmail = (email) => {
   return exp.test(String(email).toLowerCase());
 }
 
-
 const Login = () => {
   const dispatch = useDispatch();
 
