@@ -103,7 +103,7 @@ class Routes extends React.Component {
   isLogged = () => useSelector(state => state.isLogged);
 
   requiresAuth = (Comp) => {
-    if (this.isLogged || localStorage.getItem("email")) {
+    if (this.isLogged || localStorage.getItem("token")) {
       return <Comp />;
     } else {
       return <Redirect to="/login" />

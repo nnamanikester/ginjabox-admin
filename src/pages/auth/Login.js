@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -22,6 +22,19 @@ const validateEmail = (email) => {
 const Login = () => {
   const dispatch = useDispatch();
 
+  // const firstTimeLaunch = () => {
+  //   axios.post(`${apiUrl}/`, { create: "Super Admin" })
+  //     .then(res => {
+  //       console.log(res.data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err.response);
+  //     })
+  // }
+  // useEffect(() => {
+  //   firstTimeLaunch();
+  // }, []);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [feedback, setFeedback] = useState(null);
@@ -35,24 +48,14 @@ const Login = () => {
 
     await axios.post(`${apiUrl}/authenticate`, data)
       .then(res => {
-        const { success, error, message, data } = res.data;
-
-        if (error) setFeedback(message);
-        if (success) {
-          const details = {
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName
-          }
-          setSuccess(message);
-          dispatch(LogIn(details));
-        }
+        const { data, message } = res.data
+        dispatch(LogIn(data));
         setLoader(false);
-        return res.data;
+        setSuccess(message);
       })
       .catch(err => {
         setLoader(false);
-        console.log(err);
+        setFeedback(err.response.data.message);
       })
 
   }

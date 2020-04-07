@@ -1,10 +1,11 @@
 const isLoggedReducer = (state = false, action) => {
   switch (action.type) {
     case "LOGIN":
-      const { email, firstName, lastName } = action.payload;
-      localStorage.setItem("firstName", firstName);
-      localStorage.setItem("lastName", lastName);
+      const { email, token, roleId } = action.payload;
+      if (!token) return state = false;
+      localStorage.setItem("token", token);
       localStorage.setItem("email", email);
+      localStorage.setItem("roleId", roleId);
       return state = true;
     default:
       return state = false;
