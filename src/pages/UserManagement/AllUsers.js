@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { apiUrl } from "../../config";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   MDBCard,
   MDBCardBody,
@@ -9,78 +12,91 @@ import {
   MDBSelectInput,
   MDBSelectOptions,
   MDBSelectOption,
+  MDBIcon,
   MDBCol,
   MDBRow,
   MDBBadge
 } from "mdbreact";
 
-
-const data = {
-  columns: [
-    {
-      label: "S/N",
-      field: "sn",
-    },
-    {
-      label: "Name",
-      field: "name",
-    },
-    {
-      label: "Email",
-      field: "email",
-    },
-    {
-      label: "Phone",
-      field: "phone",
-    },
-    {
-      label: "Referral",
-      field: "referral",
-    },
-    {
-      label: "Presence Status",
-      field: "presenceStatus",
-    },
-    {
-      label: "Account Status",
-      field: "accountStatus",
-    },
-    {
-      label: "Join Date",
-      field: "joinDate",
-    },
-    {
-      label: "Action",
-      field: "action",
-    }
-  ],
-  rows: [
-    {
-      sn: "1",
-      name: "Jonh Jennifer",
-      email: "email@gmail.com",
-      phone: "+234808593493",
-      referral: "3453fHk8A",
-      accountStatus: 'Verified',
-      presenceStatus: <MDBBadge color='success'>Online</MDBBadge>,
-      joinDate: "2020/03/10",
-      action: (<div><a href="/profile/username">View</a><a href="#!">Edit</a><a href="#!">Delete</a></div>)
-    },
-    {
-      sn: "1",
-      name: "Benard Christain",
-      email: "email@gmail.com",
-      phone: "+234908894854",
-      referral: "34hUF04d",
-      accountStatus: 'Unverified',
-      presenceStatus: <MDBBadge color='grey'>Offline</MDBBadge>,
-      joinDate: "2020/02/14",
-      action: (<div><a href="/profile/username">View</a><a href="#!">Edit</a><a href="#!">Delete</a></div>)
-    },
-  ]
-};
-
 const AllUsers = () => {
+
+  const [users, setUsers] = useState([]);
+
+  const data = {
+    columns: [
+      {
+        label: "S/N",
+        field: "sn",
+      },
+      {
+        label: "Name",
+        field: "name",
+      },
+      {
+        label: "Email",
+        field: "email",
+      },
+      {
+        label: "Phone",
+        field: "phone",
+      },
+      {
+        label: "Referral",
+        field: "referral",
+      },
+      {
+        label: "Account Type",
+        field: "type",
+      },
+      {
+        label: "Account Status",
+        field: "accountStatus",
+      },
+      {
+        label: "Join Date",
+        field: "joinDate",
+      },
+      {
+        label: "Action",
+        field: "action",
+      }
+    ],
+    rows: users
+  };
+
+  const loadUsers = async () => {
+    axios.get(`${apiUrl}/users`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        res.data.data.forEach(user => {
+          const row = {
+            sn: users.length + 1,
+            name: `${user.firstName} ${user.lastName}`,
+            email: user.email,
+            phone: user.phoneNumber,
+            referral: "get it from db",
+            joinDate: "fetch Date",
+            type: user.type.name,
+            accountStatus: (users.length + 1) % 2 === 0 ? <MDBBadge className="success-color">Verified</MDBBadge> : <MDBBadge className="grey">Unverified</MDBBadge>,
+            action: (<div>
+              <Link to={`/user/${user.id}`} style={{ marginHorizontal: 1 }}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
+              <Link to={`/user/${user.id}`}><MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge></Link>
+              <Link to={`/user/${user.id}`}><MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge></Link>
+            </div>)
+          };
+          setUsers([...users, row]);
+        })
+      })
+      .catch(err => {
+        return [];
+      })
+  }
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
   return (
     <MDBContainer>
       <MDBCard narror className="z-depth-0 mb-4">

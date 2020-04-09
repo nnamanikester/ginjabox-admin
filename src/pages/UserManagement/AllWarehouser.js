@@ -3,64 +3,90 @@
 * When you click to view the warehouse listings. It brings up a list
 * having the listings by that particular user.
 */
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { apiUrl } from "../../config";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   MDBCard,
   MDBCardBody,
   MDBContainer,
   MDBDataTable,
   MDBView,
-  MDBLink
+  MDBBadge,
+  MDBIcon
 } from "mdbreact";
 
-const data = {
-  columns: [
-    {
-      label: "S/N",
-      field: "sn",
-    },
-    {
-      label: "Name",
-      field: "name",
-    },
-    {
-      label: "Listings",
-      field: "listings",
-    },
-    {
-      label: "Phone",
-      field: "phone",
-    },
-    {
-      label: "Email",
-      field: "email",
-    },
-    {
-      label: "Action",
-      field: "action",
-    }
-  ],
-  rows: [
-    {
-      sn: "1",
-      name: "Gloria Little",
-      listings: "7",
-      phone: "+234984077364",
-      email: "email@gmial.com",
-      action: <MDBLink to="/user/username">View Listings</MDBLink>
-    },
-    {
-      sn: "2",
-      name: "Eze Nwafor",
-      listings: "13",
-      phone: "+234818483344",
-      email: "email@gmial.com",
-      action: <MDBLink to="/user/username">View Listings</MDBLink>
-    }
-  ]
-};
-
 const AllWarehouser = () => {
+
+  const [users, setUsers] = useState([]);
+
+  const data = {
+    columns: [
+      {
+        label: "S/N",
+        field: "sn",
+      },
+      {
+        label: "Name",
+        field: "name",
+      },
+      {
+        label: "Listings",
+        field: "listings",
+      },
+      {
+        label: "Phone",
+        field: "phone",
+      },
+      {
+        label: "Email",
+        field: "email",
+      },
+      {
+        label: "Action",
+        field: "action",
+      }
+    ],
+    rows: users
+  };
+
+  const loadUsers = async () => {
+    axios.get(`${apiUrl}/users`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        res.data.data.forEach(user => {
+          if (user.type.name === "warehouser") {
+            const row = {
+              sn: users.length + 1,
+              name: `${user.firstName} ${user.lastName}`,
+              email: user.email,
+              phone: user.phoneNumber,
+              referral: "get it from db",
+              joinDate: "fetch Date",
+              type: user.type.name,
+              accountStatus: (users.length + 1) % 2 === 0 ? <MDBBadge className="success-color">Verified</MDBBadge> : <MDBBadge className="grey">Unverified</MDBBadge>,
+              action: (<div>
+                <Link to={`/user/${user.id}`} style={{ marginHorizontal: 1 }}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
+                <Link to={`/user/${user.id}`}><MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge></Link>
+                <Link to={`/user/${user.id}`}><MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge></Link>
+              </div>)
+            };
+            setUsers([...users, row]);
+          }
+        })
+      })
+      .catch(err => {
+        return [];
+      })
+  }
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+
   return (
     <MDBContainer>
       <MDBCard>

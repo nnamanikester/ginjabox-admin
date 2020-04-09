@@ -1,111 +1,89 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { apiUrl } from "../../config";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   MDBCard,
   MDBCardBody,
   MDBContainer,
   MDBDataTable,
-  MDBView
+  MDBView,
+  MDBBadge,
+  MDBIcon
 } from "mdbreact";
 
-const data = {
-  columns: [
-    {
-      label: "S/N",
-      field: "sn"
-    },
-    {
-      label: "Name",
-      field: "name"
-    },
-    {
-      label: "Email",
-      field: "email"
-    },
-    {
-      label: "Phone",
-      field: "phone"
-    },
-    {
-      label: "Role",
-      field: "role"
-    },
-    {
-      label: "Created At",
-      field: "createdAt"
-    },
-    {
-      label: "Action",
-      field: "action"
-    }
-  ],
-  rows: [
-    {
-      sn: 1,
-      name: "John Kester",
-      email: "email@email.com",
-      phone: "+234908348293",
-      role: "Super Admin",
-      createdAt: "2020/04/10",
-      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
-    },
-    {
-      sn: 2,
-      name: "Kingsley Whitegod",
-      email: "email@email.com",
-      phone: "+234908348293",
-      role: "Management",
-      createdAt: "2020/04/10",
-      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
-    },
-    {
-      sn: 3,
-      name: "Ezeh Chisom",
-      email: "email@email.com",
-      phone: "+234908348293",
-      role: "Support",
-      createdAt: "2020/04/10",
-      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
-    },
-    {
-      sn: 4,
-      name: "Kingsley Whitegod",
-      email: "email@email.com",
-      phone: "+234908348293",
-      role: "Management",
-      createdAt: "2020/04/10",
-      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
-    },
-    {
-      sn: 5,
-      name: "Nwagu Victor",
-      email: "email@email.com",
-      phone: "+234908348293",
-      role: "Team Lead",
-      createdAt: "2020/04/10",
-      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
-    },
-    {
-      sn: 6,
-      name: "Ezeh Chisom",
-      email: "email@email.com",
-      phone: "+234908348293",
-      role: "Support",
-      createdAt: "2020/04/10",
-      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
-    },
-    {
-      sn: 7,
-      name: "Nwagu Victor",
-      email: "email@email.com",
-      phone: "+234908348293",
-      role: "Team Lead",
-      createdAt: "2020/04/10",
-      action: <div><a href="#!">Ban</a><a href="#!">Delete</a></div>
-    }
-  ]
-};
 
 const AllStaff = () => {
+
+  const [staff, setStaff] = useState([]);
+
+  const data = {
+    columns: [
+      {
+        label: "S/N",
+        field: "sn"
+      },
+      {
+        label: "Name",
+        field: "name"
+      },
+      {
+        label: "Email",
+        field: "email"
+      },
+      {
+        label: "Phone",
+        field: "phone"
+      },
+      {
+        label: "Role",
+        field: "role"
+      },
+      {
+        label: "Created At",
+        field: "createdAt"
+      },
+      {
+        label: "Action",
+        field: "action"
+      }
+    ],
+    rows: staff
+  };
+
+
+  const loadUsers = async () => {
+    axios.get(`${apiUrl}/admin-users`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        res.data.data.forEach(user => {
+          const row = {
+            sn: staff.length + 1,
+            name: `${user.firstName} ${user.lastName}`,
+            email: user.email,
+            phone: user.phoneNumber,
+            role: user.role.name,
+            createdAt: user.createdAt,
+            action: (<div>
+              <Link to={`/user/${user.id}`} style={{ marginHorizontal: 1 }}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
+              <Link to={`/user/${user.id}`}><MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge></Link>
+              <Link to={`/user/${user.id}`}><MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge></Link>
+            </div>)
+          };
+          setStaff([...staff, row]);
+        })
+      })
+      .catch(err => {
+        console.log(err);
+        return [];
+      })
+  }
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
   return (
     <MDBContainer>
       <MDBCard>
