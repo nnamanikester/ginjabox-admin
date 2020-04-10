@@ -2,7 +2,9 @@
 * A Page that displays the users information including; Listings Log,
 * transactions Log, and other necessary information. 
 */
-import React from 'react';
+import React, { Component } from "react";
+import { apiUrl } from "../config";
+import axios from "axios";
 import {
   MDBContainer,
   MDBRow,
@@ -218,17 +220,34 @@ const ratingHistory = {
 };
 
 
-class SingleUser extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      send: false
-    };
+
+class SingleUser extends Component {
+
+  state = {
+    user: null,
+    send: false
+  }
+
+  componentDidMount() {
+    this.loadUser();
   }
 
   toggleSendMail = () => {
     this.setState({ send: !this.state.send });
   };
+
+  loadUser = async () => {
+    axios.get(`${apiUrl}/users/${this.props.match.params.id}`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        this.setState({ user: res.data.data })
+      })
+      .catch(err => {
+        return [];
+      })
+  }
+
 
   renderModal = () => {
     return (
@@ -274,12 +293,12 @@ class SingleUser extends React.Component {
                 />
                 <MDBCardBody>
                   <MDBCardTitle>
-                    <strong>firstName lastName</strong>
+                    <strong>{this.state.user ? this.state.user.firstName : ''} {this.state.user ? this.state.user.lastName : ''}</strong>
                   </MDBCardTitle>
                   <span>
-                    <span className="teal-text">email@email.com</span>
+                    <span className="teal-text">{this.state.user ? this.state.user.email : ''}</span>
                     {' | '}
-                    <span className="teal-text">+234801987438</span>
+                    <span className="teal-text">{this.state.user ? this.state.user.phoneNumber : ''}</span>
                   </span>
                   <p className='dark-grey-text'>123 Agbani Road, Enugu, Nigeria.</p>
                   <ul className='list-unstyled pt-4 text-left'>

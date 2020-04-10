@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { apiUrl } from "../../config";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   MDBCard,
   MDBCardBody,
@@ -10,62 +13,120 @@ import {
   MDBModalBody,
   MDBModalHeader,
   MDBInput,
-  MDBIcon
+  MDBIcon,
+  MDBBadge
 } from "mdbreact";
 
-const data = {
-  columns: [
-    {
-      label: "S/N",
-      field: "sn"
-    },
-    {
-      label: "Role Name",
-      field: "roleName"
-    },
-    {
-      label: "Date Created",
-      field: "dateCreated"
-    },
-    {
-      label: "Action",
-      field: "action"
-    }
-  ],
-  rows: [
-    {
-      sn: "1",
-      roleName: "Super Admin",
-      dateCreated: "2009/04/10",
-      action: <div><a href="#!">Delete</a></div>
-    },
-    {
-      sn: "2",
-      roleName: "Management",
-      dateCreated: "2009/04/10",
-      action: <div><a href="#!">Delete</a></div>
-    },
-    {
-      sn: "3",
-      roleName: "Support",
-      dateCreated: "2009/04/10",
-      action: <div><a href="#!">Delete</a></div>
-    },
-    {
-      sn: "4",
-      roleName: "Team Lead",
-      dateCreated: "2009/04/10",
-      action: <div><a href="#!">Delete</a></div>
-    }
-  ]
-};
-
 const RoleManagement = () => {
-
   const [openModal, setOpenModal] = useState(false);
+  const [roles, setRoles] = useState([]);
+  const [roleName, setRoleName] = useState('');
+  const [feedback, setFeedback] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   const toggleModal = () => {
     setOpenModal(!openModal);
+  }
+
+
+  const data = {
+    columns: [
+      {
+        label: "S/N",
+        field: "sn"
+      },
+      {
+        label: "Role Name",
+        field: "roleName"
+      },
+      {
+        label: "Date Created",
+        field: "dateCreated"
+      },
+      {
+        label: "Date Updated",
+        field: "dateUpdated"
+      },
+      {
+        label: "Action",
+        field: "action"
+      }
+    ],
+    rows: roles
+  };
+
+
+  const loadRoles = async () => {
+    axios.get(`${apiUrl}/admin-roles`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        let cnt = 1;
+        let sn = roles.length;
+        const rows = res.data.data.map(role => {
+          const row = {
+            sn: sn + 1,
+            roleName: role.name,
+            dateCreated: role.createdAt,
+            dateUpdated: role.updatedAt,
+            action: (<div>
+              {(cnt !== 1) && (<>
+                <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
+                <MDBBadge className="danger-color"><MDBIcon icon="trash-alt" className="white-text" /></MDBBadge>
+              </>)}
+            </div>)
+          };
+          sn++
+          cnt++;
+          return row;
+        })
+        setRoles([...roles, ...rows]);
+      })
+      .catch(err => {
+        console.log(err);
+        return [];
+      })
+  }
+
+  const createRole = () => {
+    setLoading(true);
+    if (!roleName) {
+      setLoading(false);
+      return setFeedback("Role name cannot be empty!");
+    }
+    const name = { name: roleName };
+    axios.post(`${apiUrl}/admin-roles`, name, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        const role = res.data.data
+        const row = {
+          sn: roles.length + 1,
+          roleName: role.name,
+          dateCreated: role.createdAt,
+          dateUpdated: role.updatedAt,
+          action: (<div>
+            <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
+            <MDBBadge className="danger-color"><MDBIcon icon="trash-alt" className="white-text" /></MDBBadge>
+          </div>)
+        };
+        setRoles([...roles, row]);
+        setLoading(false);
+        toggleModal();
+      })
+      .catch(err => {
+        setLoading(false);
+        console.log(err);
+      })
+  }
+
+  useEffect(() => {
+    loadRoles();
+  }, []);
+
+  const handleRoleName = (e) => {
+    setRoleName(e.target.value);
   }
 
   return (
@@ -105,13 +166,17 @@ const RoleManagement = () => {
           <MDBIcon icon="add" className='mr-2' />{' '}
           Create A New Role
         </MDBModalHeader>
+        <div className="alert-danger">{feedback && feedback}</div>
         <MDBModalBody className='mb-0'>
-          <MDBInput label='Role  Name' />
+          <MDBInput label='Role  Name' value={roleName} onChange={(val) => handleRoleName(val)} />
           <div className='text-center mb-1-half'>
             <MDBBtn
               className='teal accent-4 mb-2'
-              onClick={openModal === false ? () => { } : () => toggleModal()}
-            >
+              onClick={() => createRole()}
+            >{loading && (
+              <div className="spinner-border spinner-border-sm text-white" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>)}
               Create
               <MDBIcon icon="plus" className='ml-1' />
             </MDBBtn>

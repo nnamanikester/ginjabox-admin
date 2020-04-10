@@ -49,24 +49,7 @@ const AllWarehouser = () => {
         field: "action",
       }
     ],
-    rows: [
-      {
-        sn: "1",
-        name: "Gloria Little",
-        transactions: "7",
-        phone: "+234984077364",
-        email: "email@gmial.com",
-        action: <MDBLink to="/user/username">View trasnactions</MDBLink>
-      },
-      {
-        sn: "2",
-        name: "Eze Nwafor",
-        transactions: "13",
-        phone: "+234818483344",
-        email: "email@gmial.com",
-        action: <MDBLink to="/user/username">View trasnactions</MDBLink>
-      }
-    ]
+    rows: users
   };
 
   const loadUsers = async () => {
@@ -75,7 +58,7 @@ const AllWarehouser = () => {
     })
       .then(res => {
         res.data.data.forEach(user => {
-          if (user.type.name === "warehouser") {
+          if (user.type.name === "warehouser" && user.status === 1) {
             const row = {
               sn: users.length + 1,
               name: `${user.firstName} ${user.lastName}`,

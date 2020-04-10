@@ -57,7 +57,7 @@ const AllWarehouser = () => {
     })
       .then(res => {
         res.data.data.forEach(user => {
-          if (user.type.name === "warehouser") {
+          if (user.type.name === "warehouser" && user.status === 1) {
             const row = {
               sn: users.length + 1,
               name: `${user.firstName} ${user.lastName}`,

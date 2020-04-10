@@ -102,9 +102,9 @@ class Routes extends React.Component {
 
   isLogged = () => useSelector(state => state.isLogged);
 
-  requiresAuth = (Comp) => {
+  requiresAuth = (Comp, match = "") => {
     if (this.isLogged || localStorage.getItem("token")) {
-      return <Comp />;
+      return <Comp match={match} />;
     } else {
       return <Redirect to="/login" />
     }
@@ -113,73 +113,73 @@ class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path="/" exact render={() => this.requiresAuth(Dashboard)} />
+        <Route path="/" exact render={({ match }) => this.requiresAuth(Dashboard, match)} />
         <Route
           path="/email-notification"
           exact
-          render={() => this.requiresAuth(EmailNotifications)}
+          render={({ match }) => this.requiresAuth(EmailNotifications, match)}
         />
         <Route
-          path="/user/:username"
+          path="/user/:id"
           exact
-          render={() => this.requiresAuth(SingleUser)}
+          render={({ match }) => this.requiresAuth(SingleUser, match)}
         />
 
         {/* INVENTORY LOG */}
         <Route
           path="/logs/dispatch-order-log"
           exact
-          render={() => this.requiresAuth(DispatchOrderLog)}
+          render={({ match }) => this.requiresAuth(DispatchOrderLog, match)}
         />
         <Route
           path="/logs/rejected-stock-log"
           exact
-          render={() => this.requiresAuth(RejectedStockLog)}
+          render={({ match }) => this.requiresAuth(RejectedStockLog)}
         />
         <Route
           path="/logs/stock-receipt-log"
           exact
-          render={() => this.requiresAuth(StockReceiptLog)}
+          render={({ match }) => this.requiresAuth(StockReceiptLog)}
         />
 
         {/* SETTINGS */}
-        <Route path="/settings/edit-password" exact render={() => this.requiresAuth(EditPassword)} />
+        <Route path="/settings/edit-password" exact render={({ match }) => this.requiresAuth(EditPassword)} />
         {/* {(permission === 1 || this.permission === 2) && (<> */}
         <Route
           path="/settings/email-settings"
           exact
-          render={() => this.requiresAuth(EmailSettings)}
+          render={({ match }) => this.requiresAuth(EmailSettings)}
         />
-        <Route path="/settings/sms-settings" exact render={() => this.requiresAuth(SmsSettings)} />
+        <Route path="/settings/sms-settings" exact render={({ match }) => this.requiresAuth(SmsSettings)} />
         {/* </>)} */}
 
         {/* STAFF MANAGEMENT */}
         {/* {(permission === 1) && (<> */}
-        <Route path="/staff/add-staff" exact render={() => this.requiresAuth(AddNewStaff)} />
-        <Route path="/staff/all-staff" exact render={() => this.requiresAuth(AllStaff)} />
-        <Route path="/staff/role-management" exact render={() => this.requiresAuth(RoleManagement)} />
+        <Route path="/staff/add-staff" exact render={({ match }) => this.requiresAuth(AddNewStaff, match)} />
+        <Route path="/staff/all-staff" exact render={({ match }) => this.requiresAuth(AllStaff, match)} />
+        <Route path="/staff/role-management" exact render={({ match }) => this.requiresAuth(RoleManagement, match)} />
         {/* </>)} */}
 
         {/* TRANSACTION LOG */}
-        <Route path="/logs/expired-rent-log" exact render={() => this.requiresAuth(ExpiredRentLog)} />
+        <Route path="/logs/expired-rent-log" exact render={({ match }) => this.requiresAuth(ExpiredRentLog, match)} />
         <Route
           path="/logs/merchant-payout-log"
           exact
-          render={() => this.requiresAuth(MerchantPayoutLog)}
+          render={({ match }) => this.requiresAuth(MerchantPayoutLog, match)}
         />
-        <Route path="/logs/referral-log" exact render={() => this.requiresAuth(ReferralLog)} />
+        <Route path="/logs/referral-log" exact render={({ match }) => this.requiresAuth(ReferralLog, match)} />
         <Route
           path="/logs/warehousers-payment-log"
           exact
-          render={() => this.requiresAuth(WareHousersPaymentLog)}
+          render={({ match }) => this.requiresAuth(WareHousersPaymentLog, match)}
         />
-        <Route path="/logs/withdrawal-log" exact render={() => this.requiresAuth(WithdrawalLog)} />
+        <Route path="/logs/withdrawal-log" exact render={({ match }) => this.requiresAuth(WithdrawalLog, match)} />
 
         {/* USER MANAGEMENT */}
-        <Route path="/users/merchants" exact render={() => this.requiresAuth(AllMerchants)} />
-        <Route path="/users/all-users" exact render={() => this.requiresAuth(AllUsers)} />
-        <Route path="/users/warehousers" exact render={() => this.requiresAuth(AllWarehouser)} />
-        <Route path="/users/banned-users" exact render={() => this.requiresAuth(BannedUsers)} />
+        <Route path="/users/merchants" exact render={({ match }) => this.requiresAuth(AllMerchants, match)} />
+        <Route path="/users/all-users" exact render={({ match }) => this.requiresAuth(AllUsers, match)} />
+        <Route path="/users/warehousers" exact render={({ match }) => this.requiresAuth(AllWarehouser, match)} />
+        <Route path="/users/banned-users" exact render={({ match }) => this.requiresAuth(BannedUsers, match)} />
 
 
 
