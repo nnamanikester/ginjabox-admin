@@ -53,11 +53,18 @@ const RoleManagement = () => {
         field: "action"
       }
     ],
-    rows: roles
+    rows: !loading ? roles : [{
+      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      roleName: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      dateCreated: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      dateUpdated: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      action: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+    }, ...roles]
   };
 
 
   const loadRoles = async () => {
+    setLoading(true);
     axios.get(`${apiUrl}/admin-roles`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
@@ -81,10 +88,10 @@ const RoleManagement = () => {
           cnt++;
           return row;
         })
-        setRoles([...roles, ...rows]);
+        setLoading(false);
+        setRoles([...rows]);
       })
       .catch(err => {
-        console.log(err);
         return [];
       })
   }

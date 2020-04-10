@@ -15,6 +15,7 @@ import {
 const BannedUsers = () => {
 
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const data = {
     columns: [
@@ -43,10 +44,18 @@ const BannedUsers = () => {
         field: "action",
       }
     ],
-    rows: users
+    rows: !loading ? users : [{
+      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      name: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      email: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      phone: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      accountStatus: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      action: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+    }]
   };
 
   const loadUsers = async () => {
+    setLoading(true);
     axios.get(`${apiUrl}/users`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
@@ -62,7 +71,7 @@ const BannedUsers = () => {
               type: user.type.name,
               accountStatus: <MDBBadge className="danger-color">Banned</MDBBadge>,
               action: (<div>
-                <MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge>
+                <Link to={`/user/${user.id}`}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
                 <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
                 <MDBBadge className="success-color"><MDBIcon icon="check" className="white-text" /></MDBBadge>
               </div>)
@@ -72,7 +81,8 @@ const BannedUsers = () => {
           sn++;
           return null;
         })
-        setUsers([...users, ...rows]);
+        setLoading(false);
+        setUsers([...rows]);
       })
       .catch(err => {
         return [];
@@ -92,7 +102,7 @@ const BannedUsers = () => {
             className="teal accent-4 narrower py-2 my-3 d-flex justify-content-between align-items-center"
           >
             <div className="text-left"></div>
-            <span className="white-text text-bold mx-3">All Users</span>
+            <span className="white-text text-bold mx-3">Banned Users</span>
             <div className="text-right"></div>
           </MDBView>
         </MDBCard>

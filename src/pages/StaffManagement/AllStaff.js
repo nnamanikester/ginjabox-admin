@@ -16,6 +16,7 @@ import {
 const AllStaff = () => {
 
   const [staff, setStaff] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const data = {
     columns: [
@@ -48,16 +49,25 @@ const AllStaff = () => {
         field: "action"
       }
     ],
-    rows: staff
+    rows: !loading ? staff : [{
+      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      name: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      email: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      phone: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      role: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      createdAt: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      action: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+    }]
   };
 
 
   const loadUsers = async () => {
+    setLoading(true);
     axios.get(`${apiUrl}/admin-users`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
-        res.data.data.forEach(user => {
+        const rows = res.data.data.map(user => {
           const row = {
             sn: staff.length + 1,
             name: `${user.firstName} ${user.lastName}`,
@@ -65,14 +75,15 @@ const AllStaff = () => {
             phone: user.phoneNumber,
             role: user.role.name,
             createdAt: user.createdAt,
-            action: (<div>
-              <Link to={`/user/${user.id}`} style={{ marginHorizontal: 1 }}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
-              <Link to={`/user/${user.id}`}><MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge></Link>
-              <Link to={`/user/${user.id}`}><MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge></Link>
-            </div>)
+            action: user.roleId !== 1 ? (<div>
+              <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
+              <MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge>
+            </div>) : null
           };
-          setStaff([...staff, row]);
+          return row;
         })
+        setLoading(false);
+        setStaff([...rows]);
       })
       .catch(err => {
         console.log(err);

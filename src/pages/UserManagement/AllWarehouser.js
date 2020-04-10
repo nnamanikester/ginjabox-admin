@@ -20,6 +20,7 @@ import {
 const AllWarehouser = () => {
 
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const data = {
     columns: [
@@ -32,10 +33,6 @@ const AllWarehouser = () => {
         field: "name",
       },
       {
-        label: "Listings",
-        field: "listings",
-      },
-      {
         label: "Phone",
         field: "phone",
       },
@@ -44,38 +41,52 @@ const AllWarehouser = () => {
         field: "email",
       },
       {
+        label: "Account Status",
+        field: "accountStatus"
+      },
+      {
         label: "Action",
         field: "action",
       }
     ],
-    rows: users
+    rows: !loading ? users : [{
+      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      name: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      email: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      phone: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      accountStatus: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      action: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+    }]
   };
 
   const loadUsers = async () => {
+    setLoading(true);
     axios.get(`${apiUrl}/users`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
-        res.data.data.forEach(user => {
-          if (user.type.name === "warehouser" && user.status === 1) {
+        let sn = users.length;
+        const rows = res.data.data.map(user => {
+          if (user.type.name === "warehouser") {
             const row = {
-              sn: users.length + 1,
+              sn: sn + 1,
               name: `${user.firstName} ${user.lastName}`,
               email: user.email,
               phone: user.phoneNumber,
-              referral: "get it from db",
-              joinDate: "fetch Date",
-              type: user.type.name,
-              accountStatus: (users.length + 1) % 2 === 0 ? <MDBBadge className="success-color">Verified</MDBBadge> : <MDBBadge className="grey">Unverified</MDBBadge>,
+              accountStatus: user.status === 1 ? <MDBBadge className="success-color">Active</MDBBadge> : <MDBBadge className="danger-color">Banned</MDBBadge>,
               action: (<div>
-                <Link to={`/user/${user.id}`} style={{ marginHorizontal: 1 }}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
-                <Link to={`/user/${user.id}`}><MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge></Link>
-                <Link to={`/user/${user.id}`}><MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge></Link>
+                <Link to={`/user/${user.id}`}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
+                <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
+                <MDBBadge className={user.status === 1 ? "danger-color" : "success-color"}><MDBIcon icon={user.status === 1 ? "ban" : "check"} className="white-text" /></MDBBadge>
               </div>)
             };
-            setUsers([...users, row]);
+            sn++;
+            return row;
           }
+          return null;
         })
+        setLoading(false);
+        setUsers([...rows]);
       })
       .catch(err => {
         return [];

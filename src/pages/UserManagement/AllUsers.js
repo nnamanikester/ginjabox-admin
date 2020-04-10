@@ -15,6 +15,7 @@ import {
 const AllUsers = () => {
 
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const data = {
     columns: [
@@ -47,10 +48,19 @@ const AllUsers = () => {
         field: "action",
       }
     ],
-    rows: users
+    rows: !loading ? users : [{
+      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      name: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      email: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      phone: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      type: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      accountStatus: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      action: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+    }]
   };
 
   const loadUsers = async () => {
+    setLoading(true);
     axios.get(`${apiUrl}/users`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
@@ -65,15 +75,16 @@ const AllUsers = () => {
             type: user.type.name,
             accountStatus: user.status === 1 ? <MDBBadge className="success-color">Active</MDBBadge> : <MDBBadge className="danger-color">Banned</MDBBadge>,
             action: (<div>
-              <Link to={`/user/${user.id}`} style={{ marginHorizontal: 1 }}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
-              <Link to={`/user/${user.id}`}><MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge></Link>
-              <Link to={`/user/${user.id}`}><MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge></Link>
+              <Link to={`/user/${user.id}`}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
+              <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
+              <MDBBadge className={user.status === 1 ? "danger-color" : "success-color"}><MDBIcon icon={user.status === 1 ? "ban" : "check"} className="white-text" /></MDBBadge>
             </div>)
           };
           sn++;
           return row;
         })
-        setUsers([...users, ...rows]);
+        setLoading(false);
+        setUsers([...rows]);
       })
       .catch(err => {
         return [];
