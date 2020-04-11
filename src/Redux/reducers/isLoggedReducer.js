@@ -7,6 +7,8 @@ const isLoggedReducer = (state = false, action) => {
       localStorage.setItem("email", email);
       localStorage.setItem("roleId", roleId);
       return state = true;
+    case "LOGOUT":
+      return state = false;
     default:
       return state = false;
   }

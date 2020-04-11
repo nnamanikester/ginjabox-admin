@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { getPermission } from "../Redux/actions/permission";
+import { connect } from "react-redux";
 
 // PAGES
 import Dashboard from "../pages/Dashboard";
@@ -36,14 +35,17 @@ import AllUsers from "../pages/UserManagement/AllUsers";
 import AllWarehouser from "../pages/UserManagement/AllWarehouser";
 import BannedUsers from "../pages/UserManagement/BannedUsers";
 
+
+
 const FourToFour = () => <h1 className="text-center">404</h1>;
 
-// const permission = useSelector(state => state.permission);
-// const dispatch = useDispatch();
+const mapStateToProps = state => ({
+  permit: state.permission
+})
 
 class Routes extends React.Component {
 
-  isLogged = () => useSelector(state => state.isLogged);
+  isLogged = this.props.isLogged;
 
   requiresAuth = (Comp, match = "") => {
     if (this.isLogged || localStorage.getItem("token")) {
@@ -54,6 +56,7 @@ class Routes extends React.Component {
   }
 
   render() {
+    const { permit } = this.props;
     return (
       <Switch>
         <Route path="/" exact render={({ match }) => this.requiresAuth(Dashboard, match)} />
@@ -97,32 +100,31 @@ class Routes extends React.Component {
         {/* </>)} */}
 
         {/* STAFF MANAGEMENT */}
-        {/* {(permission === 1) && (<> */}
-        <Route path="/staff/add-staff" exact render={({ match }) => this.requiresAuth(AddNewStaff, match)} />
-        <Route path="/staff/all-staff" exact render={({ match }) => this.requiresAuth(AllStaff, match)} />
-        <Route path="/staff/role-management" exact render={({ match }) => this.requiresAuth(RoleManagement, match)} />
-        {/* </>)} */}
+        {permit.management && <Route path="/staff/add-staff" exact render={({ match }) => this.requiresAuth(AddNewStaff, match)} />}
+        {permit.management && <Route path="/staff/all-staff" exact render={({ match }) => this.requiresAuth(AllStaff, match)} />}
+        {permit.management && <Route path="/staff/role-management" exact render={({ match }) => this.requiresAuth(RoleManagement, match)} />}
 
         {/* TRANSACTION LOG */}
-        <Route path="/logs/expired-rent-log" exact render={({ match }) => this.requiresAuth(ExpiredRentLog, match)} />
-        <Route
+        {permit.management && <Route path="/logs/expired-rent-log" exact render={({ match }) => this.requiresAuth(ExpiredRentLog, match)} />}
+        {permit.management && <Route
           path="/logs/merchant-payout-log"
           exact
           render={({ match }) => this.requiresAuth(MerchantPayoutLog, match)}
-        />
-        <Route path="/logs/referral-log" exact render={({ match }) => this.requiresAuth(ReferralLog, match)} />
-        <Route
+        />}
+        {permit.management && <Route path="/logs/referral-log" exact render={({ match }) => this.requiresAuth(ReferralLog, match)} />}
+        {permit.management && <Route
           path="/logs/warehousers-payment-log"
           exact
           render={({ match }) => this.requiresAuth(WareHousersPaymentLog, match)}
-        />
-        <Route path="/logs/withdrawal-log" exact render={({ match }) => this.requiresAuth(WithdrawalLog, match)} />
+        />}
+        {permit.management && <Route path="/logs/withdrawal-log" exact render={({ match }) => this.requiresAuth(WithdrawalLog, match)} />}
 
         {/* USER MANAGEMENT */}
         <Route path="/users/merchants" exact render={({ match }) => this.requiresAuth(AllMerchants, match)} />
         <Route path="/users/all-users" exact render={({ match }) => this.requiresAuth(AllUsers, match)} />
         <Route path="/users/warehousers" exact render={({ match }) => this.requiresAuth(AllWarehouser, match)} />
         <Route path="/users/banned-users" exact render={({ match }) => this.requiresAuth(BannedUsers, match)} />
+
 
         <Route render={({ location }) => {
           if (location.pathname === "/login") return <Redirect to="/" />;
@@ -133,4 +135,4 @@ class Routes extends React.Component {
   }
 }
 
-export default Routes;
+export default connect(mapStateToProps)(Routes);

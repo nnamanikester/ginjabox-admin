@@ -33,7 +33,7 @@ const TopNavigation = (props) => {
     dispatch(LogOut());
     return <Redirect to="/login" />;
   }
-
+ 
   return (
     <Router>
       <MDBNavbar

@@ -19,6 +19,7 @@ const AddNewStaff = () => {
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -77,7 +78,7 @@ const AddNewStaff = () => {
           role: '',
           password: ''
         });
-        return <Redirect to="staff/all-staff" />;
+        setSuccess("Staff Created Successfully!");
       })
       .catch(err => {
         setLoading(false);
@@ -94,6 +95,7 @@ const AddNewStaff = () => {
               <h3> Add New Staff </h3>
             </div>
             <div className="mx-2 alert-danger">{feedback && feedback}</div>
+            <div className="mx-2 alert-success">{success && success}</div>
             <MDBInput label='First Name' value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} />
             <MDBInput label='Last Name' value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} />
             <MDBInput label='Email' value={form.email} type="email" onChange={(e) => setForm({ ...form, email: e.target.value })} />

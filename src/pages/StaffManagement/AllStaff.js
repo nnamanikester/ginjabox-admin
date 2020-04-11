@@ -67,9 +67,10 @@ const AllStaff = () => {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
+        let sn = staff.length;
         const rows = res.data.data.map(user => {
           const row = {
-            sn: staff.length + 1,
+            sn: sn + 1,
             name: `${user.firstName} ${user.lastName}`,
             email: user.email,
             phone: user.phoneNumber,
@@ -80,6 +81,7 @@ const AllStaff = () => {
               <MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge>
             </div>) : null
           };
+          sn++;
           return row;
         })
         setLoading(false);
