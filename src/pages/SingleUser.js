@@ -16,6 +16,7 @@ import {
   MDBDataTable,
   MDBCardHeader
 } from 'mdbreact';
+import Skeleton from "react-loading-skeleton";
 
 
 const SingleUser = ({ match }) => {
@@ -173,20 +174,6 @@ const SingleUser = ({ match }) => {
     }) : []
   };
 
-
-
-  const LoadingComp = () => {
-    return (
-      <MDBContainer className="d-flex justify-content-center">
-        <div className="mt-5">
-          <div className="spinner-border spinner-border-lg teal-text" role="status" >
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      </MDBContainer>
-    );
-  }
-
   const ErrorLoading = () => {
     return (
       <MDBContainer className="d-flex justify-content-center">
@@ -199,7 +186,58 @@ const SingleUser = ({ match }) => {
   }
 
   if (loading) {
-    return <LoadingComp />;
+    return (
+      <div id='profile-ex' className='mb-5'>
+        <MDBContainer fluid>
+          <MDBRow>
+            <MDBCol lg='4' md='12'>
+              <MDBCard className='profile-card text-center mb-4'>
+                <MDBCardHeader className="teal accent-4 text-white">
+                  <Skeleton />
+                </MDBCardHeader>
+                <MDBCardBody>
+                  <Skeleton count={4} />
+                </MDBCardBody>
+              </MDBCard>
+              <MDBCard className='mb-4'>
+                <MDBCardHeader className="teal accent-4 text-white">
+                  <Skeleton />
+                </MDBCardHeader>
+                <MDBCardBody>
+                  <Skeleton count={4} />
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+            <MDBCol lg='8' md='12' className='text-center'>
+              <MDBCard className="mb-4">
+                <MDBCardHeader className="teal accent-4 text-white">
+                  <Skeleton />
+                </MDBCardHeader>
+                <MDBCardBody>
+                  <Skeleton count={8} />
+                </MDBCardBody>
+              </MDBCard>
+              <MDBCard className="mb-4">
+                <MDBCardHeader className="teal accent-4 text-white">
+                  <Skeleton />
+                </MDBCardHeader>
+                <MDBCardBody>
+                  <Skeleton count={8} />
+                </MDBCardBody>
+              </MDBCard>
+              <MDBCard className="mb-4">
+                <MDBCardHeader className="teal accent-4 text-white">
+                  <Skeleton />
+                </MDBCardHeader>
+                <MDBCardBody>
+                  <Skeleton count={8} />
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </div>
+    );
   } else if (loading === null) {
     return <ErrorLoading />
   } else {

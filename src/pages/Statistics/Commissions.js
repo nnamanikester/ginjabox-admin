@@ -8,20 +8,18 @@ import {
   MDBIcon,
   MDBProgress
 } from "mdbreact"
+import Skeleton from "react-loading-skeleton";
 
 const Commissions = () => {
-  const [loading, setLoading] = useState(false);
   const [totalCommissions, setTotalCommissions] = useState(0);
 
 
   const loadTotalCommissions = async () => {
-    setLoading(true);
     axios.get(`${apiUrl}/statistics/total-commissions`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
         setTotalCommissions(res.data.data);
-        setLoading(false);
       })
       .catch(err => {
         return 0;
@@ -40,8 +38,8 @@ const Commissions = () => {
           <div className="data">
             <p>Total Commissions</p>
             <h5 className="font-weight-bold dark-grey-text">
-              &#8358; {totalCommissions && totalCommissions}
-              {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >}
+              &#8358; {totalCommissions || <Skeleton />}
+              {/* {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >} */}
             </h5>
           </div>
         </div>

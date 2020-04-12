@@ -9,6 +9,7 @@ import {
   MDBView,
   MDBBadge
 } from "mdbreact";
+import Skeleton from "react-loading-skeleton";
 
 
 const WithdrawalLog = () => {
@@ -55,15 +56,15 @@ const WithdrawalLog = () => {
       }
     ],
     rows: !loading ? trans : [{
-      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      transactionId: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      userEmail: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      type: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      status: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      desc: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      amount: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      commission: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      date: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+      sn: <Skeleton />,
+      transactionId: <Skeleton />,
+      userEmail: <Skeleton />,
+      type: <Skeleton />,
+      status: <Skeleton />,
+      desc: <Skeleton />,
+      amount: <Skeleton />,
+      commission: <Skeleton />,
+      date: <Skeleton />
     }]
   };
 

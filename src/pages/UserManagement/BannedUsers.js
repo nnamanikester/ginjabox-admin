@@ -11,6 +11,7 @@ import {
   MDBIcon,
   MDBBadge
 } from "mdbreact";
+import Skeleton from "react-loading-skeleton";
 
 const BannedUsers = () => {
 
@@ -45,12 +46,12 @@ const BannedUsers = () => {
       }
     ],
     rows: !loading ? users : [{
-      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      name: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      email: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      phone: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      accountStatus: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      action: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+      sn: <Skeleton />,
+      name: <Skeleton />,
+      email: <Skeleton />,
+      phone: <Skeleton />,
+      accountStatus: <Skeleton />,
+      action: <Skeleton />
     }]
   };
 

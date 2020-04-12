@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiUrl } from "../../config";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 import {
   MDBCol,
   MDBCardBody,
@@ -10,17 +11,17 @@ import {
 } from "mdbreact"
 
 const Users = () => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [totalUsers, setTotalUsers] = useState(0);
 
   const loadTotalUsers = async () => {
-    setLoading(true);
+    // setLoading(true);
     axios.get(`${apiUrl}/statistics/total-users`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
         setTotalUsers(res.data.data);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch(err => {
         return 0;
@@ -39,8 +40,8 @@ const Users = () => {
           <div className="data">
             <p>Total Users</p>
             <h5 className="font-weight-bold dark-grey-text">
-              {totalUsers && totalUsers}
-              {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >}
+              {totalUsers || <Skeleton />}
+              {/* {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >} */}
             </h5>
           </div>
         </div>

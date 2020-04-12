@@ -8,19 +8,17 @@ import {
   MDBIcon,
   MDBProgress
 } from "mdbreact"
+import Skeleton from "react-loading-skeleton";
 
 const Transactions = () => {
-  const [loading, setLoading] = useState(false);
   const [totalTransactions, setTotalTransactions] = useState(0);
 
   const loadTotalTransactions = async () => {
-    setLoading(true);
     axios.get(`${apiUrl}/statistics/total-transactions`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
         setTotalTransactions(res.data.data);
-        setLoading(false);
       })
       .catch(err => {
         return 0;
@@ -40,8 +38,8 @@ const Transactions = () => {
           <div className="data">
             <p>Total Transactions</p>
             <h5 className="font-weight-bold dark-grey-text">
-              {totalTransactions && totalTransactions}
-              {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >}
+              {totalTransactions || <Skeleton />}
+              {/* {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >} */}
             </h5>
           </div>
         </div>

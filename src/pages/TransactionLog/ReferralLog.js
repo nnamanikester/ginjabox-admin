@@ -8,6 +8,7 @@ import {
   MDBDataTable,
   MDBView
 } from "mdbreact";
+import Skeleton from "react-loading-skeleton";
 
 
 const ReferralLog = () => {
@@ -42,12 +43,12 @@ const ReferralLog = () => {
       }
     ],
     rows: !loading ? referrals : [{
-      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      refId: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      refCode: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      userId: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      referrals: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
-      date: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+      sn: <Skeleton />,
+      refId: <Skeleton />,
+      refCode: <Skeleton />,
+      userId: <Skeleton />,
+      referrals: <Skeleton />,
+      date: <Skeleton />
     }]
   };
 
