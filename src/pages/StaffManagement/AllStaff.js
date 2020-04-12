@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { apiUrl } from "../../config";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import {
   MDBCard,
   MDBCardBody,

@@ -31,9 +31,10 @@ const TopNavigation = (props) => {
   const logout = () => {
     localStorage.clear();
     dispatch(LogOut());
+    window.location.reload();
     return <Redirect to="/login" />;
   }
- 
+
   return (
     <Router>
       <MDBNavbar

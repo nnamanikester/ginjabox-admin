@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { apiUrl } from "../../config";
 import {
   MDBCard,
   MDBCardBody,
@@ -7,42 +9,82 @@ import {
   MDBView
 } from "mdbreact";
 
-const data = {
-  columns: [
-    {
-      label: "S/N",
-      field: "sn",
-    },
-    {
-      label: "Referrer ID",
-      field: "referrer",
-    },
-    {
-      label: "Referred ID",
-      field: "referred",
-    },
-    {
-      label: "Date Joined",
-      field: "date",
-    }
-  ],
-  rows: [
-    {
-      sn: "1",
-      referrer: "34ujyG7G45",
-      referred: "7dg7HHD438",
-      date: "2020/03/02",
-    },
-    {
-      sn: "2",
-      referrer: "34ujyG7G45",
-      referred: "7dg7HHD438",
-      date: "2020/03/02"
-    },
-  ]
-};
 
 const ReferralLog = () => {
+  const [loading, setLoading] = useState(false);
+  const [referrals, setReferrals] = useState([]);
+
+  const data = {
+    columns: [
+      {
+        label: "S/N",
+        field: "sn",
+      },
+      {
+        label: "Referral ID",
+        field: "refId",
+      },
+      {
+        label: "Referral Code",
+        field: "refCode",
+      },
+      {
+        label: "User ID",
+        field: "userId",
+      },
+      {
+        label: "Referrals",
+        field: "referrals",
+      },
+      {
+        label: "Date Created",
+        field: "date",
+      }
+    ],
+    rows: !loading ? referrals : [{
+      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      refId: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      refCode: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      userId: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      referrals: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      date: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+    }]
+  };
+
+
+  const loadReferrals = async () => {
+    setLoading(true);
+    axios.get(`${apiUrl}/referrals`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        let sn = referrals.length;
+        const rows = res.data.data.map(ref => {
+          const row = {
+            sn: sn + 1,
+            refId: ref.id,
+            refCode: ref.refCode,
+            userId: ref.userId,
+            referrals: ref.refs.length,
+            date: ref.createdAt
+          };
+          sn++;
+          return row;
+        })
+        setLoading(false);
+        setReferrals([...rows]);
+      })
+      .catch(err => {
+        console.log(err);
+        return [];
+      })
+  }
+
+  useEffect(() => {
+    loadReferrals();
+  }, []);
+
+
   return (
     <MDBContainer>
       <MDBCard>

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { apiUrl } from "../../config";
 import {
   MDBCard,
   MDBCardBody,
@@ -8,69 +10,100 @@ import {
   MDBBadge
 } from "mdbreact";
 
-const data = {
-  columns: [
-    {
-      label: "S/N",
-      field: "sn",
-    },
-    {
-      label: "Transaction ID",
-      field: "transactionId",
-    },
-    {
-      label: "User Name",
-      field: "userName",
-    },
-    {
-      label: "User Email",
-      field: "userEmail",
-    },
-    {
-      label: "Amount",
-      field: "amount",
-    },
-    {
-      label: "Status",
-      field: "status",
-    },
-    {
-      label: "Date",
-      field: "date",
-    }
-  ],
-  rows: [
-    {
-      sn: "1",
-      transactionId: "876483hu384989G94",
-      userName: "John Kester",
-      userEmail: "email@email.com",
-      amount: "20,000",
-      status: <MDBBadge color="success">Paid</MDBBadge>,
-      date: "2020/03/25"
-    },
-    {
-      sn: "2",
-      transactionId: "876483hu384989G94",
-      userName: "John Kester",
-      userEmail: "email@email.com",
-      amount: "15,000",
-      status: <MDBBadge color="warning">pending</MDBBadge>,
-      date: "2020/03/25"
-    },
-    {
-      sn: "3",
-      transactionId: "876483hu384989G94",
-      userName: "John Kester",
-      userEmail: "email@email.com",
-      amount: "23,000",
-      status: <MDBBadge color="danger">declined</MDBBadge>,
-      date: "2020/03/25"
-    }
-  ]
-};
 
 const WithdrawalLog = () => {
+  const [loading, setLoading] = useState(false);
+  const [trans, setTrans] = useState([]);
+
+  const data = {
+    columns: [
+      {
+        label: "S/N",
+        field: "sn",
+      },
+      {
+        label: "Transaction ID",
+        field: "transactionId",
+      },
+      {
+        label: "Type",
+        field: "type",
+      },
+      {
+        label: "User Email",
+        field: "userEmail",
+      },
+      {
+        label: "Amount",
+        field: "amount",
+      },
+      {
+        label: "Commission",
+        field: "commission",
+      },
+      {
+        label: "Description",
+        field: "desc",
+      },
+      {
+        label: "Status",
+        field: "status",
+      },
+      {
+        label: "Transaction Date",
+        field: "date",
+      }
+    ],
+    rows: !loading ? trans : [{
+      sn: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      transactionId: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      userEmail: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      type: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      status: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      desc: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      amount: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      commission: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >,
+      date: <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >
+    }]
+  };
+
+  const loadTransactions = async () => {
+    setLoading(true);
+    axios.get(`${apiUrl}/transactions`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        let sn = trans.length;
+        const rows = res.data.data.map(tran => {
+          if (tran.description === "withdrawal") {
+            const row = {
+              sn: sn + 1,
+              transactionId: tran.id,
+              userEmail: tran.user.email,
+              type: tran.type,
+              desc: tran.description,
+              commission: tran.fees,
+              amount: tran.amount,
+              status: tran.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
+              date: tran.createdAt
+            };
+            sn++;
+            return row;
+          }
+          return null;
+        })
+        setLoading(false);
+        setTrans([...rows]);
+      })
+      .catch(err => {
+        return [];
+      })
+  }
+
+  useEffect(() => {
+    loadTransactions();
+  }, []);
+
   return (
     <MDBContainer>
       <MDBCard>
