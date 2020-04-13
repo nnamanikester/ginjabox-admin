@@ -57,6 +57,13 @@ class SideNavigation extends React.Component {
               Dashboard
             </MDBSideNavLink>
 
+            <MDBSideNavCat name="Listing Management" id="user-cat" icon="list">
+              {this.rSNL("/listings", "All Lisitngs", "list")}
+              {this.rSNL("/listings/available-listings", "Available Listings", "list")}
+              {this.rSNL("/listings/requisitions", "All Requisitions", "list")}
+              {this.rSNL("/listings/expired-listings", "Expired Listings", "list")}
+            </MDBSideNavCat>
+
             <MDBSideNavCat name="User Management" id="user-cat" icon="users">
               {this.rSNL("/users/all-users", "All Users", "users")}
               {this.rSNL("/users/merchants", "All Merchants", "users")}

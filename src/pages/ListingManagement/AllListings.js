@@ -8,13 +8,14 @@ import {
   MDBContainer,
   MDBDataTable,
   MDBView,
+  MDBIcon,
   MDBBadge
 } from "mdbreact";
 
 const AllListings = () => {
 
   const [loading, setLoading] = useState(false);
-  const [orders, setOrders] = useState([]);
+  const [listings, setListings] = useState([]);
 
   const data = {
     columns: [
@@ -23,75 +24,85 @@ const AllListings = () => {
         field: "sn",
       },
       {
-        label: "Order ID",
+        label: "Listin Id",
         field: "id",
       },
       {
-        label: "Agent ID Number",
-        field: "agentIdNo",
+        label: "Name",
+        field: "name",
       },
       {
-        label: "Agent Name",
-        field: "agentName",
+        label: "Description",
+        field: "description",
       },
       {
-        label: "Agent Phone",
-        field: "agentPhone",
+        label: "Price",
+        field: "price",
       },
       {
-        label: "Agent Identification",
-        field: "agentIdentification",
+        label: "Discount",
+        field: "discount",
       },
       {
-        label: "Pickup Date From",
-        field: "pickupDateFrom",
+        label: "User",
+        field: "user",
       },
       {
-        label: "Pickup Date To",
-        field: "pickupDateTo",
+        label: "Availability",
+        field: "availability",
       },
       {
-        label: "Order Status",
+        label: "Status",
         field: "status",
       },
+      {
+        label: "Action",
+        field: "action",
+      },
     ],
-    rows: !loading ? orders : [{
+    rows: !loading ? listings : [{
       sn: <Skeleton />,
       id: <Skeleton />,
-      agentName: <Skeleton />,
-      agentPhone: <Skeleton />,
-      agentIdNo: <Skeleton />,
-      agentIdentification: <Skeleton />,
-      pickupDateFrom: <Skeleton />,
-      pickupDateTo: <Skeleton />,
+      name: <Skeleton />,
+      description: <Skeleton />,
+      price: <Skeleton />,
+      discount: <Skeleton />,
+      user: <Skeleton />,
+      availability: <Skeleton />,
+      action: <Skeleton />,
       status: <Skeleton />
     }]
   };
 
-  const loadOrders = async () => {
+  const loadListings = async () => {
     setLoading(true);
-    axios.get(`${apiUrl}/dispatch-orders`, {
+    axios.get(`${apiUrl}/listings`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
-        let sn = orders.length;
-        const rows = res.data.data.map(order => {
+        let sn = listings.length;
+        const rows = res.data.data.map(listing => {
           const row = {
             sn: sn + 1,
-            id: order.id,
-            agentIdNo: order.pickupAgentIdNumber,
-            agentName: order.pickupAgentName,
-            agentPhone: order.pickupAgentPhone,
-            agentIdentification: order.pickupAgentIdentification,
-            pickupDateFrom: order.pickupDate.min,
-            pickupDateTo: order.pickupDate.max,
-            status: order.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
+            id: listing.id,
+            name: listing.name,
+            description: listing.description,
+            price: listing.price,
+            discount: listing.discount,
+            user: listing.user.id,
+            availability: listing.availability.to > Date.now() ? <MDBBadge color="success">Available</MDBBadge> : <MDBBadge color="danger">Expired</MDBBadge>,
+            status: listing.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Blocked</MDBBadge>,
+            action: listing.availability.to < Date.now() || listing.status !== 2 ? (<div>
+              <MDBBadge className="danger-color"><MDBIcon icon="trash" className="white-text" /></MDBBadge>
+            </div>) : (<div>
+              <MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge>
+            </div>)
           };
           sn++;
           return row;
         })
         setLoading(false);
-        setOrders(rows);
+        setListings(rows);
       })
       .catch(err => {
         console.log(err);
@@ -100,7 +111,7 @@ const AllListings = () => {
   }
 
   useEffect(() => {
-    loadOrders();
+    loadListings();
   }, []);
 
   return (

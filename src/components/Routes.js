@@ -35,6 +35,12 @@ import AllUsers from "../pages/UserManagement/AllUsers";
 import AllWarehouser from "../pages/UserManagement/AllWarehouser";
 import BannedUsers from "../pages/UserManagement/BannedUsers";
 
+// LISTING MANAGEMENT
+import AllListings from "../pages/ListingManagement/AllListings"
+import AvailableListings from "../pages/ListingManagement/AvailableListings"
+import AllRequisitions from "../pages/ListingManagement/AllRequisitions"
+import ExpiredListings from "../pages/ListingManagement/ExpiredListings"
+
 
 
 const FourToFour = () => <h1 className="text-center">404</h1>;
@@ -124,6 +130,12 @@ class Routes extends React.Component {
         <Route path="/users/all-users" exact render={({ match }) => this.requiresAuth(AllUsers, match)} />
         <Route path="/users/warehousers" exact render={({ match }) => this.requiresAuth(AllWarehouser, match)} />
         <Route path="/users/banned-users" exact render={({ match }) => this.requiresAuth(BannedUsers, match)} />
+
+        {/* LISTING MANAGEMENT */}
+        <Route path="/listings" exact render={({ match }) => this.requiresAuth(AllListings, match)} />
+        <Route path="/listings/available-listings" exact render={({ match }) => this.requiresAuth(AvailableListings, match)} />
+        <Route path="/listings/requisitions" exact render={({ match }) => this.requiresAuth(AllRequisitions, match)} />
+        <Route path="/listings/expired-listings" exact render={({ match }) => this.requiresAuth(ExpiredListings, match)} />
 
 
         <Route render={({ location }) => {

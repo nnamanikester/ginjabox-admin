@@ -107,10 +107,6 @@ const SingleUser = ({ match }) => {
         field: "name",
       },
       {
-        label: "Slug",
-        field: "slug",
-      },
-      {
         label: "Description",
         field: "description",
       },
@@ -129,7 +125,6 @@ const SingleUser = ({ match }) => {
         sn: sn + 1,
         id: listing.id,
         name: listing.name,
-        slug: listing.slug,
         description: listing.description,
         price: listing.price,
         discount: listing.discount
