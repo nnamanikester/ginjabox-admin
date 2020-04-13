@@ -1,54 +1,108 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { apiUrl } from "../../config";
+import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 import {
   MDBCard,
   MDBCardBody,
   MDBContainer,
   MDBDataTable,
-  MDBView
+  MDBView,
+  MDBBadge
 } from "mdbreact";
 
-const data = {
-  columns: [
-    {
-      label: "S/N",
-      field: "sn",
-    },
-    {
-      label: "Payment ID",
-      field: "paymentId",
-    },
-    {
-      label: "User ID",
-      field: "userId",
-    },
-    {
-      label: "Amount",
-      field: "amount",
-    },
-    {
-      label: "Date",
-      field: "date",
-    }
-  ],
-  rows: [
-    {
-      sn: "1",
-      paymentId: "34ujyG7G45",
-      userId: "348HYYuQ9241j",
-      amount: "200,000",
-      date: "2020/03/02"
-    },
-    {
-      sn: "2",
-      paymentId: "34ujyG7G45",
-      userId: "348HYYuQ9241j",
-      amount: "200,000",
-      date: "2020/03/02"
-    },
-  ]
-};
 
 const WareHousersPaymentLog = () => {
+  const [loading, setLoading] = useState(false);
+  const [payments, setPayments] = useState([]);
+
+  const data = {
+    columns: [
+      {
+        label: "S/N",
+        field: "sn",
+      },
+      {
+        label: "Payment ID",
+        field: "paymentId",
+      },
+      {
+        label: "Amount",
+        field: "amount",
+      },
+      {
+        label: "Channel",
+        field: "channel",
+      },
+      {
+        label: "Info",
+        field: "info",
+      },
+      {
+        label: "Customer Email",
+        field: "customerEmail",
+      },
+      {
+        label: "Expires",
+        field: "expires",
+      },
+      {
+        label: "Status",
+        field: "status",
+      },
+      {
+        label: "Date",
+        field: "date",
+      }
+    ],
+    rows: !loading ? payments : [{
+      sn: <Skeleton />,
+      paymentId: <Skeleton />,
+      amount: <Skeleton />,
+      channel: <Skeleton />,
+      info: <Skeleton />,
+      customerEmail: <Skeleton />,
+      expires: <Skeleton />,
+      status: <Skeleton />,
+      date: <Skeleton />
+    }]
+  };
+
+  const loadPayments = async () => {
+    setLoading(true);
+    axios.get(`${apiUrl}/warehousers-payments`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        let sn = payments.length;
+        const rows = res.data.data.map(payment => {
+          const row = {
+            sn: sn + 1,
+            paymentId: payment.id,
+            amount: payment.amount,
+            channel: payment.channel,
+            info: payment.info,
+            customerEmail: payment.customer.email,
+            expires: payment.requisition.expires,
+            status: payment.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
+            date: payment.createdAt
+          };
+          sn++;
+          return row;
+        })
+        setLoading(false);
+        setPayments(rows);
+      })
+      .catch(err => {
+        console.log(err);
+        return [];
+      })
+  }
+
+  useEffect(() => {
+    loadPayments();
+  }, []);
+
   return (
     <MDBContainer>
       <MDBCard>

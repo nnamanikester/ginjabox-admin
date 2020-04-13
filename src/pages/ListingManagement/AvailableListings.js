@@ -11,7 +11,7 @@ import {
   MDBBadge
 } from "mdbreact";
 
-const DispatchOrderLog = () => {
+const AvailableListings = () => {
 
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
@@ -113,7 +113,7 @@ const DispatchOrderLog = () => {
           >
             <div className="text-left"></div>
             <span className="white-text text-bold mx-3">
-              Dispatch Order Log
+              Available Listings
             </span>
             <div className="text-right"></div>
           </MDBView>
@@ -126,4 +126,4 @@ const DispatchOrderLog = () => {
   );
 };
 
-export default DispatchOrderLog;
+export default AvailableListings;

@@ -11,17 +11,14 @@ import {
 } from "mdbreact"
 
 const Users = () => {
-  // const [loading, setLoading] = useState(false);
   const [totalUsers, setTotalUsers] = useState(0);
 
   const loadTotalUsers = async () => {
-    // setLoading(true);
     axios.get(`${apiUrl}/statistics/total-users`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
         setTotalUsers(res.data.data);
-        // setLoading(false);
       })
       .catch(err => {
         return 0;
@@ -41,7 +38,6 @@ const Users = () => {
             <p>Total Users</p>
             <h5 className="font-weight-bold dark-grey-text">
               {totalUsers || <Skeleton />}
-              {/* {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >} */}
             </h5>
           </div>
         </div>

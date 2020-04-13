@@ -11,17 +11,14 @@ import {
 import Skeleton from "react-loading-skeleton";
 
 const AvailableWarehouse = () => {
-  // const [loading, setLoading] = useState(false);
   const [totalCommissions, setTotalCommissions] = useState(0);
 
   const loadTotalCommissions = async () => {
-    // setLoading(true);
     axios.get(`${apiUrl}/statistics/total-available-warehouses`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
         setTotalCommissions(res.data.data);
-        // setLoading(false);
       })
       .catch(err => {
         return 0;
@@ -32,6 +29,7 @@ const AvailableWarehouse = () => {
     loadTotalCommissions();
   }, []);
 
+
   return (
     <MDBCol xl="3" md="6" className="mb-4">
       <MDBCard cascade className="cascading-admin-card">
@@ -41,7 +39,6 @@ const AvailableWarehouse = () => {
             <p>Available Warehouse</p>
             <h5 className="font-weight-bold dark-grey-text">
               {totalCommissions || <Skeleton />}
-              {/* {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >} */}
             </h5>
           </div>
         </div>
