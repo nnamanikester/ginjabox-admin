@@ -122,6 +122,18 @@ class App extends Component {
       case "/users/user-rating-history":
         locationString = "User Rating History";
         break;
+      case "/listings":
+        locationString = "All Listings";
+        break;
+      case "/listings/available-listings":
+        locationString = "Available Listings";
+        break;
+      case "/listings/expired-listings":
+        locationString = "Expired Listings";
+        break;
+      case "/listings/requisitions":
+        locationString = "All Requisitions";
+        break;
       default:
     }
     this.setState({

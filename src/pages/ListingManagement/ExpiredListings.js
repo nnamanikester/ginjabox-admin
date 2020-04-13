@@ -8,13 +8,14 @@ import {
   MDBContainer,
   MDBDataTable,
   MDBView,
-  MDBBadge
+  MDBBadge,
+  MDBIcon
 } from "mdbreact";
 
 const ExpiredListings = () => {
 
   const [loading, setLoading] = useState(false);
-  const [orders, setOrders] = useState([]);
+  const [listings, setListings] = useState([]);
 
   const data = {
     columns: [
@@ -23,75 +24,86 @@ const ExpiredListings = () => {
         field: "sn",
       },
       {
-        label: "Order ID",
+        label: "Listin Id",
         field: "id",
       },
       {
-        label: "Agent ID Number",
-        field: "agentIdNo",
+        label: "Name",
+        field: "name",
       },
       {
-        label: "Agent Name",
-        field: "agentName",
+        label: "Description",
+        field: "description",
       },
       {
-        label: "Agent Phone",
-        field: "agentPhone",
+        label: "Price",
+        field: "price",
       },
       {
-        label: "Agent Identification",
-        field: "agentIdentification",
+        label: "Discount",
+        field: "discount",
       },
       {
-        label: "Pickup Date From",
-        field: "pickupDateFrom",
+        label: "User",
+        field: "user",
       },
       {
-        label: "Pickup Date To",
-        field: "pickupDateTo",
-      },
-      {
-        label: "Order Status",
+        label: "Status",
         field: "status",
       },
+      {
+        label: "Date Expired",
+        field: "date",
+      },
+      {
+        label: "Action",
+        field: "action",
+      },
     ],
-    rows: !loading ? orders : [{
+    rows: !loading ? listings : [{
       sn: <Skeleton />,
       id: <Skeleton />,
-      agentName: <Skeleton />,
-      agentPhone: <Skeleton />,
-      agentIdNo: <Skeleton />,
-      agentIdentification: <Skeleton />,
-      pickupDateFrom: <Skeleton />,
-      pickupDateTo: <Skeleton />,
-      status: <Skeleton />
+      name: <Skeleton />,
+      description: <Skeleton />,
+      price: <Skeleton />,
+      discount: <Skeleton />,
+      user: <Skeleton />,
+      action: <Skeleton />,
+      status: <Skeleton />,
+      date: <Skeleton />
     }]
   };
 
-  const loadOrders = async () => {
+  const loadListings = async () => {
     setLoading(true);
-    axios.get(`${apiUrl}/dispatch-orders`, {
+    axios.get(`${apiUrl}/listings`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
-        let sn = orders.length;
-        const rows = res.data.data.map(order => {
-          const row = {
-            sn: sn + 1,
-            id: order.id,
-            agentIdNo: order.pickupAgentIdNumber,
-            agentName: order.pickupAgentName,
-            agentPhone: order.pickupAgentPhone,
-            agentIdentification: order.pickupAgentIdentification,
-            pickupDateFrom: order.pickupDate.min,
-            pickupDateTo: order.pickupDate.max,
-            status: order.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
-          };
-          sn++;
-          return row;
+        let sn = listings.length;
+        const rows = res.data.data.map(listing => {
+          if (listing.availability.to < Date.now()) {
+            const row = {
+              sn: sn + 1,
+              id: listing.id,
+              name: listing.name,
+              description: listing.description,
+              price: listing.price,
+              discount: listing.discount,
+              user: listing.user.id,
+              status: listing.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Blocked</MDBBadge>,
+              date: listing.availability.to,
+              action: (<div>
+                <MDBBadge className="danger-color"><MDBIcon icon="trash" className="white-text" /></MDBBadge>
+              </div>)
+            };
+            sn++;
+            return row;
+          }
+          return null;
         })
         setLoading(false);
-        setOrders(rows);
+        setListings(rows);
       })
       .catch(err => {
         console.log(err);
@@ -100,7 +112,7 @@ const ExpiredListings = () => {
   }
 
   useEffect(() => {
-    loadOrders();
+    loadListings();
   }, []);
 
   return (
@@ -113,7 +125,7 @@ const ExpiredListings = () => {
           >
             <div className="text-left"></div>
             <span className="white-text text-bold mx-3">
-              Expired Listings
+              Available Listings
             </span>
             <div className="text-right"></div>
           </MDBView>

@@ -113,7 +113,7 @@ const AllRequisitions = () => {
           >
             <div className="text-left"></div>
             <span className="white-text text-bold mx-3">
-              ALl Requisitions
+              All Requisitions
             </span>
             <div className="text-right"></div>
           </MDBView>

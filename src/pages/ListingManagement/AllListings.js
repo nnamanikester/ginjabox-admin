@@ -92,10 +92,13 @@ const AllListings = () => {
             user: listing.user.id,
             availability: listing.availability.to > Date.now() ? <MDBBadge color="success">Available</MDBBadge> : <MDBBadge color="danger">Expired</MDBBadge>,
             status: listing.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Blocked</MDBBadge>,
-            action: listing.availability.to < Date.now() || listing.status !== 2 ? (<div>
+            action: listing.availability.to < Date.now() ? (<div>
               <MDBBadge className="danger-color"><MDBIcon icon="trash" className="white-text" /></MDBBadge>
+            </div>) : listing.status !== 2 ? (<div>
+              <MDBBadge className="success-color"><MDBIcon icon="check" className="white-text" /></MDBBadge>
             </div>) : (<div>
-              <MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge>
+              <MDBBadge className="success-color"><MDBIcon icon="check" className="white-text" /></MDBBadge>
+              <MDBBadge className="danger-color"><MDBIcon icon="trash" className="white-text" /></MDBBadge>
             </div>)
           };
           sn++;
