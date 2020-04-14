@@ -74,11 +74,11 @@ const AllWarehouser = () => {
               name: `${user.firstName} ${user.lastName}`,
               email: user.email,
               phone: user.phoneNumber,
-              accountStatus: user.status === 1 ? <MDBBadge className="success-color">Active</MDBBadge> : <MDBBadge className="danger-color">Banned</MDBBadge>,
+              accountStatus: user.status === 2 ? <MDBBadge className="success-color">Active</MDBBadge> : <MDBBadge className="danger-color">Banned</MDBBadge>,
               action: (<div>
                 <Link to={`/user/${user.id}`}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
                 <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
-                <MDBBadge className={user.status === 1 ? "danger-color" : "success-color"}><MDBIcon icon={user.status === 1 ? "ban" : "check"} className="white-text" /></MDBBadge>
+                {user.status === 2 ? <MDBBadge className="danger-color" onCLick={() => handleBanUser(user)}><MDBIcon icon="ban" className="white-text" /></MDBBadge> : <MDBBadge className="success-color" onClick={() => handleActivateUser(user)}><MDBIcon icon="check" className="white-text" /></MDBBadge>}
               </div>)
             };
             sn++;
@@ -98,6 +98,18 @@ const AllWarehouser = () => {
     loadUsers();
   }, []);
 
+
+  const handleBanUser = (user) => {
+    if (window.confirm(`Are you sure you want to ban ${user.firstName}`)) {
+      alert(user.firstName);
+    }
+  }
+
+  const handleActivateUser = (user) => {
+    if (window.confirm(`Are you sure you want to Unblock ${user.firstName}`)) {
+      alert(user.firstName);
+    }
+  }
 
   return (
     <MDBContainer>

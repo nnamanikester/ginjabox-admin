@@ -95,7 +95,7 @@ const RoleManagement = () => {
           return row;
         })
         setLoading(false);
-        setRoles([...rows]);
+        setRoles(rows);
       })
       .catch(err => {
         return [];
@@ -103,20 +103,20 @@ const RoleManagement = () => {
   }
 
   const handleDeleteRole = (role) => {
-    if(window.confirm(`Are you sure you want to delete the ${role.name} role? \n NB: This cannot be undone!`)) {
-    axios.delete(`${apiUrl}/admin-roles/${role.id}`, {
-      headers: { "x-admin-auth": localStorage.getItem('token') }
-    })
-    .then(res => {
-      if (res.data.success) {
-        setRoles(roles.filter(r => r.id !== res.data.data.id));
-        return setSuccess(`${role.name} deleted successfully!`);
-      }
-      return setFeedback("Unable to delete role!");
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    if (window.confirm(`Are you sure you want to delete the ${role.name} role? \n NB: This cannot be undone!`)) {
+      axios.delete(`${apiUrl}/admin-roles/${role.id}`, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            setRoles(roles.filter(r => r.id !== res.data.data.id));
+            return setSuccess(`${role.name} deleted successfully!`);
+          }
+          return setFeedback("Unable to delete role!");
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 
@@ -162,18 +162,17 @@ const RoleManagement = () => {
     axios.put(`${apiUrl}/admin-roles`, dat, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
-    .then(res => {
-      if(res.data.success) {
-        setRoles(roles.find(r => {
-          if (roles.id === res.data.data.id) {
-            r.name = res.data.data.name;
-          }
-        }))
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .then(res => {
+        if (res.data.success) {
+          window.location.reload();
+        }
+        toggleEdit(role);
+        setLoading(false);
+        setSuccess("Role updated successfully!");
+      })
+      .catch(err => {
+        setLoading(false);
+      })
   }
 
   useEffect(() => {

@@ -67,8 +67,8 @@ const AllRequisitions = () => {
       status: <Skeleton />
     }]
   };
-  
-  const loadOrders = async () => {
+
+  const loadRequisitions = async () => {
     setLoading(true);
     axios.get(`${apiUrl}/requisitions`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
@@ -100,9 +100,9 @@ const AllRequisitions = () => {
   }
 
   useEffect(() => {
-    loadOrders();
+    loadRequisitions();
   }, []);
- 
+
   return (
     <MDBContainer>
       <MDBCard>

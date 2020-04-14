@@ -13,9 +13,9 @@ import {
 
 
 const AllStaff = () => {
-
   const [staff, setStaff] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
 
   const data = {
     columns: [
@@ -59,7 +59,6 @@ const AllStaff = () => {
     }]
   };
 
-
   const loadUsers = async () => {
     setLoading(true);
     axios.get(`${apiUrl}/admin-users`, {
@@ -76,15 +75,15 @@ const AllStaff = () => {
             role: user.role.name,
             createdAt: user.createdAt,
             action: user.roleId !== 1 ? (<div>
-              <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
-              <MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge>
+              <MDBBadge className="primary-color mx-1" onClick={() => handleEditStaff(user)}><MDBIcon icon="edit" className="white-text" /></MDBBadge>
+              <MDBBadge className="danger-color" onClick={() => handleDeleteStaff(user)}><MDBIcon icon="trash" className="white-text" /></MDBBadge>
             </div>) : null
           };
           sn++;
           return row;
         })
         setLoading(false);
-        setStaff([...rows]);
+        setStaff(rows);
       })
       .catch(err => {
         console.log(err);
@@ -95,6 +94,26 @@ const AllStaff = () => {
   useEffect(() => {
     loadUsers();
   }, []);
+
+  const handleDeleteStaff = (user) => {
+    if (window.confirm(`Are you sure you want to delete ${user.firstName} as an Admin? \nNB: This cannot be undone!`)) {
+      axios.delete(`${apiUrl}/admin-users/${user.id}`, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            setStaff(staff.filter(s => s.id !== res.data.data.id));
+            return setSuccess("Staff deleted successfuly!");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }
+  const handleEditStaff = (user) => {
+    alert(user.email);
+  }
 
   return (
     <MDBContainer>
@@ -108,6 +127,7 @@ const AllStaff = () => {
             <span className="white-text text-bold mx-3">All Staff</span>
             <div className="text-right"></div>
           </MDBView>
+          {success && <div className="mx-5 alert-success">{success}</div>}
         </MDBCard>
         <MDBCardBody>
           <MDBDataTable striped responsive bordered small hover data={data} />

@@ -94,9 +94,9 @@ const AvailableListings = () => {
               status: listing.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Blocked</MDBBadge>,
               date: listing.availability.to,
               action: listing.status === 2 ? (<div>
-                <MDBBadge className="danger-color"><MDBIcon icon="ban" className="white-text" /></MDBBadge>
+                <MDBBadge className="danger-color" onClick={() => handleBlockListing(listing)}><MDBIcon icon="ban" className="white-text" /></MDBBadge>
               </div>) : (<div>
-                <MDBBadge className="success-color"><MDBIcon icon="check" className="white-text" /></MDBBadge>
+                <MDBBadge className="success-color" onClick={() => handleActivateListing(listing)}><MDBIcon icon="check" className="white-text" /></MDBBadge>
               </div>)
             };
             sn++;
@@ -116,6 +116,19 @@ const AvailableListings = () => {
   useEffect(() => {
     loadListings();
   }, []);
+
+  const handleActivateListing = (listing) => {
+    if (window.confirm("Are you sure you want to Activate this listing?")) {
+      alert(listing.id);
+    }
+  }
+
+  const handleBlockListing = (listing) => {
+    if (window.confirm("Are you sure you want to Block this listing?")) {
+      alert(listing.id);
+    }
+  }
+
 
   return (
     <MDBContainer>

@@ -63,7 +63,7 @@ const BannedUsers = () => {
       .then(res => {
         const rows = res.data.data.map(user => {
           let sn = users.length;
-          if (user.status !== 1) {
+          if (user.status !== 2) {
             const row = {
               sn: sn + 1,
               name: `${user.firstName} ${user.lastName}`,
@@ -74,7 +74,7 @@ const BannedUsers = () => {
               action: (<div>
                 <Link to={`/user/${user.id}`}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
                 <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
-                <MDBBadge className="success-color"><MDBIcon icon="check" className="white-text" /></MDBBadge>
+                <MDBBadge className="success-color" onClick={() => handleActivateUser(user)}><MDBIcon icon="check" className="white-text" /></MDBBadge>
               </div>)
             };
             return row;
@@ -93,6 +93,13 @@ const BannedUsers = () => {
   useEffect(() => {
     loadUsers();
   }, []);
+
+
+  const handleActivateUser = (user) => {
+    if (window.confirm(`Are you sure you want to Unblock ${user.firstName}`)) {
+      alert(user.firstName);
+    }
+  }
 
   return (
     <MDBContainer>

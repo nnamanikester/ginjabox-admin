@@ -94,7 +94,7 @@ const ExpiredListings = () => {
               status: listing.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Blocked</MDBBadge>,
               date: listing.availability.to,
               action: (<div>
-                <MDBBadge className="danger-color"><MDBIcon icon="trash" className="white-text" /></MDBBadge>
+                <MDBBadge className="danger-color" onClick={() => handleDeleteListing(listing)}><MDBIcon icon="trash" className="white-text" /></MDBBadge>
               </div>)
             };
             sn++;
@@ -114,6 +114,12 @@ const ExpiredListings = () => {
   useEffect(() => {
     loadListings();
   }, []);
+
+  const handleDeleteListing = (listing) => {
+    if (window.confirm("Are you sure you want to Delete this listing? \nNB: This cannot be undone!")) {
+      alert(listing.id);
+    }
+  }
 
   return (
     <MDBContainer>

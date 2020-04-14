@@ -93,12 +93,12 @@ const AllListings = () => {
             availability: listing.availability.to > Date.now() ? <MDBBadge color="success">Available</MDBBadge> : <MDBBadge color="danger">Expired</MDBBadge>,
             status: listing.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Blocked</MDBBadge>,
             action: listing.availability.to < Date.now() ? (<div>
-              <MDBBadge className="danger-color"><MDBIcon icon="trash" className="white-text" /></MDBBadge>
+              <MDBBadge className="danger-color" onClick={() => handleDeleteListing(listing)}><MDBIcon icon="trash" className="white-text" /></MDBBadge>
             </div>) : listing.status !== 2 ? (<div>
-              <MDBBadge className="success-color"><MDBIcon icon="check" className="white-text" /></MDBBadge>
+              <MDBBadge className="success-color mr-1" onClick={() => handleActivateListing(listing)}><MDBIcon icon="check" className="white-text" /></MDBBadge>
+              <MDBBadge className="danger-color" onClick={() => handleDeleteListing(listing)}><MDBIcon icon="trash" className="white-text" /></MDBBadge>
             </div>) : (<div>
-              <MDBBadge className="success-color"><MDBIcon icon="check" className="white-text" /></MDBBadge>
-              <MDBBadge className="danger-color"><MDBIcon icon="trash" className="white-text" /></MDBBadge>
+              <MDBBadge className="danger-color" onClick={() => handleBlockListing(listing)}><MDBIcon icon="ban" className="white-text" /></MDBBadge>
             </div>)
           };
           sn++;
@@ -116,6 +116,24 @@ const AllListings = () => {
   useEffect(() => {
     loadListings();
   }, []);
+
+  const handleDeleteListing = (listing) => {
+    if (window.confirm("Are you sure you want to Delete this listing? \nNB: This cannot be undone!")) {
+      alert(listing.id);
+    }
+  }
+
+  const handleActivateListing = (listing) => {
+    if (window.confirm("Are you sure you want to Activate this listing?")) {
+      alert(listing.id);
+    }
+  }
+
+  const handleBlockListing = (listing) => {
+    if (window.confirm("Are you sure you want to Block this listing?")) {
+      alert(listing.id);
+    }
+  }
 
   return (
     <MDBContainer>
