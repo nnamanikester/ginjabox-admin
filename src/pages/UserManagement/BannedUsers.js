@@ -25,6 +25,10 @@ const BannedUsers = () => {
         field: "sn",
       },
       {
+        label: "User ID",
+        field: "id"
+      },
+      {
         label: "Name",
         field: "name",
       },
@@ -47,6 +51,7 @@ const BannedUsers = () => {
     ],
     rows: !loading ? users : [{
       sn: <Skeleton />,
+      id: <Skeleton />,
       name: <Skeleton />,
       email: <Skeleton />,
       phone: <Skeleton />,
@@ -66,6 +71,7 @@ const BannedUsers = () => {
           if (user.status !== 2) {
             const row = {
               sn: sn + 1,
+              id: user.id,
               name: `${user.firstName} ${user.lastName}`,
               email: user.email,
               phone: user.phoneNumber,
@@ -95,11 +101,23 @@ const BannedUsers = () => {
   }, []);
 
 
+
   const handleActivateUser = (user) => {
     if (window.confirm(`Are you sure you want to Unblock ${user.firstName}`)) {
-      alert(user.firstName);
+      axios.put(`${apiUrl}/users/${user.id}`, { status: 2 }, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
+
 
   return (
     <MDBContainer>

@@ -30,6 +30,10 @@ const AllWarehouser = () => {
         field: "sn",
       },
       {
+        label: "User ID",
+        field: "id"
+      },
+      {
         label: "Name",
         field: "name",
       },
@@ -52,6 +56,7 @@ const AllWarehouser = () => {
     ],
     rows: !loading ? users : [{
       sn: <Skeleton />,
+      id: <Skeleton />,
       name: <Skeleton />,
       email: <Skeleton />,
       phone: <Skeleton />,
@@ -71,14 +76,15 @@ const AllWarehouser = () => {
           if (user.type.name === "warehouser") {
             const row = {
               sn: sn + 1,
+              id: user.id,
               name: `${user.firstName} ${user.lastName}`,
               email: user.email,
               phone: user.phoneNumber,
-              accountStatus: user.status === 1 ? <MDBBadge className="success-color">Active</MDBBadge> : <MDBBadge className="danger-color">Banned</MDBBadge>,
+              accountStatus: user.status === 2 ? <MDBBadge className="success-color">Active</MDBBadge> : <MDBBadge className="danger-color">Banned</MDBBadge>,
               action: (<div>
                 <Link to={`/user/${user.id}`}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
                 <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
-                {user.status === 2 ? <MDBBadge className="danger-color" onCLick={() => handleBanUser(user)}><MDBIcon icon="ban" className="white-text" /></MDBBadge> : <MDBBadge className="success-color" onClick={() => handleActivateUser(user)}><MDBIcon icon="check" className="white-text" /></MDBBadge>}
+                {user.status === 2 ? <MDBBadge className="danger-color" onClick={() => handleBanUser(user)}><MDBIcon icon="ban" className="white-text" /></MDBBadge> : <MDBBadge className="success-color" onClick={() => handleActivateUser(user)}><MDBIcon icon="check" className="white-text" /></MDBBadge>}
               </div>)
             };
             sn++;
@@ -99,15 +105,37 @@ const AllWarehouser = () => {
   }, []);
 
 
+
+
   const handleBanUser = (user) => {
     if (window.confirm(`Are you sure you want to ban ${user.firstName}`)) {
-      alert(user.firstName);
+      axios.put(`${apiUrl}/users/${user.id}`, { status: 1 }, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
 
   const handleActivateUser = (user) => {
     if (window.confirm(`Are you sure you want to Unblock ${user.firstName}`)) {
-      alert(user.firstName);
+      axios.put(`${apiUrl}/users/${user.id}`, { status: 2 }, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
 
