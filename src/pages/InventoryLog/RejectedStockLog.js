@@ -22,53 +22,64 @@ const RejectedStockLog = () => {
         field: "sn",
       },
       {
-        label: "Name",
-        field: "name",
-      },
-      {
         label: "Stock ID",
-        field: "stockId",
+        field: "id",
       },
       {
-        label: "Date",
-        field: "date",
+        label: "Stock Type",
+        field: "type",
+      },
+      {
+        label: "Products",
+        field: "products",
+      },
+      {
+        label: "Requisitioin",
+        field: "requisition",
+      },
+      {
+        label: "Stock Dispatch",
+        field: "dispatch",
+      },
+      {
+        label: "Status",
+        field: "status",
       }
     ],
     rows: !loading ? stocks : [{
       sn: <Skeleton />,
       id: <Skeleton />,
-      agentName: <Skeleton />,
-      agentPhone: <Skeleton />,
-      agentIdNo: <Skeleton />,
-      agentIdentification: <Skeleton />,
-      pickupDateFrom: <Skeleton />,
-      pickupDateTo: <Skeleton />,
+      type: <Skeleton />,
+      products: <Skeleton />,
+      requisition: <Skeleton />,
+      diapatch: <Skeleton />,
       status: <Skeleton />
     }]
   };
 
 
-  const loadOrders = async () => {
+  const loadStocks = async () => {
     setLoading(true);
     axios.get(`${apiUrl}/stocks`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
         let sn = stocks.length;
-        const rows = res.data.data.map(order => {
+        const rows = res.data.data.map(stock => {
+          if(stock.status === 4) {
           const row = {
             sn: sn + 1,
-            id: order.id,
-            agentIdNo: order.pickupAgentIdNumber,
-            agentName: order.pickupAgentName,
-            agentPhone: order.pickupAgentPhone,
-            agentIdentification: order.pickupAgentIdentification,
-            pickupDateFrom: order.pickupDate.min,
-            pickupDateTo: order.pickupDate.max,
-            status: order.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
+            id: stock.id,
+            type: stock.type,
+            products: stock.products.length,
+            dispatch: stock.dispatch.id,
+            requisition: stock.requisition.id,
+            status: <MDBBadge className="danger-color">Rejected</MDBBadge>,
           };
           sn++;
           return row;
+        }
+        return null;
         })
         setLoading(false);
         setStocks(rows);
@@ -80,7 +91,7 @@ const RejectedStockLog = () => {
   }
 
   useEffect(() => {
-    loadOrders();
+    loadStocks();
   }, []);
 
 

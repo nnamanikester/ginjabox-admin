@@ -85,7 +85,7 @@ const DispatchOrderLog = () => {
             agentIdentification: order.pickupAgentIdentification,
             pickupDateFrom: order.pickupDate.min,
             pickupDateTo: order.pickupDate.max,
-            status: order.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
+            status: order.status === 1 ? <MDBBadge color="primary">Sent</MDBBadge> : order.status === 2 ? <MDBBadge className="warning-color">Released</MDBBadge> : order.status === 3 ? <MDBBadge className="success-color">Dispatched</MDBBadge> : <MDBBadge className="danger-color">Rejected</MDBBadge>,
           };
           sn++;
           return row;

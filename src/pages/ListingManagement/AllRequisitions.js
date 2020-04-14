@@ -14,7 +14,7 @@ import {
 const AllRequisitions = () => {
 
   const [loading, setLoading] = useState(false);
-  const [orders, setOrders] = useState([]);
+  const [requisitions, setRequisitions] = useState([]);
 
   const data = {
     columns: [
@@ -23,75 +23,75 @@ const AllRequisitions = () => {
         field: "sn",
       },
       {
-        label: "Order ID",
+        label: "Requisition ID",
         field: "id",
       },
       {
-        label: "Agent ID Number",
-        field: "agentIdNo",
+        label: "Listing",
+        field: "listing",
       },
       {
-        label: "Agent Name",
-        field: "agentName",
+        label: "Products",
+        field: "products",
       },
       {
-        label: "Agent Phone",
-        field: "agentPhone",
+        label: "Cost",
+        field: "cost",
       },
       {
-        label: "Agent Identification",
-        field: "agentIdentification",
+        label: "Duration",
+        field: "duration",
       },
       {
-        label: "Pickup Date From",
-        field: "pickupDateFrom",
+        label: "Space",
+        field: "space",
       },
       {
-        label: "Pickup Date To",
-        field: "pickupDateTo",
+        label: "Expires",
+        field: "expires",
       },
       {
-        label: "Order Status",
+        label: "Status",
         field: "status",
       },
     ],
-    rows: !loading ? orders : [{
+    rows: !loading ? requisitions : [{
       sn: <Skeleton />,
       id: <Skeleton />,
-      agentName: <Skeleton />,
-      agentPhone: <Skeleton />,
-      agentIdNo: <Skeleton />,
-      agentIdentification: <Skeleton />,
-      pickupDateFrom: <Skeleton />,
-      pickupDateTo: <Skeleton />,
+      listing: <Skeleton />,
+      products: <Skeleton />,
+      cost: <Skeleton />,
+      duration: <Skeleton />,
+      space: <Skeleton />,
+      expires: <Skeleton />,
       status: <Skeleton />
     }]
   };
-
+  
   const loadOrders = async () => {
     setLoading(true);
-    axios.get(`${apiUrl}/dispatch-orders`, {
+    axios.get(`${apiUrl}/requisitions`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
-        let sn = orders.length;
-        const rows = res.data.data.map(order => {
+        let sn = requisitions.length;
+        const rows = res.data.data.map(requisition => {
           const row = {
             sn: sn + 1,
-            id: order.id,
-            agentIdNo: order.pickupAgentIdNumber,
-            agentName: order.pickupAgentName,
-            agentPhone: order.pickupAgentPhone,
-            agentIdentification: order.pickupAgentIdentification,
-            pickupDateFrom: order.pickupDate.min,
-            pickupDateTo: order.pickupDate.max,
-            status: order.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
+            id: requisition.id,
+            listing: requisition.listing.id,
+            products: requisition.products.length,
+            cost: requisition.cost.baseCost,
+            duration: requisition.duration.name,
+            space: requisition.space,
+            expires: requisition.expires,
+            status: requisition.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Canclled</MDBBadge>,
           };
           sn++;
           return row;
         })
         setLoading(false);
-        setOrders(rows);
+        setRequisitions(rows);
       })
       .catch(err => {
         console.log(err);
@@ -102,7 +102,7 @@ const AllRequisitions = () => {
   useEffect(() => {
     loadOrders();
   }, []);
-
+ 
   return (
     <MDBContainer>
       <MDBCard>

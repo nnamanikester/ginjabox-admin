@@ -18,16 +18,23 @@ import {
 
 const RoleManagement = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [roles, setRoles] = useState([]);
+  const [role, setRole] = useState(null);
   const [roleName, setRoleName] = useState('');
   const [feedback, setFeedback] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
 
 
   const toggleModal = () => {
     setOpenModal(!openModal);
   }
-
+  const toggleEdit = (role) => {
+    setRole(role);
+    setRoleName(role.name);
+    setOpenEdit(!openEdit);
+  }
 
   const data = {
     columns: [
@@ -78,8 +85,8 @@ const RoleManagement = () => {
             dateUpdated: role.updatedAt,
             action: (<div>
               {(cnt !== 1) && (<>
-                <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
-                <MDBBadge className="danger-color"><MDBIcon icon="trash-alt" className="white-text" /></MDBBadge>
+                <MDBBadge className="primary-color mx-1" onClick={() => toggleEdit(role)}><MDBIcon icon="edit" className="white-text" /></MDBBadge>
+                <MDBBadge className="danger-color" onClick={() => handleDeleteRole(role)}><MDBIcon icon="trash-alt" className="white-text" /></MDBBadge>
               </>)}
             </div>)
           };
@@ -93,6 +100,24 @@ const RoleManagement = () => {
       .catch(err => {
         return [];
       })
+  }
+
+  const handleDeleteRole = (role) => {
+    if(window.confirm(`Are you sure you want to delete the ${role.name} role? \n NB: This cannot be undone!`)) {
+    axios.delete(`${apiUrl}/admin-roles/${role.id}`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+    .then(res => {
+      if (res.data.success) {
+        setRoles(roles.filter(r => r.id !== res.data.data.id));
+        return setSuccess(`${role.name} deleted successfully!`);
+      }
+      return setFeedback("Unable to delete role!");
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    }
   }
 
   const createRole = () => {
@@ -114,7 +139,7 @@ const RoleManagement = () => {
           dateUpdated: role.updatedAt,
           action: (<div>
             <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
-            <MDBBadge className="danger-color"><MDBIcon icon="trash-alt" className="white-text" /></MDBBadge>
+            <MDBBadge className="danger-color" onClick={() => handleDeleteRole(role)}><MDBIcon icon="trash-alt" className="white-text" /></MDBBadge>
           </div>)
         };
         setRoles([...roles, row]);
@@ -125,6 +150,30 @@ const RoleManagement = () => {
         setLoading(false);
         console.log(err);
       })
+  }
+
+  const editRole = () => {
+    setLoading(true);
+    if (!roleName) {
+      setLoading(false);
+      return setFeedback("Role name cannot be empty!");
+    }
+    const dat = { name: roleName, id: role.id };
+    axios.put(`${apiUrl}/admin-roles`, dat, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+    .then(res => {
+      if(res.data.success) {
+        setRoles(roles.find(r => {
+          if (roles.id === res.data.data.id) {
+            r.name = res.data.data.name;
+          }
+        }))
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   useEffect(() => {
@@ -152,6 +201,7 @@ const RoleManagement = () => {
             <div className="text-right"></div>
           </MDBView>
         </MDBCard>
+        {success && <div className="mx-5 alert-success">{success}</div>}
         <MDBCardBody>
           <MDBDataTable striped responsive bordered small hover data={data} />
         </MDBCardBody>
@@ -184,6 +234,38 @@ const RoleManagement = () => {
                 <span className="sr-only">Loading...</span>
               </div>)}
               Create
+              <MDBIcon icon="plus" className='ml-1' />
+            </MDBBtn>
+          </div>
+        </MDBModalBody>
+      </MDBModal>
+
+      <MDBModal
+        isOpen={openEdit}
+        toggle={() => this.toggleEdit(role)}
+        inline={openEdit === false}
+        backdrop={openEdit === false ? false : true}
+        cascading
+        disableFocusTrap={openEdit === false ? true : false}>
+        <MDBModalHeader
+          toggle={openEdit === false ? () => { } : () => toggleEdit(role)}
+          className='teal accent-4 white-text'
+        >
+          <MDBIcon icon="add" className='mr-2' />{' '}
+          Edit {role && role.name} Role
+        </MDBModalHeader>
+        <div className="alert-danger">{feedback && feedback}</div>
+        <MDBModalBody className='mb-0'>
+          <MDBInput label='Role  Name' value={roleName} onChange={(val) => handleRoleName(val)} />
+          <div className='text-center mb-1-half'>
+            <MDBBtn
+              className='teal accent-4 mb-2'
+              onClick={() => editRole()}
+            >{loading && (
+              <div className="spinner-border spinner-border-sm text-white" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>)}
+              Update
               <MDBIcon icon="plus" className='ml-1' />
             </MDBBtn>
           </div>
