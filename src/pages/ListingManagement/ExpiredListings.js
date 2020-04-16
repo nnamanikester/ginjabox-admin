@@ -115,11 +115,23 @@ const ExpiredListings = () => {
     loadListings();
   }, []);
 
+
   const handleDeleteListing = (listing) => {
     if (window.confirm("Are you sure you want to Delete this listing? \nNB: This cannot be undone!")) {
-      alert(listing.id);
+      axios.delete(`${apiUrl}/listings/${listing.id}`, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
+
 
   return (
     <MDBContainer>

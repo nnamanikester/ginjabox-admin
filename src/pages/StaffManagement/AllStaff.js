@@ -102,8 +102,8 @@ const AllStaff = () => {
       })
         .then(res => {
           if (res.data.success) {
-            setStaff(staff.filter(s => s.id !== res.data.data.id));
-            return setSuccess("Staff deleted successfuly!");
+            setSuccess("Staff deleted successfuly!");
+            window.location.reload();
           }
         })
         .catch(err => {

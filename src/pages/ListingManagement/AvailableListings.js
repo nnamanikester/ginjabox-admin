@@ -97,6 +97,7 @@ const AvailableListings = () => {
                 <MDBBadge className="danger-color" onClick={() => handleBlockListing(listing)}><MDBIcon icon="ban" className="white-text" /></MDBBadge>
               </div>) : (<div>
                 <MDBBadge className="success-color" onClick={() => handleActivateListing(listing)}><MDBIcon icon="check" className="white-text" /></MDBBadge>
+                <MDBBadge className="danger-color" onClick={() => handleDeleteListing(listing)}><MDBIcon icon="trash" className="white-text" /></MDBBadge>
               </div>)
             };
             sn++;
@@ -118,16 +119,53 @@ const AvailableListings = () => {
   }, []);
 
   const handleActivateListing = (listing) => {
-    if (window.confirm("Are you sure you want to Activate this listing?")) {
-      alert(listing.id);
+    if (window.confirm("Are you sure you want to unblock this listing?")) {
+      axios.put(`${apiUrl}/listings/${listing.id}`, { status: 2 }, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
+    }
+  }
+
+  const handleDeleteListing = (listing) => {
+    if (window.confirm("Are you sure you want to Delete this listing? \nNB: This cannot be undone!")) {
+      axios.delete(`${apiUrl}/listings/${listing.id}`, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
 
   const handleBlockListing = (listing) => {
     if (window.confirm("Are you sure you want to Block this listing?")) {
-      alert(listing.id);
+      axios.put(`${apiUrl}/listings/${listing.id}`, { status: 1 }, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
+
 
 
   return (

@@ -100,8 +100,6 @@ const BannedUsers = () => {
     loadUsers();
   }, []);
 
-
-
   const handleActivateUser = (user) => {
     if (window.confirm(`Are you sure you want to Unblock ${user.firstName}`)) {
       axios.put(`${apiUrl}/users/${user.id}`, { status: 2 }, {

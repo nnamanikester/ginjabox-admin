@@ -119,19 +119,49 @@ const AllListings = () => {
 
   const handleDeleteListing = (listing) => {
     if (window.confirm("Are you sure you want to Delete this listing? \nNB: This cannot be undone!")) {
-      alert(listing.id);
+      axios.delete(`${apiUrl}/listings/${listing.id}`, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
 
   const handleActivateListing = (listing) => {
-    if (window.confirm("Are you sure you want to Activate this listing?")) {
-      alert(listing.id);
+    if (window.confirm("Are you sure you want to unblock this listing?")) {
+      axios.put(`${apiUrl}/listings/${listing.id}`, { status: 2 }, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
 
   const handleBlockListing = (listing) => {
     if (window.confirm("Are you sure you want to Block this listing?")) {
-      alert(listing.id);
+      axios.put(`${apiUrl}/listings/${listing.id}`, { status: 1 }, {
+        headers: { "x-admin-auth": localStorage.getItem('token') }
+      })
+        .then(res => {
+          if (res.data.success) {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          return err;
+        })
     }
   }
 

@@ -79,6 +79,7 @@ const AddNewStaff = () => {
           password: ''
         });
         setSuccess("Staff Created Successfully!");
+        window.location.href = '/staff/all-staff';
       })
       .catch(err => {
         setLoading(false);
