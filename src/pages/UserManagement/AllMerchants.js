@@ -14,14 +14,27 @@ import {
   MDBDataTable,
   MDBView,
   MDBBadge,
-  MDBIcon
+  MDBIcon,
+  MDBModalBody,
+  MDBModalHeader,
+  MDBBtn,
+  MDBInput,
+  MDBModal
 } from "mdbreact";
 import Skeleton from "react-loading-skeleton";
 
 const AllWarehouser = () => {
 
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+
+  const toggleEdit = (user) => {
+    setUser(user);
+    setEditModal(!editModal);
+  }
 
   const data = {
     columns: [
@@ -83,7 +96,7 @@ const AllWarehouser = () => {
               accountStatus: user.status === 2 ? <MDBBadge className="success-color">Active</MDBBadge> : <MDBBadge className="danger-color">Banned</MDBBadge>,
               action: (<div>
                 <Link to={`/user/${user.id}`}><MDBBadge className="teal"><MDBIcon icon="eye" className="white-text" /></MDBBadge></Link>
-                <MDBBadge className="primary-color mx-1"><MDBIcon icon="edit" className="white-text" /></MDBBadge>
+                <MDBBadge className="primary-color mx-1" onClick={() => toggleEdit(user)}><MDBIcon icon="edit" className="white-text" /></MDBBadge>
                 {user.status === 2 ? <MDBBadge className="danger-color" onClick={() => handleBanUser(user)}><MDBIcon icon="ban" className="white-text" /></MDBBadge> : <MDBBadge className="success-color" onClick={() => handleActivateUser(user)}><MDBIcon icon="check" className="white-text" /></MDBBadge>}
               </div>)
             };
@@ -138,6 +151,34 @@ const AllWarehouser = () => {
     }
   }
 
+
+  const handleEditInput = (val, data) => {
+    user[data] = val.target.value;
+    setUser({ ...user });
+  }
+  const handleEditUser = () => {
+    setLoading(true);
+    const data = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+      email: user.email
+    }
+    axios.put(`${apiUrl}/users/${user.id}`, data, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        if (res.data.success) {
+          window.location.reload();
+          return toggleEdit(user);
+        }
+      })
+      .catch(err => {
+        setFeedback("Unable to update user!");
+        return err;
+      })
+  }
+
   return (
     <MDBContainer>
       <MDBCard>
@@ -155,6 +196,43 @@ const AllWarehouser = () => {
           <MDBDataTable striped responsive bordered small hover data={data} />
         </MDBCardBody>
       </MDBCard>
+
+
+      <MDBModal
+        isOpen={editModal}
+        toggle={() => this.toggleEdit(user)}
+        inline={editModal === false}
+        backdrop={editModal === false ? false : true}
+        cascading
+        disableFocusTrap={editModal === false ? true : false}>
+        <MDBModalHeader
+          toggle={editModal === false ? () => { } : () => toggleEdit(user)}
+          className='teal accent-4 white-text'
+        >
+          <MDBIcon icon="add" className='mr-2' />{' '}
+          Edit {user && user.firstName}'s Info
+        </MDBModalHeader>
+        <div className="alert-danger">{feedback && feedback}</div>
+        <MDBModalBody className='mb-0'>
+          <MDBInput label='First Name' value={user && user.firstName} onChange={(val) => handleEditInput(val, "firstName")} />
+          <MDBInput label='Last Name' value={user && user.lastName} onChange={(val) => handleEditInput(val, "lastName")} />
+          <MDBInput label='Email' type="email" value={user && user.email} onChange={(val) => handleEditInput(val, "email")} />
+          <MDBInput label='Phone Number' type="number" value={user && user.phoneNumber} onChange={(val) => handleEditInput(val, "phoneNumber")} />
+          <div className='text-center mb-1-half'>
+            <MDBBtn
+              className='teal accent-4 mb-2'
+              onClick={() => handleEditUser()}
+            >{loading && (
+              <div className="spinner-border spinner-border-sm text-white" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>)}
+              Update
+              <MDBIcon icon="plus" className='ml-1' />
+            </MDBBtn>
+          </div>
+        </MDBModalBody>
+      </MDBModal>
+
     </MDBContainer>
   );
 };

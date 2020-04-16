@@ -14,7 +14,6 @@ import {
   MDBModalBody,
   MDBModalHeader,
   MDBBtn,
-  MDBDatePicker,
   MDBInput
 } from "mdbreact";
 import Skeleton from "react-loading-skeleton";
@@ -26,7 +25,6 @@ const AllUsers = () => {
   const [loading, setLoading] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [feedback, setFeedback] = useState(null);
-  const [success, setSuccess] = useState(null);
 
   const toggleEdit = (user) => {
     setUser(user);
@@ -167,8 +165,6 @@ const AllUsers = () => {
       .then(res => {
         if (res.data.success) {
           window.location.reload();
-          setLoading(false);
-          setSuccess("User updated successfully!");
           return toggleEdit(user);
         }
       })
@@ -190,8 +186,6 @@ const AllUsers = () => {
             <span className="white-text text-bold mx-3">All Users</span>
             <div className="text-right"></div>
           </MDBView>
-          {feedback && <div className="mx-5 alert-danger">{feedback}</div>}
-          {success && <div className="mx-5 alert-success">{success}</div>}
         </MDBCard>
         <MDBCardBody>
           <MDBDataTable striped responsive bordered small hover data={data} />
