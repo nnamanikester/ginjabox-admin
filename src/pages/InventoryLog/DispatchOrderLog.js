@@ -10,6 +10,7 @@ import {
   MDBView,
   MDBBadge
 } from "mdbreact";
+import moment from "moment";
 
 const DispatchOrderLog = () => {
 
@@ -83,8 +84,8 @@ const DispatchOrderLog = () => {
             agentName: order.pickupAgentName,
             agentPhone: order.pickupAgentPhone,
             agentIdentification: order.pickupAgentIdentification,
-            pickupDateFrom: order.pickupDate.min,
-            pickupDateTo: order.pickupDate.max,
+            pickupDateFrom: moment(parseInt(order.pickupDate.min)).format('L'),
+            pickupDateTo: moment(parseInt(order.pickupDate.max)).format('L'),
             status: order.status === 1 ? <MDBBadge color="primary">Sent</MDBBadge> : order.status === 2 ? <MDBBadge className="warning-color">Released</MDBBadge> : order.status === 3 ? <MDBBadge className="success-color">Dispatched</MDBBadge> : <MDBBadge className="danger-color">Rejected</MDBBadge>,
           };
           sn++;

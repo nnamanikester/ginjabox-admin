@@ -15,6 +15,7 @@ import {
   MDBIcon,
   MDBBadge
 } from "mdbreact";
+import moment from "moment";
 
 const RoleManagement = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -81,8 +82,8 @@ const RoleManagement = () => {
           const row = {
             sn: sn + 1,
             roleName: role.name,
-            dateCreated: role.createdAt,
-            dateUpdated: role.updatedAt,
+            dateCreated: moment(parseInt(role.createdAt)).format('L'),
+            dateUpdated: moment(parseInt(role.updatedAt)).format('L'),
             action: (<div>
               {(cnt !== 1) && (<>
                 <MDBBadge className="primary-color mx-1" onClick={() => toggleEdit(role)}><MDBIcon icon="edit" className="white-text" /></MDBBadge>

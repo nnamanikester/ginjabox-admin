@@ -10,6 +10,7 @@ import {
   MDBBadge,
   MDBIcon
 } from "mdbreact";
+import moment from "moment";
 
 
 const AllStaff = () => {
@@ -73,7 +74,7 @@ const AllStaff = () => {
             email: user.email,
             phone: user.phoneNumber,
             role: user.role.name,
-            createdAt: user.createdAt,
+            createdAt: moment(parseInt(user.createdAt)).format('L'),
             action: user.roleId !== 1 ? (<div>
               <MDBBadge className="primary-color mx-1" onClick={() => handleEditStaff(user)}><MDBIcon icon="edit" className="white-text" /></MDBBadge>
               <MDBBadge className="danger-color" onClick={() => handleDeleteStaff(user)}><MDBIcon icon="trash" className="white-text" /></MDBBadge>
