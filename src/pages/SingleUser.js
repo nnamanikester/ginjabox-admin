@@ -17,7 +17,8 @@ import {
   MDBCardHeader
 } from 'mdbreact';
 import Skeleton from "react-loading-skeleton";
-
+import moment from "moment";
+import { money } from "../functions";
 
 const SingleUser = ({ match }) => {
   const [user, setUser] = useState(null);
@@ -82,9 +83,9 @@ const SingleUser = ({ match }) => {
         transactionId: tr.id,
         type: tr.type,
         desc: tr.description,
-        commission: tr.fees,
+        commission: <>&#8358; {money.format(tr.fees)} </>,
         status: tr.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
-        date: tr.createdAt
+        date: moment(tr.createdAt).format('L')
       }
       return row;
     }) : []
@@ -126,8 +127,8 @@ const SingleUser = ({ match }) => {
         id: listing.id,
         name: listing.name,
         description: listing.description,
-        price: listing.price,
-        discount: listing.discount
+        price: <> &#8358; {money.format(parseInt(listing.price))} </>,
+        discount: <> &#8358; {money.format(parseInt(listing.discount))} </>
       }
       return row;
     }) : []
@@ -258,7 +259,7 @@ const SingleUser = ({ match }) => {
                       <p>
                         Date of Birth{' '}
                         <span className='float-right'>
-                          {user.dob}
+                          {moment(parseInt(user.dob)).format('L')}
                         </span>
                       </p>
                     </li>
@@ -267,7 +268,7 @@ const SingleUser = ({ match }) => {
                       <p>
                         Available Balance (&#8358;){' '}
                         <span className='float-right'>
-                          {user.wallet.availableBalance}
+                          {money.format(user.wallet.availableBalance)}
                         </span>
                       </p>
                     </li>
@@ -276,7 +277,7 @@ const SingleUser = ({ match }) => {
                       <p>
                         Ledger Balance (&#8358;){' '}
                         <span className='float-right'>
-                          {user.wallet.ledgerBalance}
+                          {money.format(user.wallet.ledgerBalance)}
                         </span>
                       </p>
                     </li>

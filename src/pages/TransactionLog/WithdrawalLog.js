@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { apiUrl } from "../../config";
+import { money } from "../../functions";
+import moment from "moment";
 import {
   MDBCard,
   MDBCardBody,
@@ -83,10 +85,10 @@ const WithdrawalLog = () => {
               userEmail: tran.user.email,
               type: tran.type,
               desc: tran.description,
-              commission: tran.fees,
-              amount: tran.amount,
+              commission: <> &#8358; {money.format(parseInt(tran.fees))} </>,
+              amount: <> &#8358; {money.format(parseInt(tran.amount))} </>,
               status: tran.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
-              date: tran.createdAt
+              date: moment(tran.createdAt).format('L')
             };
             sn++;
             return row;

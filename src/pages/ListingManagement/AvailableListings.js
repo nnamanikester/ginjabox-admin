@@ -3,6 +3,8 @@ import { apiUrl } from "../../config";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
+import moment from "moment";
+import { money } from "../../functions";
 import {
   MDBCard,
   MDBCardBody,
@@ -102,11 +104,11 @@ const AvailableListings = () => {
               id: listing.id,
               name: listing.name,
               description: listing.description,
-              price: listing.price,
-              discount: listing.discount,
+              price: <>&#8358; {money.format(listing.price)}</>,
+              discount: <>&#8358; {money.format(listing.discount)} </>,
               user: <Link className="teal-text" to={`/user/${listing.user.id}`}>{listing.user.firstName} {listing.user.lastName}</Link>,
               status: listing.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Blocked</MDBBadge>,
-              date: listing.availability.to,
+              date: moment(parseInt(listing.availability.to)).format('L'),
               action: listing.status === 2 ? (<div>
                 <MDBBadge className="primary-color mr-1" onClick={() => toggleEdit(listing)}><MDBIcon icon="edit" className="white-text" /></MDBBadge>
                 <MDBBadge className="danger-color" onClick={() => handleBlockListing(listing)}><MDBIcon icon="ban" className="white-text" /></MDBBadge>

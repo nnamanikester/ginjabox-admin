@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { apiUrl } from "../../config";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
+import moment from "moment";
+import { money } from "../../functions";
 import {
   MDBCard,
   MDBCardBody,
@@ -79,13 +81,13 @@ const WareHousersPaymentLog = () => {
           const row = {
             sn: sn + 1,
             paymentId: payment.id,
-            amount: payment.amount,
+            amount: <> &#8358; {money.format(parseInt(payment.amount))} </>,
             channel: payment.channel,
             info: payment.info,
             customerEmail: payment.customer.email,
-            expires: payment.requisition.expires,
+            expires: moment(parseInt(payment.requisition.expires)).format('L'),
             status: payment.status === 2 ? <MDBBadge color="success">Success</MDBBadge> : <MDBBadge className="danger-color">Failed</MDBBadge>,
-            date: payment.createdAt
+            date: moment(payment.createdAt).format('L')
           };
           sn++;
           return row;

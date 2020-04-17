@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { apiUrl } from "../../config";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
+import moment from "moment";
+import { money } from "../../functions";
 import {
   MDBCard,
   MDBCardBody,
@@ -81,10 +83,10 @@ const AllRequisitions = () => {
             id: requisition.id,
             listing: requisition.listing.id,
             products: requisition.products.length,
-            cost: requisition.cost.baseCost,
+            cost: <>&#8358; {money.format(requisition.cost.baseCost)}</>,
             duration: requisition.duration.name,
             space: requisition.space,
-            expires: requisition.expires,
+            expires: moment(parseInt(requisition.expires)).format("L"),
             status: requisition.status === 2 ? <MDBBadge color="success">Active</MDBBadge> : <MDBBadge className="danger-color">Canclled</MDBBadge>,
           };
           sn++;
