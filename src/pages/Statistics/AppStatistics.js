@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MDBCol,
   MDBCardBody,
@@ -7,31 +7,109 @@ import {
   MDBCardHeader
 } from "mdbreact"
 import { formatShortNumber } from "../../functions";
+import { apiUrl } from "../../config";
+import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 
 const AppStatistics = () => {
+  const [signupsToday, setSignupsToday] = useState(0);
+  const [signupsLastWeek, setSignupsLastWeek] = useState(0);
+  const [signupsLastMonth, setSignupsLastMonth] = useState(0);
+  const [totalSignups, setTotalSignups] = useState(0);
+
+  const [commissionsToday, setCommissionsToday] = useState(0);
+  const [commissionsLastWeek, setCommissionsLastWeek] = useState(0);
+  const [commissionsLastMonth, setCommissionsLastMonth] = useState(0);
+  const [totalCommissions, setTotalCommissions] = useState(0);
+
+  const [transactionsToday, setTransactionsToday] = useState(0);
+  const [transactionsLastWeek, setTransactionsLastWeek] = useState(0);
+  const [transactionsLastMonth, setTransactionsLastMonth] = useState(0);
+  const [totalTransactions, setTotalTransactions] = useState(0);
+
+  const [loading, setLoading] = useState(false);
+
+
+  const getSignups = async () => {
+    setLoading(true);
+    axios.get(`${apiUrl}/statistics/signups`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        setSignupsToday(res.data.data.today);
+        setSignupsLastWeek(res.data.data.lastWeek);
+        setSignupsLastMonth(res.data.data.lastMonth);
+        setTotalSignups(res.data.data.total);
+        setLoading(false);
+      })
+      .catch(err => {
+        return 0;
+      })
+  }
+
+
+  const getCommissions = async () => {
+    setLoading(true);
+    axios.get(`${apiUrl}/statistics/commissions-by-date`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        setCommissionsToday(res.data.data.today);
+        setCommissionsLastWeek(res.data.data.lastWeek);
+        setCommissionsLastMonth(res.data.data.lastMonth);
+        setTotalCommissions(res.data.data.total);
+        setLoading(false);
+      })
+      .catch(err => {
+        return 0;
+      })
+  }
+
+  const getTransactions = async () => {
+    setLoading(true);
+    axios.get(`${apiUrl}/statistics/transactions-by-date`, {
+      headers: { "x-admin-auth": localStorage.getItem('token') }
+    })
+      .then(res => {
+        setCommissionsToday(res.data.data.today);
+        setCommissionsLastWeek(res.data.data.lastWeek);
+        setCommissionsLastMonth(res.data.data.lastMonth);
+        setTotalCommissions(res.data.data.total);
+        setLoading(false);
+      })
+      .catch(err => {
+        return 0;
+      })
+  }
+
+  useEffect(() => {
+    getSignups();
+    getCommissions();
+  }, []);
+
   return (
     <MDBCol lg="6" md="12">
       <MDBCard className="mb-4">
         <MDBCardHeader className="teal accent-4 text-white">
           App Statistics
-              </MDBCardHeader>
+        </MDBCardHeader>
         <MDBCardBody>
           <MDBRow className="mb-1">
             <MDBCol lg="4" md="4" sm="6">
               <small className="grey-text">Total Signups</small>
-              <h5>{formatShortNumber(3004564)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(totalSignups)}</h5>}
             </MDBCol>
             <MDBCol lg="2" md="2" sm="6">
               <small className="grey-text">Today</small>
-              <h5>67</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(signupsToday)}</h5>}
             </MDBCol>
             <MDBCol lg="3" md="3" sm="6">
               <small className="grey-text">Last week</small>
-              <h5>{formatShortNumber(345)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(signupsLastWeek)}</h5>}
             </MDBCol>
             <MDBCol lg="3" md="3" sm="6">
               <small className="grey-text">Last Month</small>
-              <h5>{formatShortNumber(754)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(signupsLastMonth)}</h5>}
             </MDBCol>
           </MDBRow>
 
@@ -59,19 +137,19 @@ const AppStatistics = () => {
               <small className="grey-text">
                 Total Commissions(&#8358;)
                     </small>
-              <h5>{formatShortNumber(3653456)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(totalCommissions)}</h5>}
             </MDBCol>
             <MDBCol lg="2" md="2" sm="6">
               <small className="grey-text">Today</small>
-              <h5>{formatShortNumber(273345)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(commissionsToday)}</h5>}
             </MDBCol>
             <MDBCol lg="3" md="3" sm="6">
               <small className="grey-text">Last week</small>
-              <h5>{formatShortNumber(1500564)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(commissionsLastWeek)}</h5>}
             </MDBCol>
             <MDBCol lg="3" md="3" sm="6">
               <small className="grey-text">Last Month</small>
-              <h5>{formatShortNumber(22000000)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(commissionsLastMonth)}</h5>}
             </MDBCol>
           </MDBRow>
 
@@ -79,20 +157,19 @@ const AppStatistics = () => {
             <MDBCol lg="4" md="4" sm="6">
               <small className="grey-text">
                 Total Transactions(&#8358;)
-                    </small>
-              <h5>{formatShortNumber(34654736486)}</h5>
+              </small>{loading ? <Skeleton /> : <h5>{formatShortNumber(totalTransactions)}</h5>}
             </MDBCol>
             <MDBCol lg="2" md="2" sm="6">
               <small className="grey-text">Today</small>
-              <h5>{formatShortNumber(2737637)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(transactionsToday)}</h5>}
             </MDBCol>
             <MDBCol lg="3" md="3" sm="6">
               <small className="grey-text">Last week</small>
-              <h5>{formatShortNumber(15004553)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(transactionsLastWeek)}</h5>}
             </MDBCol>
             <MDBCol lg="3" md="3" sm="6">
               <small className="grey-text">Last Month</small>
-              <h5>{formatShortNumber(220009998)}</h5>
+              {loading ? <Skeleton /> : <h5>{formatShortNumber(transactionsLastMonth)}</h5>}
             </MDBCol>
           </MDBRow>
         </MDBCardBody>
