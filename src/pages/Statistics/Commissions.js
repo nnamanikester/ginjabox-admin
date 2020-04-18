@@ -42,8 +42,7 @@ const Commissions = () => {
             <p>Total Commissions</p>
             <h5 className="font-weight-bold dark-grey-text">
               {loading ? <Skeleton /> : <>&#8358; {money.format(totalCommissions)}</>}
-              {/* {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >} */}
-            </h5>
+           </h5>
           </div>
         </div>
         <MDBCardBody cascade>
