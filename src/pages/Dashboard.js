@@ -66,9 +66,9 @@ const Dashboard = (props) => {
         <MDBRow>
           <AppStatistics />
           <UsersByOs />
-          <TransactionsGraph LineOptions={LineOptions} />
+          {/* <TransactionsGraph LineOptions={LineOptions} />
           <AvailableWarehouseGraph LineOptions={LineOptions} />
-          <UsersGraph LineOptions={LineOptions} />
+          <UsersGraph LineOptions={LineOptions} /> */}
         </MDBRow>
       </section>
     </MDBContainer >
