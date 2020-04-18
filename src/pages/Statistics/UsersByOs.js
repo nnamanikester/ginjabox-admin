@@ -60,12 +60,12 @@ const UsersByOs = () => {
       <MDBCard className="mb-4">
         <MDBCardHeader className="teal accent-4 text-white">
           Users By OS
-              </MDBCardHeader>
+        </MDBCardHeader>
         <MDBCardBody>
           <Doughnut
             data={mobileChartData}
             options={mobileChartOptions}
-            height={135}
+            height={103}
           />
           {loading && <div className="spinner-border spinner-border-lg teal-text" role="status" ><span className="sr-only">Loading...</span></div>}
         </MDBCardBody>

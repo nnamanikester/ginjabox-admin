@@ -13,13 +13,15 @@ import { money } from "../../functions";
 
 const Commissions = () => {
   const [totalCommissions, setTotalCommissions] = useState(0);
-
+  const [loading, setLoading] = useState(false);
 
   const loadTotalCommissions = async () => {
+    setLoading(true);
     axios.get(`${apiUrl}/statistics/total-commissions`, {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
+        setLoading(false);
         setTotalCommissions(res.data.data);
       })
       .catch(err => {
@@ -39,7 +41,7 @@ const Commissions = () => {
           <div className="data">
             <p>Total Commissions</p>
             <h5 className="font-weight-bold dark-grey-text">
-              &#8358; {money.format(totalCommissions) || <Skeleton />}
+              {loading ? <Skeleton /> : <>&#8358; {money.format(totalCommissions)}</>}
               {/* {loading && <div className="spinner-border spinner-border-sm teal-text" role="status" ><span className="sr-only">Loading...</span></div >} */}
             </h5>
           </div>
