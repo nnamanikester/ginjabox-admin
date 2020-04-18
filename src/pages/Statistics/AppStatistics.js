@@ -71,10 +71,10 @@ const AppStatistics = () => {
       headers: { "x-admin-auth": localStorage.getItem('token') }
     })
       .then(res => {
-        setCommissionsToday(res.data.data.today);
-        setCommissionsLastWeek(res.data.data.lastWeek);
-        setCommissionsLastMonth(res.data.data.lastMonth);
-        setTotalCommissions(res.data.data.total);
+        setTransactionsToday(res.data.data.today);
+        setTransactionsLastWeek(res.data.data.lastWeek);
+        setTransactionsLastMonth(res.data.data.lastMonth);
+        setTotalTransactions(res.data.data.total);
         setLoading(false);
       })
       .catch(err => {
@@ -85,6 +85,7 @@ const AppStatistics = () => {
   useEffect(() => {
     getSignups();
     getCommissions();
+    getTransactions();
   }, []);
 
   return (
@@ -113,7 +114,7 @@ const AppStatistics = () => {
             </MDBCol>
           </MDBRow>
 
-          <MDBRow className="mb-1">
+          {/* <MDBRow className="mb-1">
             <MDBCol lg="4" md="4" sm="6">
               <small className="grey-text">Available Warehouse</small>
               <h5>{formatShortNumber(95)}</h5>
@@ -130,7 +131,7 @@ const AppStatistics = () => {
               <small className="grey-text">Last Month</small>
               <h5>{formatShortNumber(374)}</h5>
             </MDBCol>
-          </MDBRow>
+          </MDBRow> */}
 
           <MDBRow className="mb-1">
             <MDBCol lg="4" md="4" sm="6">
