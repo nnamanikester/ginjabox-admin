@@ -76,22 +76,22 @@ class SideNavigation extends React.Component {
               id="transaction-cat"
               icon="filter"
             >
-              {this.rSNL(
+              {/* {this.rSNL(
                 "/logs/merchant-payout-log",
                 "Merchant Payout Log",
                 "history"
-              )}
+              )} */}
               {this.rSNL(
                 "/logs/warehousers-payment-log",
                 "Warehouse Payment Log",
                 "history"
               )}
               {this.rSNL("/logs/withdrawal-log", "Withdrawal Log", "history")}
-              {this.rSNL(
+              {/* {this.rSNL(
                 "/logs/expired-rent-log",
                 "Expired Rent Log",
                 "history"
-              )}
+              )} */}
               {this.rSNL("/logs/referral-log", "Referral Log", "history")}
             </MDBSideNavCat>
 
@@ -125,12 +125,12 @@ class SideNavigation extends React.Component {
             </MDBSideNavLink> */}
 
             <MDBSideNavCat name="Settings" id="settings-cat" icon="cog">
-              {this.rSNL(
+              {/* {this.rSNL(
                 "/settings/email-settings",
                 "Email Setting",
                 "envelope"
-              )}
-              {this.rSNL("/settings/sms-settings", "SMS Setting", "sms")}
+              )} */}
+              {/* {this.rSNL("/settings/sms-settings", "SMS Setting", "sms")} */}
               {this.rSNL("/settings/edit-password", "Edit Password", "lock")}
             </MDBSideNavCat>
 
