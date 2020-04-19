@@ -42,9 +42,6 @@ const TransactionGraph = ({ LineOptions }) => {
             <MDBSelect>
               <MDBSelectInput selected='Choose time period' />
               <MDBSelectOptions>
-                <MDBSelectOption disabled>Choose time period</MDBSelectOption>
-                <MDBSelectOption value='1'>Today</MDBSelectOption>
-                <MDBSelectOption value='2'>Yesterday</MDBSelectOption>
                 <MDBSelectOption value='3'>Last 7 days</MDBSelectOption>
                 <MDBSelectOption value='3'>Last 30 days</MDBSelectOption>
               </MDBSelectOptions>
