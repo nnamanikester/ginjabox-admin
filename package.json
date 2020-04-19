@@ -1,5 +1,5 @@
 {
-  "name": "mdbreact-admin-pro",
+  "name": "Ginjabox",
   "version": "4.25.0",
   "private": true,
   "dependencies": {
@@ -13,7 +13,6 @@
     "react-dom": "^16.12.0",
     "react-draft-wysiwyg": "^1.13.2",
     "react-jvectormap": "^0.0.4",
-    "react-keep-alive": "^2.5.2",
     "react-loading-skeleton": "^2.0.1",
     "react-redux": "^7.2.0",
     "react-router": "^5.1.2",

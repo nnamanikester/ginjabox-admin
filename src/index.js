@@ -10,7 +10,6 @@ import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { createStore } from "redux";
 import { Provider } from "react-redux"
-import { Provider as KeepAliveProvider } from "react-keep-alive";
 import allReducers from "./Redux/reducers";
 
 let store = createStore(allReducers);
@@ -20,9 +19,7 @@ const customHistory = createBrowserHistory();
 ReactDOM.render(
   <Provider store={store}>
     <Router history={customHistory}>
-      <KeepAliveProvider>
-        <App />
-      </KeepAliveProvider>
+      <App />
     </Router>
   </Provider>,
   document.getElementById('root')
