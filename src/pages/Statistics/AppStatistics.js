@@ -171,7 +171,7 @@ const AppStatistics = () => {
             <MDBCol lg="3" md="3" sm="6">
               <small className="grey-text">Last Month</small>
               {loading ? <Skeleton /> : <h5>{formatShortNumber(transactionsLastMonth)}</h5>}
-            </MDBCol>
+            </MDBCol> 
           </MDBRow>
         </MDBCardBody>
       </MDBCard>
