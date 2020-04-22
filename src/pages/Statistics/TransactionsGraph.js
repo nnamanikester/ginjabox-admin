@@ -76,7 +76,7 @@ const TransactionGraph = ({ LineOptions }) => {
   }, [])
 
   return (
-    <MDBCol md='12' lg='6'>
+    <MDBCol md='12' lg='12'>
       <MDBCard narrow className='mb-4'>
         <MDBCardHeader className="teal accent-4 text-white">
           Transactions Statistics
