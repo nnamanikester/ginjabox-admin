@@ -30,7 +30,7 @@ const availableWarehouseStatistics = {
 
 const AvailableWarehouseGraph = ({ LineOptions }) => {
   return (
-    <MDBCol md='12' lg='6'>
+    <MDBCol md='12' lg='12'>
       <MDBCard narrow className='mb-4'>
         <MDBCardHeader className="teal accent-4 text-white">
           Available Warehouse Statistics
@@ -43,11 +43,8 @@ const AvailableWarehouseGraph = ({ LineOptions }) => {
             <MDBSelect>
               <MDBSelectInput selected='Choose time period' />
               <MDBSelectOptions>
-                <MDBSelectOption disabled>Choose time period</MDBSelectOption>
-                <MDBSelectOption value='1'>Today</MDBSelectOption>
-                <MDBSelectOption value='2'>Yesterday</MDBSelectOption>
-                <MDBSelectOption value='3'>Last 7 days</MDBSelectOption>
-                <MDBSelectOption value='3'>Last 30 days</MDBSelectOption>
+                <MDBSelectOption value='1'>Last 7 days</MDBSelectOption>
+                <MDBSelectOption value='2'>Last 30 days</MDBSelectOption>
               </MDBSelectOptions>
             </MDBSelect>
           </MDBCol>
