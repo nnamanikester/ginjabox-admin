@@ -12,7 +12,6 @@ import {
 } from "mdbreact"
 import { Line } from "react-chartjs-2";
 
-
 const availableWarehouseStatistics = {
   labels: ['Mar 24th', 'Mar 25th', 'Mar 26th', 'Mar 27th', 'Mar 28th', 'Mar 29th', 'Mar 30th'],
   datasets: [
