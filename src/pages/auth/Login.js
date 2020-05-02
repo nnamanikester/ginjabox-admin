@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -13,11 +13,7 @@ import axios from "axios";
 import { LogIn } from "../../Redux/actions/authentication";
 import Logo from "../../assets/ginjabox.png";
 import { apiUrl } from "../../config";
-
-const validateEmail = (email) => {
-  const exp = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-  return exp.test(String(email).toLowerCase());
-}
+import { validateEmail } from "../../functions";
 
 const Login = () => {
   const dispatch = useDispatch();
